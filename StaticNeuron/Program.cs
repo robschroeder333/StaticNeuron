@@ -6,7 +6,8 @@ namespace StaticNeuron
     {
         static void Main(string[] args)
         {
-            Game game = new Game(20, 40);
+            Game game = new Game(50, 70);
+
         }
     }
 }
