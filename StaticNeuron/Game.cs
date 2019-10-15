@@ -4,15 +4,17 @@ using System.Text;
 
 namespace StaticNeuron
 {
-    enum Pieces { Empty, Wall, Window, Player, Vision}
+    public enum Pieces { Empty, Wall, Window, Player, Vision }
 
     class Game
     {
-        Pieces[,] screen;
+        public Pieces[,] screen;
 
         public Game(int height, int width)
         {
             screen = new Pieces[height, width];
+            Render rend = new Render();
+            rend.DrawScreen(screen, height, width);
         }
     }
 }
