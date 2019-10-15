@@ -4,8 +4,8 @@ using System.Text;
 
 namespace StaticNeuron
 {
+    public enum Pieces { Empty, Wall, Window, Player, Vision }
 
-    public enum Pieces { Empty, Wall, Window, Player }
     class Game
     {
         public Pieces[,] screen;
