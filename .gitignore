@@ -1,2 +1,5 @@
 .vs/
-obj
+obj/
+bin/
+.DS_Store
+.vscode/

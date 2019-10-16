@@ -12,25 +12,28 @@ namespace StaticNeuron
         public Pieces[,] screen;
         public Render rend;
         public Character player;
-        int height;
-        int width;
+        public int Height { get; private set; }
+        public int Width { get; private set; }
         public Game(int width, int height)
         {
-            this.height = height;
-            this.width = width;
+            Height = height;
+            Width = width;
             screen = new Pieces[width, height];
             rend = new Render();
-            player = new Character();
+            player = new Character(height, width);
         }
 
         public void Play()
         {
+
+            //currently test rendering
             screen[player.Position.X, player.Position.Y] = Pieces.Player;
             foreach (Point vision in player.Vision)
             {
-                screen[vision.X, vision.Y] = Pieces.Vision;
+                if (vision.X != -1) 
+                    screen[vision.X, vision.Y] = Pieces.Vision;
             }
-            rend.DrawScreen(screen, width, height);
+            rend.DrawScreen(screen, Width, Height);
         }
     }
 }
