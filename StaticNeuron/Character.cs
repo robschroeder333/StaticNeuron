@@ -14,7 +14,7 @@ namespace StaticNeuron
 
         public Character()
         {
-            Position = new Point(3, 3);
+            Position = new Point(10, 10);
             dir = Direction.Up;
             Vision = new Point[15];
             SetVision();
@@ -31,7 +31,7 @@ namespace StaticNeuron
             switch (dir)
             {
                 case Direction.Up:
-                    for (int y = -1; y <= -3; y--)
+                    for (int y = -1; y >= -3; y--)
                     {
                         for (int x = y; x <= -y; x++)
                         {

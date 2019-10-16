@@ -7,7 +7,7 @@ namespace StaticNeuron
         static void Main()
         {
             Game game = new Game(50, 70);
-
+            game.Play();
         }
     }
 }
