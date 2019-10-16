@@ -14,11 +14,11 @@ namespace StaticNeuron
         public Character player;
         int height;
         int width;
-        public Game(int height, int width)
+        public Game(int width, int height)
         {
             this.height = height;
             this.width = width;
-            screen = new Pieces[height, width];
+            screen = new Pieces[width, height];
             rend = new Render();
             player = new Character();
         }
@@ -30,7 +30,7 @@ namespace StaticNeuron
             {
                 screen[vision.X, vision.Y] = Pieces.Vision;
             }
-            rend.DrawScreen(screen, height, width);
+            rend.DrawScreen(screen, width, height);
         }
     }
 }
