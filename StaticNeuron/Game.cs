@@ -9,7 +9,7 @@ namespace StaticNeuron
 
     class Game
     {
-        public Pieces[,] screen;
+        public static Pieces[,] screen;
         public Render rend;
         public Character player;
         public int Height { get; private set; }
@@ -20,20 +20,26 @@ namespace StaticNeuron
             Width = width;
             screen = new Pieces[width, height];
             rend = new Render();
-            player = new Character(height, width);
+            player = new Character(height, width, screen);
         }
 
         public void Play()
         {
 
-            //currently test rendering
-            screen[player.Position.X, player.Position.Y] = Pieces.Player;
+            do {
+                screen = new Pieces[Width, Height];
+                screen[player.Position.X, player.Position.Y] = Pieces.Player;
             foreach (Point vision in player.Vision)
-            {
-                if (vision.X != -1) 
+                {
+                    if (vision.X != -1) 
                     screen[vision.X, vision.Y] = Pieces.Vision;
-            }
-            rend.DrawScreen(screen, Width, Height);
+                }
+                rend.DrawScreen(screen, Width, Height);
+                player.Move();
+                Console.WriteLine(Width);
+                Console.WriteLine(Height);
+                } while (true); 
+
         }
     }
 }
