@@ -13,9 +13,11 @@ namespace StaticNeuron
         public Point[] Vision { get; private set; }
         int height;
         int width;
+        Pieces[,] screen;
 
-        public Character(int height, int width)
+        public Character(int width, int height, Pieces[,] screen)
         {
+            this.screen = screen;
             this.height = height;
             this.width = width;
             Position = new Point(10, 10);
@@ -98,11 +100,69 @@ namespace StaticNeuron
     
         bool WithinBounds(int x, int y)
         {
-            if (x <= width - 2 && x > 0 && y <= height -2 && y > 0)
+            if (x <= (120 - 2) && x > 0 && y <= (30 - 2) && y > 0)
             {
                 return true;
             }
             return false;
         }
+
+         
+         public void Move()
+         {
+             bool isTurnOver = false;
+             int newPositionX;
+             int newPositionY;
+
+            while (!isTurnOver) // each iteration of this inner loop is the placement of an "X" or a "Y as a single move
+                {
+                    ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(true); 
+                    switch (consoleKeyInfo.Key)
+                    {
+                        case ConsoleKey.RightArrow:
+                            newPositionX = Position.X + 1;
+                            if (((WithinBounds(newPositionX, Position.Y)) && screen[newPositionX, Position.Y] != Pieces.Player) || ((WithinBounds(newPositionX, Position.Y)) && screen[newPositionX, Position.Y] != Pieces.Wall))
+                            {
+                                Position = new Point (newPositionX, Position.Y);
+                                dir = Direction.Right;
+                                isTurnOver = true;
+                                SetVision();
+                            }
+                            break;
+                        case ConsoleKey.LeftArrow:
+                            newPositionX = Position.X - 1;
+                            if (((WithinBounds(newPositionX, Position.Y)) && screen[newPositionX, Position.Y] != Pieces.Player) || ((WithinBounds(newPositionX, Position.Y)) && screen[newPositionX, Position.Y] != Pieces.Wall))
+                            {
+                                Position = new Point (newPositionX, Position.Y);
+                                dir = Direction.Left;
+                                isTurnOver = true;
+                                SetVision();
+                            }
+                            break;
+                        case ConsoleKey.DownArrow:
+                            newPositionY = Position.Y + 1;
+                            if (((WithinBounds(Position.X, newPositionY)) && screen[Position.X, newPositionY] != Pieces.Player) || ((WithinBounds(Position.X, newPositionY)) && screen[Position.X, newPositionY] != Pieces.Wall))
+                            {
+                                Position = new Point (Position.X, newPositionY);
+                                dir = Direction.Down;
+                                isTurnOver = true;
+                                SetVision();
+                            }
+                            break;
+                        case ConsoleKey.UpArrow:
+                            newPositionY = Position.Y - 1; 
+                            if (((WithinBounds(Position.X, newPositionY)) && screen[Position.X, newPositionY] != Pieces.Player) || ((WithinBounds(Position.X, newPositionY)) && screen[Position.X, newPositionY] != Pieces.Wall))
+                            {
+                                Position = new Point (Position.X, newPositionY);
+                                dir = Direction.Up;
+                                isTurnOver = true;
+                                SetVision();
+                            }
+                            break;
+
+                    }
+
+                }
+         }
     }
 }
