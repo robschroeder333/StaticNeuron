@@ -7,7 +7,7 @@ namespace StaticNeuron
     {
         public void DrawScreen(Pieces[,] gameScreen, int width, int height)
         {
-            Console.Clear();
+            //Console.Clear();
             StringBuilder screenAsString = new StringBuilder("", width * height);
             char currentCharacter = Convert.ToChar(32);
             for (int y = 0; y < height; y++)

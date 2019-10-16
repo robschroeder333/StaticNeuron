@@ -9,17 +9,18 @@ namespace StaticNeuron
     class Character
     {
         Direction dir;
+        Pieces[,] screen;
         public Point Position { get; private set; }
         public Point[] Vision { get; private set; }
-        int height;
-        int width;
-        Pieces[,] screen;
+        public int Height { get; }
+        public int Width { get; }
+        public int Turns { get; set; } = 10;
 
         public Character(int width, int height, Pieces[,] screen)
         {
             this.screen = screen;
-            this.height = height;
-            this.width = width;
+            Height = height;
+            Width = width;
             Position = new Point(10, 10);
             dir = Direction.Right;
             Vision = new Point[15];
@@ -100,6 +101,7 @@ namespace StaticNeuron
     
         bool WithinBounds(int x, int y)
         {
+            //TODO: check if using width and height can work without error
             if (x <= (120 - 2) && x > 0 && y <= (30 - 2) && y > 0)
             {
                 return true;
@@ -108,16 +110,13 @@ namespace StaticNeuron
         }
 
          
-         public void Move()
+         public void Move(ConsoleKey key)
          {
-             bool isTurnOver = false;
              int newPositionX;
              int newPositionY;
 
-            while (!isTurnOver) // each iteration of this inner loop is the placement of an "X" or a "Y as a single move
-                {
-                    ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(true); 
-                    switch (consoleKeyInfo.Key)
+// each iteration of this inner loop is the placement of an "X" or a "Y as a single move
+                    switch (key)
                     {
                         case ConsoleKey.RightArrow:
                             newPositionX = Position.X + 1;
@@ -125,7 +124,7 @@ namespace StaticNeuron
                             {
                                 Position = new Point (newPositionX, Position.Y);
                                 dir = Direction.Right;
-                                isTurnOver = true;
+                        Turns--;
                                 SetVision();
                             }
                             break;
@@ -135,7 +134,7 @@ namespace StaticNeuron
                             {
                                 Position = new Point (newPositionX, Position.Y);
                                 dir = Direction.Left;
-                                isTurnOver = true;
+                        Turns--;
                                 SetVision();
                             }
                             break;
@@ -145,7 +144,7 @@ namespace StaticNeuron
                             {
                                 Position = new Point (Position.X, newPositionY);
                                 dir = Direction.Down;
-                                isTurnOver = true;
+                        Turns--;
                                 SetVision();
                             }
                             break;
@@ -155,12 +154,10 @@ namespace StaticNeuron
                             {
                                 Position = new Point (Position.X, newPositionY);
                                 dir = Direction.Up;
-                                isTurnOver = true;
+                        Turns--;
                                 SetVision();
                             }
                             break;
-
-                    }
 
                 }
          }
