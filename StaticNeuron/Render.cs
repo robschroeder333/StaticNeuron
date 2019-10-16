@@ -42,7 +42,7 @@ namespace StaticNeuron
                                 break;
                             case (Pieces.Vision):
                                 currentCharacter = 'V';
-
+                                break;
 
                         }
                     }
