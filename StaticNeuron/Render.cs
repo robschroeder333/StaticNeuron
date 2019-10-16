@@ -5,10 +5,10 @@ namespace StaticNeuron
 {
     public class Render
     {
-        public void DrawScreen(Pieces[,] gameScreen, int height, int width)
+        public void DrawScreen(Pieces[,] gameScreen, int width, int height)
         {
             Console.Clear();
-            StringBuilder screenAsString = new StringBuilder("", height * width);
+            StringBuilder screenAsString = new StringBuilder("", width * height);
             char currentCharacter = Convert.ToChar(32);
             for (int y = 0; y < height; y++)
             {
@@ -26,7 +26,7 @@ namespace StaticNeuron
                     if (y > 0 && y < height - 1 && x != 0 && x < width - 1)
                     {
 
-                        switch (gameScreen[y, x])
+                        switch (gameScreen[x, y])
                         {
                             case (Pieces.Empty):
                                 currentCharacter = Convert.ToChar(32);
