@@ -29,26 +29,21 @@ namespace StaticNeuron
 
         public void Play()
         {
-            screen[player.Position.X, player.Position.Y] = Pieces.Player;
-            foreach (Point vision in player.Vision)
-            {
-                if (vision.X != -1)
-                    screen[vision.X, vision.Y] = Pieces.Vision;
-            }
-            foreach (Point wall in level.Walls)
-            {
-                    screen[wall.X, wall.Y] = Pieces.Wall;
-            }
-            rend.DrawScreen(screen, Width, Height);
+            //screen[player.Position.X, player.Position.Y] = Pieces.Player;
+            //foreach (Point vision in player.Vision)
+            //{
+            //    if (vision.X != -1)
+            //        screen[vision.X, vision.Y] = Pieces.Vision;
+            //}
+            //foreach (Point wall in level.Walls)
+            //{
+            //        screen[wall.X, wall.Y] = Pieces.Wall;
+            //}
+            //rend.DrawScreen(screen, Width, Height);
 
             do {
                 screen = new Pieces[Width, Height];
-                screen[player.Position.X, player.Position.Y] = Pieces.Player;
-                foreach (Point vision in player.Vision)
-                {
-                    if (vision.X != -1) 
-                    screen[vision.X, vision.Y] = Pieces.Vision;
-                }
+                
                 foreach (Point wall in level.Walls)
                 {
                     screen[wall.X, wall.Y] = Pieces.Wall;
@@ -58,6 +53,12 @@ namespace StaticNeuron
                     if (Console.KeyAvailable != true)
                     {
                         player.Move(Console.ReadKey().Key);
+                        screen[player.Position.X, player.Position.Y] = Pieces.Player;
+                        foreach (Point vision in player.Vision)
+                        {
+                            if (vision.X != -1)
+                                screen[vision.X, vision.Y] = Pieces.Vision;
+                        }
                         rend.DrawScreen(screen, Width, Height);
                     }
                 }
