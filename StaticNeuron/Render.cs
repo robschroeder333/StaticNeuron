@@ -3,30 +3,29 @@ using System.Text;
 
 namespace StaticNeuron
 {
-    public class Render
+    public static class Render
     {
-        public void DrawScreen(Pieces[,] gameScreen, int width, int height)
+        public static void DrawScreen()
         {
-            //Console.Clear();
-            StringBuilder screenAsString = new StringBuilder("", width * height);
+            StringBuilder screenAsString = new StringBuilder("", Program.width * Program.height);
             char currentCharacter = Convert.ToChar(32);
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Program.height; y++)
             {
 
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < Program.width; x++)
                 {
-                    if ((x == 0 && y == 0) || (x == (width - 1) && y == (height - 1)))
+                    if ((x == 0 && y == 0) || (x == (Program.width - 1) && y == (Program.height - 1)))
                         currentCharacter = '/';
-                    else if ((x == 0 && y == (height - 1)) || ((x == (width - 1)) && (y == 0)))
+                    else if ((x == 0 && y == (Program.height - 1)) || ((x == (Program.width - 1)) && (y == 0)))
                         currentCharacter = '\\';
-                    else if (x > 0 && x < (width - 1))
+                    else if (x > 0 && x < (Program.width - 1))
                         currentCharacter = '-';
-                    else if (y > 0 && y < (height - 1))
+                    else if (y > 0 && y < (Program.height - 1))
                         currentCharacter = '|';
-                    if (y > 0 && y < height - 1 && x != 0 && x < width - 1)
+                    if (y > 0 && y < Program.height - 1 && x != 0 && x < Program.width - 1)
                     {
 
-                        switch (gameScreen[x, y])
+                        switch (Game.screen[x, y])
                         {
                             case (Pieces.Empty):
                                 currentCharacter = Convert.ToChar(32);
