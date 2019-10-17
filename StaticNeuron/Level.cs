@@ -10,7 +10,7 @@ namespace StaticNeuron
     {
         public List<Point> Walls { get; set; }
 
-        public Level(int width, int height)
+        public Level()
         {
             Walls = new List<Point>();
             Walls.Add(new Point(20, 20));

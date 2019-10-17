@@ -10,25 +10,21 @@ namespace StaticNeuron
     class Game
     {
         public static Pieces[,] screen;
-        public Render rend;
         public Character player;
         public Level level;
-        public int Height { get; private set; }
-        public int Width { get; private set; }
-        public Game(int width, int height)
+        public Game()
         {
-            Height = height;
-            Width = width;
-            screen = new Pieces[width, height];
-            rend = new Render();
-            player = new Character(height, width, screen);
-            level = new Level(width, height);
+            screen = new Pieces[Program.width, Program.height];
+            player = new Character();
+            level = new Level();
             level.CreateLevel(1);
 
         }
 
         public void Play()
         {
+            //determine if we want initial render (without input)
+
             //screen[player.Position.X, player.Position.Y] = Pieces.Player;
             //foreach (Point vision in player.Vision)
             //{
@@ -42,13 +38,13 @@ namespace StaticNeuron
             //rend.DrawScreen(screen, Width, Height);
 
             do {
-                screen = new Pieces[Width, Height];
-                
+                screen = new Pieces[Program.width, Program.height];
                 foreach (Point wall in level.Walls)
                 {
                     screen[wall.X, wall.Y] = Pieces.Wall;
                 }
-                if (player.Turns > 0)
+
+                if (player.Actions > 0)
                 {
                     if (Console.KeyAvailable != true)
                     {
@@ -56,10 +52,11 @@ namespace StaticNeuron
                         screen[player.Position.X, player.Position.Y] = Pieces.Player;
                         foreach (Point vision in player.Vision)
                         {
-                            if (vision.X != -1)
+                            if (vision.X != -1 && screen[vision.X, vision.Y] == Pieces.Empty)
                                 screen[vision.X, vision.Y] = Pieces.Vision;
                         }
-                        rend.DrawScreen(screen, Width, Height);
+                        
+                        Render.DrawScreen();
                     }
                 }
 
