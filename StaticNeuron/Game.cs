@@ -12,6 +12,7 @@ namespace StaticNeuron
         public static Pieces[,] screen;
         public Render rend;
         public Character player;
+        public Level level;
         public int Height { get; private set; }
         public int Width { get; private set; }
         public Game(int width, int height)
@@ -21,24 +22,47 @@ namespace StaticNeuron
             screen = new Pieces[width, height];
             rend = new Render();
             player = new Character(height, width, screen);
+            level = new Level(width, height);
+            level.CreateLevel(1);
+
         }
 
         public void Play()
         {
+            screen[player.Position.X, player.Position.Y] = Pieces.Player;
+            foreach (Point vision in player.Vision)
+            {
+                if (vision.X != -1)
+                    screen[vision.X, vision.Y] = Pieces.Vision;
+            }
+            foreach (Point wall in level.Walls)
+            {
+                    screen[wall.X, wall.Y] = Pieces.Wall;
+            }
+            rend.DrawScreen(screen, Width, Height);
 
             do {
                 screen = new Pieces[Width, Height];
                 screen[player.Position.X, player.Position.Y] = Pieces.Player;
-            foreach (Point vision in player.Vision)
+                foreach (Point vision in player.Vision)
                 {
                     if (vision.X != -1) 
                     screen[vision.X, vision.Y] = Pieces.Vision;
                 }
-                rend.DrawScreen(screen, Width, Height);
-                player.Move();
-                Console.WriteLine(Width);
-                Console.WriteLine(Height);
-                } while (true); 
+                foreach (Point wall in level.Walls)
+                {
+                    screen[wall.X, wall.Y] = Pieces.Wall;
+                }
+                if (player.Turns > 0)
+                {
+                    if (Console.KeyAvailable != true)
+                    {
+                        player.Move(Console.ReadKey().Key);
+                        rend.DrawScreen(screen, Width, Height);
+                    }
+                }
+
+            } while (true); 
 
         }
     }
