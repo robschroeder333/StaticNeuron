@@ -29,6 +29,7 @@ namespace StaticNeuron
         public void SetVision()
         {
             int index = 0;
+            Vision = new Point[15];
             switch (dir)
             {
                 case Direction.Up:
@@ -36,11 +37,7 @@ namespace StaticNeuron
                     {
                         for (int x = y; x <= -y; x++)
                         {
-                            if (WithinBounds(Position.X + x, Position.Y + y))
-                                Vision[index] = new Point(Position.X + x, Position.Y + y);
-                            else
-                                Vision[index] = new Point(-1, -1);
-
+                            OcclusionChecker(x, y, index);
                             index++;
                         }
                     }
@@ -50,11 +47,7 @@ namespace StaticNeuron
                     {
                         for (int x = -y; x <= y; x++)
                         {
-                            if (WithinBounds(Position.X + x, Position.Y + y))
-                                Vision[index] = new Point(Position.X + x, Position.Y + y);
-                            else
-                                Vision[index] = new Point(-1, -1);
-
+                            OcclusionChecker(x, y, index);
                             index++;
                         }
                     }
@@ -64,11 +57,7 @@ namespace StaticNeuron
                     {
                         for (int y = x; y <= -x; y++)
                         {
-                            if (WithinBounds(Position.X + x, Position.Y + y))
-                                Vision[index] = new Point(Position.X + x, Position.Y + y);
-                            else
-                                Vision[index] = new Point(-1, -1);
-
+                            OcclusionChecker(x, y, index);
                             index++;
                         }
                     }
@@ -78,11 +67,7 @@ namespace StaticNeuron
                     {
                         for (int y = -x; y <= x; y++)
                         {
-                            if (WithinBounds(Position.X + x, Position.Y + y))
-                                Vision[index] = new Point(Position.X + x, Position.Y + y);
-                            else
-                                Vision[index] = new Point(-1, -1);
-
+                            OcclusionChecker(x, y, index);
                             index++;
                         }
                     }
@@ -92,7 +77,67 @@ namespace StaticNeuron
                     break;
             }
         }
-    
+
+        public void Occlusion(int n)
+        {
+            if (n == 0)
+            {
+                Vision[3] = new Point(-1, -1);
+                Vision[8] = new Point(-1, -1);
+            }
+            if (n == 1)
+            {
+                Vision[5] = new Point(-1, -1);
+                Vision[10] = new Point(-1, -1);
+                Vision[11] = new Point(-1, -1);
+                Vision[12] = new Point(-1, -1);
+            }
+            if (n == 2)
+            {
+                Vision[7] = new Point(-1, -1);
+                Vision[14] = new Point(-1, -1);
+            }
+            if (n == 3)
+            {
+                Vision[8] = new Point(-1, -1);
+            }
+            if (n == 4)
+            {
+                Vision[9] = new Point(-1, -1);
+                Vision[10] = new Point(-1, -1);
+            }
+            if (n == 5)
+            {
+                Vision[11] = new Point(-1, -1);
+            }
+            if (n == 6)
+            {
+                Vision[12] = new Point(-1, -1);
+                Vision[13] = new Point(-1, -1);
+            }
+            if (n == 7)
+            {
+                Vision[14] = new Point(-1, -1);
+            }
+        }
+
+        void OcclusionChecker(int x, int y, int index)
+        {
+            if (WithinBounds(Position.X + x, Position.Y + y))
+            {
+                if (Game.screen[Position.X + x, Position.Y + y] == Pieces.Wall
+                    && Vision[index].X != -1)
+                {
+                    Vision[index] = new Point(Position.X + x, Position.Y + y);
+                    Occlusion(index);
+                }
+                else if (Vision[index].X != -1)
+                    Vision[index] = new Point(Position.X + x, Position.Y + y);
+            }
+            else
+                Vision[index] = new Point(-1, -1);
+        }
+
         bool WithinBounds(int x, int y)
         {
             //TODO: check if using width and height can work without error
