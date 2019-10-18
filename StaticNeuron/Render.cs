@@ -8,44 +8,44 @@ namespace StaticNeuron
         public static void DrawScreen()
         {
             StringBuilder screenAsString = new StringBuilder("", Program.width * Program.height);
-            char currentCharacter = Convert.ToChar(32);
+            string currentCharacter = "";
             for (int y = 0; y < Program.height; y++)
             {
 
                 for (int x = 0; x < Program.width; x++)
                 {
                     if ((x == 0 && y == 0) || (x == (Program.width - 1) && y == (Program.height - 1)))
-                        currentCharacter = '/';
+                        currentCharacter = "/";
                     else if ((x == 0 && y == (Program.height - 1)) || ((x == (Program.width - 1)) && (y == 0)))
-                        currentCharacter = '\\';
+                        currentCharacter = "\\";
                     else if (x > 0 && x < (Program.width - 1))
-                        currentCharacter = '-';
+                        currentCharacter = "-";
                     else if (y > 0 && y < (Program.height - 1))
-                        currentCharacter = '|';
+                        currentCharacter = "|";
                     if (y > 0 && y < Program.height - 1 && x != 0 && x < Program.width - 1)
                     {
 
                         switch (Game.invisibleScreen[x, y])
                         {
                             case (Pieces.Empty):
-                                currentCharacter = Convert.ToChar(32);
+                                currentCharacter = " ";
                                 break;
                             case (Pieces.Wall):
-                                currentCharacter = 'X';
+                                currentCharacter = "\u001b[33;1m█\u001b[0m";
                                 break;
                             case (Pieces.Window):
-                                currentCharacter = 'O';
+                                currentCharacter = "O";
                                 break;
                             case (Pieces.Player):
-                                currentCharacter = 'P';
+                                currentCharacter = "\u001b[44m\u001b[33;1m@\u001b[0m";
                                 break;
                             case (Pieces.Vision):
-                                currentCharacter = 'V';
+                                currentCharacter = "\u001b[43m \u001b[0m";
                                 break;
 
                         }
                     }
-                    screenAsString.Append(new char[] { currentCharacter });
+                    screenAsString.Append(currentCharacter);
 
 
                 }

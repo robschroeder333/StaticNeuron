@@ -159,9 +159,6 @@ namespace StaticNeuron
                     {
                         case ConsoleKey.RightArrow:
                             newPositionX = Position.X + 1;
-
-                            Console.WriteLine(Game.screen[newPositionX, Position.Y]);
-
                             if (WithinBounds(newPositionX, Position.Y) 
                                 && Game.screen[newPositionX, Position.Y] != Pieces.Player 
                                 && Game.screen[newPositionX, Position.Y] != Pieces.Wall)
