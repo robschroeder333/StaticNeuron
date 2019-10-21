@@ -95,7 +95,7 @@ namespace StaticNeuron
                 Vision[11] = new Point(-1, -1);
                 Vision[12] = new Point(-1, -1);
                 Vision [13] = new Point (-1, -1);
-            }
+                }
             if (n == 2)
             {
                 Vision[7] = new Point(-1, -1);
@@ -165,49 +165,53 @@ namespace StaticNeuron
                             newPositionX = Position.X + 1;
                             if (WithinBounds(newPositionX, Position.Y) 
                                 && Game.screen[newPositionX, Position.Y] != Pieces.Player 
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall)
+                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall
+                                && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                             {
                                 Position = new Point (newPositionX, Position.Y);
-                                dir = Direction.Right;
                                 Actions--;
-                                SetVision();
                             }
+                                dir = Direction.Right;
+                                SetVision();
                             break;
                         case ConsoleKey.LeftArrow:
                             newPositionX = Position.X - 1;
                             if (WithinBounds(newPositionX, Position.Y) 
                                 && Game.screen[newPositionX, Position.Y] != Pieces.Player 
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall)
+                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall
+                                && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                             {
                                 Position = new Point (newPositionX, Position.Y);
-                                dir = Direction.Left;
                                 Actions--;
-                                SetVision();
                             }
+                                dir = Direction.Left;
+                                SetVision();
                             break;
                         case ConsoleKey.DownArrow:
                             newPositionY = Position.Y + 1;
                             if (WithinBounds(Position.X, newPositionY) 
                                 && Game.screen[Position.X, newPositionY] != Pieces.Player 
-                                && Game.screen[Position.X, newPositionY] != Pieces.Wall)
+                                && Game.screen[Position.X, newPositionY] != Pieces.Wall
+                                && Game.screen[Position.X, newPositionY] != Pieces.Window)
                             {
                                 Position = new Point (Position.X, newPositionY);
-                                dir = Direction.Down;
                                 Actions--;
-                                SetVision();
                             }
+                                dir = Direction.Down;
+                                SetVision();
                             break;
                         case ConsoleKey.UpArrow:
                             newPositionY = Position.Y - 1; 
                             if (WithinBounds(Position.X, newPositionY) 
                                 && Game.screen[Position.X, newPositionY] != Pieces.Player
-                                && Game.screen[Position.X, newPositionY] != Pieces.Wall)
+                                && Game.screen[Position.X, newPositionY] != Pieces.Wall
+                                && Game.screen[Position.X, newPositionY] != Pieces.Window)
                             {
                                 Position = new Point (Position.X, newPositionY);
-                                dir = Direction.Up;
                                 Actions--;
-                                SetVision();
                             }
+                                dir = Direction.Up;
+                                SetVision();
                             break;
 
                 }
