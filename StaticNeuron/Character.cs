@@ -165,7 +165,8 @@ namespace StaticNeuron
                             newPositionX = Position.X + 1;
                             if (WithinBounds(newPositionX, Position.Y) 
                                 && Game.screen[newPositionX, Position.Y] != Pieces.Player 
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall)
+                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall
+                                && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                             {
                                 Position = new Point (newPositionX, Position.Y);
                                 Actions--;
@@ -177,7 +178,8 @@ namespace StaticNeuron
                             newPositionX = Position.X - 1;
                             if (WithinBounds(newPositionX, Position.Y) 
                                 && Game.screen[newPositionX, Position.Y] != Pieces.Player 
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall)
+                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall
+                                && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                             {
                                 Position = new Point (newPositionX, Position.Y);
                                 Actions--;
@@ -189,7 +191,8 @@ namespace StaticNeuron
                             newPositionY = Position.Y + 1;
                             if (WithinBounds(Position.X, newPositionY) 
                                 && Game.screen[Position.X, newPositionY] != Pieces.Player 
-                                && Game.screen[Position.X, newPositionY] != Pieces.Wall)
+                                && Game.screen[Position.X, newPositionY] != Pieces.Wall
+                                && Game.screen[Position.X, newPositionY] != Pieces.Window)
                             {
                                 Position = new Point (Position.X, newPositionY);
                                 Actions--;
@@ -201,7 +204,8 @@ namespace StaticNeuron
                             newPositionY = Position.Y - 1; 
                             if (WithinBounds(Position.X, newPositionY) 
                                 && Game.screen[Position.X, newPositionY] != Pieces.Player
-                                && Game.screen[Position.X, newPositionY] != Pieces.Wall)
+                                && Game.screen[Position.X, newPositionY] != Pieces.Wall
+                                && Game.screen[Position.X, newPositionY] != Pieces.Window)
                             {
                                 Position = new Point (Position.X, newPositionY);
                                 Actions--;
