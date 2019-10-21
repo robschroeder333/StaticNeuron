@@ -25,7 +25,7 @@ namespace StaticNeuron
                     if (y > 0 && y < Program.height - 1 && x != 0 && x < Program.width - 1)
                     {
 
-                        switch (Game.screen[x, y])
+                        switch (Game.invisibleScreen[x, y])
                         {
                             case (Pieces.Empty):
                                 currentCharacter = " ";
@@ -34,7 +34,7 @@ namespace StaticNeuron
                                 currentCharacter = "\u001b[33;1m█\u001b[0m";
                                 break;
                             case (Pieces.Window):
-                                currentCharacter = "O";
+                                currentCharacter = "\u001b[43;1mO\u001b[0m";
                                 break;
                             case (Pieces.Player):
                                 currentCharacter = "\u001b[44m\u001b[33;1m@\u001b[0m";
