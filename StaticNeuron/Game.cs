@@ -17,34 +17,23 @@ namespace StaticNeuron
         {
             screen = new Pieces[Program.width, Program.height];
             invisibleScreen = new Pieces[Program.width, Program.height];
-            player = new Character();
+            player = new Character(1, 5);
             level = new Level();
-            level.CreateLevel(1);
 
         }
 
         public void Play()
         {
-            //determine if we want initial render (without input)
-
-            //screen[player.Position.X, player.Position.Y] = Pieces.Player;
-            //foreach (Point vision in player.Vision)
-            //{
-            //    if (vision.X != -1)
-            //        screen[vision.X, vision.Y] = Pieces.Vision;
-            //}
-            //foreach (Point wall in level.Walls)
-            //{
-            //        screen[wall.X, wall.Y] = Pieces.Wall;
-            //}
-            //rend.DrawScreen(screen, Width, Height);
-
             do {
                 screen = new Pieces[Program.width, Program.height];
                 invisibleScreen = new Pieces[Program.width, Program.height];
                 foreach (Point wall in level.Walls)
                 {
                     screen[wall.X, wall.Y] = Pieces.Wall;
+                }
+                foreach (Point window in level.Windows)
+                {
+                    screen[window.X, window.Y] = Pieces.Window;
                 }
 
                 if (player.Actions > 0)

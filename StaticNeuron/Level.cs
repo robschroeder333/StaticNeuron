@@ -9,32 +9,166 @@ namespace StaticNeuron
     class Level
     {
         public List<Point> Walls { get; set; }
+        public List<Point> Windows { get; set; }
 
-        public Level()
+        delegate void TilePicker(Point origin);
+        enum Prefabs {FourWay, Hall_H, Hall_V }
+        
+        int tileSize = 10;
+
+        public Level(int choice = 0)
         {
             Walls = new List<Point>();
-            Walls.Add(new Point(20, 20));
+            Windows = new List<Point>();
+            CreateLevel(choice);
         }
 
-        public void CreateLevel(int levelChoice)
+        void CreateLevel(int levelChoice)
         {
             Walls.Clear();
+            int tilesHigh = (Program.height - 2) / tileSize;
+            int tilesWide = (Program.width - 2) / tileSize;
+            Point origin = new Point(1, 1);
+            Prefabs[] bluePrint = new Prefabs[tilesHigh * tilesWide];
+            TilePicker tilePicker;
+            int index = 0;
+
             switch (levelChoice)
             {
                 case 1:
-                    Walls.Add(new Point(20, 20));
-                    Walls.Add(new Point(21, 20));
-                    Walls.Add(new Point(22, 20));
-                    Walls.Add(new Point(22, 21));
-                    Walls.Add(new Point(22, 22));
-                    Walls.Add(new Point(5, 5));
-                    Walls.Add(new Point(40, 10));
-                    Walls.Add(new Point(40, 11));
-                    Walls.Add(new Point(40, 13));
-                    Walls.Add(new Point(40, 14));
+
+
                     break;
                 default:
+                    for (int i = 0; i < bluePrint.Length; i++)
+                    {
+                        if (i == 2)
+                            bluePrint[i] = Prefabs.Hall_H;
+                        else if (i == tilesWide)
+                            bluePrint[i] = Prefabs.Hall_V;
+                        else
+                            bluePrint[i] = Prefabs.FourWay;
+                    }
                     break;
+            }
+
+            for (int y = 0; y < tilesHigh; y++)
+            {
+                for (int x = 0; x < tilesWide; x++)
+                {
+                    switch (bluePrint[index])
+                    {
+                        case Prefabs.FourWay:
+                            tilePicker = FourWay;
+                            break;
+                        case Prefabs.Hall_H:
+                            tilePicker = Hall_H;
+                            break;
+                        case Prefabs.Hall_V:
+                            tilePicker = Hall_V;
+                            break;
+                        default:
+                            tilePicker = FourWay;
+                            break;
+                    }
+                    tilePicker(new Point(origin.X + (x * tileSize), origin.Y + (y * tileSize)));
+                    index++;
+                }
+            }
+        }
+
+        void Hall_H(Point origin)
+        {
+            for (int y = 0; y < tileSize; y++)
+            {
+                for (int x = 0; x < tileSize; x++)
+                {
+                    if (y == 0 || y == 9)
+                    {
+                        if (x >= 3 && x <= 5)
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+                        else    
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 1 || y == 8)
+                    {
+                        if (x < 3 || x > 5)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 2 || y == 7)
+                    {
+                        if (x > 0 && x < 3 || x > 5 && x < 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 3 || y == 6)
+                    {
+                        if (x > 1 && x < 4 || x > 4 && x < 7)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                        
+                    }
+                }
+            }
+        }
+        void Hall_V(Point origin)
+        {
+            for (int y = 0; y < tileSize; y++)
+            {
+                for (int x = 0; x < tileSize; x++)
+                {
+                    if (y == 0 || y == 9)
+                    {
+                        if (x >= 3 && x <= 5)
+                            Windows.Add(new Point(origin.X + y, origin.Y + x));
+                        else
+                            Walls.Add(new Point(origin.X + y, origin.Y + x));
+                    }
+                    if (y == 1 || y == 8)
+                    {
+                        if (x < 3 || x > 5)
+                            Walls.Add(new Point(origin.X + y, origin.Y + x));
+                    }
+                    if (y == 2 || y == 7)
+                    {
+                        if (x > 0 && x < 3 || x > 5 && x < 9)
+                            Walls.Add(new Point(origin.X + y, origin.Y + x));
+                    }
+                    if (y == 3 || y == 6)
+                    {
+                        if (x > 1 && x < 4 || x > 4 && x < 7)
+                            Walls.Add(new Point(origin.X + y, origin.Y + x));
+
+                    }
+                }
+            }
+        }
+        void FourWay(Point origin)
+        {
+            for (int y = 0; y < tileSize; y++)
+            {
+                for (int x = 0; x < tileSize; x++)
+                {
+                    if (y == 0 || y == 9)
+                    {
+                        if (x == 2 || x == 7)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y < 2 || y > 7)
+                    {
+                        if (x < 2 || x > 7)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 2 || y == 7)
+                    {
+                        if (x == 0 || x == 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 3 || y == 6)
+                    {
+                        if (x == 3 || x == 6)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                            
+                    }
+                }
             }
         }
     }

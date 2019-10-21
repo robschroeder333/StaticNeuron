@@ -4,8 +4,9 @@ namespace StaticNeuron
 {
     class Program
     {
-        public static int height = 30;
-        public static int width = 120;
+        //offset by 2 to track border easily
+        public static int height = 32;
+        public static int width = 72;
         static void Main()
         {
             //ColorTest();
@@ -17,13 +18,15 @@ namespace StaticNeuron
         static void Opening()
         {
             Console.Clear();
-            Console.WriteLine("\n\n\n\n\n     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
+            Console.WriteLine("\n\n\n\n\n");
+            Console.WriteLine("     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
             Console.WriteLine("    █     ▀▄ ▀▀▀ █    █ █ ▀▀▀ █    ██ █▀ ▀▄      █  █▀   ▀     █  █  ▄▀ █   █     █  ");
             Console.WriteLine("  ▄  ▀▀▀▀▄       █    █▄▄█    █    ██ █   ▀  ██   █ ██▄▄    █   █ █▀▀▌  █   █ ██   █ ");
             Console.WriteLine("   ▀▄▄▄▄▀       █     █  █   █     ▐█ █▄  ▄▀ █ █  █ █▄   ▄▀ █   █ █  █  ▀████ █ █  █ ");
             Console.WriteLine("               ▀         █  ▀       ▐ ▀███▀  █  █ █ ▀███▀   █▄ ▄█   █         █  █ █ ");
             Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
-            Console.WriteLine("                       ▀                                                             \n\n\n\n\n");
+            Console.WriteLine("                       ▀                                                             ");
+            Console.WriteLine("\n\n\n\n\n");
             Console.WriteLine("                             Press Any Key To Continue                               ");
         }
         static void ColorTest()
