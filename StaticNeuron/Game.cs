@@ -17,7 +17,7 @@ namespace StaticNeuron
         {
             screen = new Pieces[Program.width, Program.height];
             invisibleScreen = new Pieces[Program.width, Program.height];
-            player = new Character();
+            player = new Character(1, 5);
             level = new Level();
 
         }

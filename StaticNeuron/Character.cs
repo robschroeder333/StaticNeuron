@@ -13,9 +13,9 @@ namespace StaticNeuron
         public Point[] Vision { get; private set; }
         public int Actions { get; set; } = 1000;
 
-        public Character()
+        public Character(int x, int y)
         {
-            Position = new Point(10, 10);
+            Position = new Point(x, y);
             dir = Direction.Right;
             Vision = new Point[15];
             SetVision();
