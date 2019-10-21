@@ -25,7 +25,7 @@ namespace StaticNeuron
                     if (y > 0 && y < Program.height - 1 && x != 0 && x < Program.width - 1)
                     {
 
-                        switch (Game.invisibleScreen[x, y])
+                        switch (Game.screen[x, y])
                         {
                             case (Pieces.Empty):
                                 currentCharacter = " ";
