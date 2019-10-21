@@ -41,6 +41,17 @@ namespace StaticNeuron
                             index++;
                         }
                     }
+                    if (Game.screen[Position.X, Position.Y - 1] == Pieces.Wall)
+                    {
+                        if (Game.screen[Position.X - 1, Position.Y] == Pieces.Wall)
+                        {
+                            Vision[0] = new Point (-1,-1);
+                        }
+                        if (Game.screen[Position.X + 1, Position.Y] == Pieces.Wall)
+                        {
+                            Vision[2] = new Point (-1,-1);
+                        }
+                    }
                     break;
                 case Direction.Down:
                     for (int y = 1; y <= 3; y++)
@@ -49,6 +60,17 @@ namespace StaticNeuron
                         {
                             OcclusionChecker(x, y, index);
                             index++;
+                        }
+                    }
+                    if (Game.screen[Position.X, Position.Y + 1] == Pieces.Wall)
+                    {
+                        if (Game.screen[Position.X + 1, Position.Y] == Pieces.Wall)
+                        {
+                            Vision[2] = new Point (-1,-1);
+                        }
+                        if (Game.screen[Position.X - 1, Position.Y] == Pieces.Wall)
+                        {
+                            Vision[0] = new Point (-1,-1);
                         }
                     }
                     break;
@@ -61,6 +83,17 @@ namespace StaticNeuron
                             index++;
                         }
                     }
+                    if (Game.screen[Position.X - 1, Position.Y] == Pieces.Wall)
+                    {
+                        if (Game.screen[Position.X, Position.Y - 1] == Pieces.Wall)
+                        {
+                            Vision[0] = new Point (-1,-1);
+                        }
+                        if (Game.screen[Position.X, Position.Y + 1] == Pieces.Wall)
+                        {
+                            Vision[2] = new Point (-1,-1);
+                        }
+                    }
                     break;
                 case Direction.Right:
                     for (int x = 1; x <= 3; x++)
@@ -69,6 +102,17 @@ namespace StaticNeuron
                         {
                             OcclusionChecker(x, y, index);
                             index++;
+                        }
+                    }
+                     if (Game.screen[Position.X + 1, Position.Y] == Pieces.Wall)
+                    {
+                        if (Game.screen[Position.X, Position.Y - 1] == Pieces.Wall)
+                        {
+                            Vision[0] = new Point (-1,-1);
+                        }
+                        if (Game.screen[Position.X, Position.Y + 1] == Pieces.Wall)
+                        {
+                            Vision[2] = new Point (-1,-1);
                         }
                     }
                     break;
@@ -83,22 +127,26 @@ namespace StaticNeuron
             if (n == 0)
             {
                 Vision[3] = new Point(-1, -1);
+                Vision[4] = new Point(-1, -1);
                 Vision[8] = new Point(-1, -1);
+                Vision[9] = new Point(-1, -1);
             }
             if (n == 1)
             {
                 Vision[4] = new Point (-1, -1);
                 Vision[5] = new Point(-1, -1);
-                Vision [6] = new Point (-1, -1);
+                Vision[6] = new Point (-1, -1);
                 Vision[9] = new Point (-1, -1);
                 Vision[10] = new Point(-1, -1);
                 Vision[11] = new Point(-1, -1);
                 Vision[12] = new Point(-1, -1);
-                Vision [13] = new Point (-1, -1);
+                Vision[13] = new Point (-1, -1);
                 }
             if (n == 2)
             {
+                Vision[6] = new Point(-1, -1);
                 Vision[7] = new Point(-1, -1);
+                Vision[13] = new Point(-1, -1);
                 Vision[14] = new Point(-1, -1);
             }
             if (n == 3)
@@ -112,7 +160,9 @@ namespace StaticNeuron
             }
             if (n == 5)
             {
+                Vision[10] = new Point(-1, -1);
                 Vision[11] = new Point(-1, -1);
+                Vision[12] = new Point(-1, -1);
             }
             if (n == 6)
             {
