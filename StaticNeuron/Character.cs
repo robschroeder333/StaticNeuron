@@ -87,10 +87,14 @@ namespace StaticNeuron
             }
             if (n == 1)
             {
+                Vision[4] = new Point (-1, -1);
                 Vision[5] = new Point(-1, -1);
+                Vision [6] = new Point (-1, -1);
+                Vision[9] = new Point (-1, -1);
                 Vision[10] = new Point(-1, -1);
                 Vision[11] = new Point(-1, -1);
                 Vision[12] = new Point(-1, -1);
+                Vision [13] = new Point (-1, -1);
             }
             if (n == 2)
             {
