@@ -34,7 +34,7 @@ namespace StaticNeuron
                                 currentCharacter = "\u001b[33;1m█\u001b[0m";
                                 break;
                             case (Pieces.Window):
-                                currentCharacter = "O";
+                                currentCharacter = "\u001b[43;1mO\u001b[0m";
                                 break;
                             case (Pieces.Player):
                                 currentCharacter = "\u001b[44m\u001b[33;1m@\u001b[0m";
