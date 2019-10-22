@@ -12,17 +12,19 @@ namespace StaticNeuron
         public static Pieces[,] screen;
         public static Pieces[,] invisibleScreen;
         public Character player;
+        public Character monster;
         public Level level;
         public Game()
         {
             screen = new Pieces[Program.width, Program.height];
             invisibleScreen = new Pieces[Program.width, Program.height];
-            player = new Character(1, 5);
+            player = new Character(1, 5, false);
+            monster = new Character(3, 6);
             level = new Level();
 
         }
 
-        public void Play()
+        public void Step()
         {
             do {
                 screen = new Pieces[Program.width, Program.height];
@@ -42,6 +44,8 @@ namespace StaticNeuron
                     {
                         player.Move(Console.ReadKey().Key);
                         screen[player.Position.X, player.Position.Y] = Pieces.Player;
+                        monster.NPCMove();
+                        screen[monster.Position.X, monster.Position.Y] = Pieces.Player;
                         invisibleScreen[player.Position.X, player.Position.Y] = Pieces.Player;
                         foreach (Point vision in player.Vision)
                         {
@@ -50,19 +54,19 @@ namespace StaticNeuron
                                 switch (screen[vision.X, vision.Y])
                                 {
                                     case Pieces.Empty:
-                                    invisibleScreen[vision.X, vision.Y] = Pieces.Vision;
+                                        invisibleScreen[vision.X, vision.Y] = Pieces.Vision;
                                     break;
                                     case Pieces.Wall:
-                                    invisibleScreen[vision.X, vision.Y] = Pieces.Wall;
+                                        invisibleScreen[vision.X, vision.Y] = Pieces.Wall;
                                     break;
                                     case Pieces.Player:
-                                    invisibleScreen[vision.X, vision.Y] = Pieces.Player;
+                                        invisibleScreen[vision.X, vision.Y] = Pieces.Player;
                                     break;
                                     case Pieces.Window:
-                                    invisibleScreen[vision.X, vision.Y] = Pieces.Window;
+                                        invisibleScreen[vision.X, vision.Y] = Pieces.Window;
                                     break;
                                     default:
-                                    invisibleScreen[vision.X, vision.Y] = Pieces.Vision;
+                                        invisibleScreen[vision.X, vision.Y] = Pieces.Vision;
                                     break;
                                 }
                             }

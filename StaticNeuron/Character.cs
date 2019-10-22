@@ -8,13 +8,15 @@ namespace StaticNeuron
     public enum Direction { Up, Down, Left, Right }
     class Character
     {
+        bool isNPC;
         Direction dir;
         public Point Position { get; private set; }
         public Point[] Vision { get; private set; }
         public int Actions { get; set; } = 1000;
 
-        public Character(int x, int y)
+        public Character(int x, int y, bool isNPC = true)
         {
+            this.isNPC = isNPC;
             Position = new Point(x, y);
             dir = Direction.Right;
             Vision = new Point[15];
@@ -194,7 +196,6 @@ namespace StaticNeuron
 
         bool WithinBounds(int x, int y)
         {
-            //TODO: check if using width and height can work without error
             if (x <= (Program.width - 2) && x > 0 && y <= (Program.height - 2) && y > 0)
             {
                 return true;
@@ -202,69 +203,93 @@ namespace StaticNeuron
             return false;
         }
 
+        public void NPCMove()
+        {
+            ConsoleKey key;
+            Random rnd = new Random();
+
+            switch (rnd.Next(4))
+            {
+                case 0:
+                    key = ConsoleKey.RightArrow;
+                    break;
+                case 1:
+                    key = ConsoleKey.LeftArrow;
+                    break;
+                case 2:
+                    key = ConsoleKey.UpArrow;
+                    break;
+                case 3:
+                    key = ConsoleKey.DownArrow;
+                    break;
+                default:
+                    key = ConsoleKey.DownArrow;
+                    break;
+            }
+            Move(key);
+        }
          
          public void Move(ConsoleKey key)
          {
              int newPositionX;
              int newPositionY;
 
-// each iteration of this inner loop is the placement of an "X" or a "Y as a single move
-                    switch (key)
+            switch (key)
+            {
+                case ConsoleKey.RightArrow:
+                    newPositionX = Position.X + 1;
+                    if (WithinBounds(newPositionX, Position.Y) 
+                        && Game.screen[newPositionX, Position.Y] != Pieces.Player 
+                        && Game.screen[newPositionX, Position.Y] != Pieces.Wall
+                        && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                     {
-                        case ConsoleKey.RightArrow:
-                            newPositionX = Position.X + 1;
-                            if (WithinBounds(newPositionX, Position.Y) 
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Player 
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Window)
-                            {
-                                Position = new Point (newPositionX, Position.Y);
-                                Actions--;
-                            }
-                                dir = Direction.Right;
-                                SetVision();
-                            break;
-                        case ConsoleKey.LeftArrow:
-                            newPositionX = Position.X - 1;
-                            if (WithinBounds(newPositionX, Position.Y) 
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Player 
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Wall
-                                && Game.screen[newPositionX, Position.Y] != Pieces.Window)
-                            {
-                                Position = new Point (newPositionX, Position.Y);
-                                Actions--;
-                            }
-                                dir = Direction.Left;
-                                SetVision();
-                            break;
-                        case ConsoleKey.DownArrow:
-                            newPositionY = Position.Y + 1;
-                            if (WithinBounds(Position.X, newPositionY) 
-                                && Game.screen[Position.X, newPositionY] != Pieces.Player 
-                                && Game.screen[Position.X, newPositionY] != Pieces.Wall
-                                && Game.screen[Position.X, newPositionY] != Pieces.Window)
-                            {
-                                Position = new Point (Position.X, newPositionY);
-                                Actions--;
-                            }
-                                dir = Direction.Down;
-                                SetVision();
-                            break;
-                        case ConsoleKey.UpArrow:
-                            newPositionY = Position.Y - 1; 
-                            if (WithinBounds(Position.X, newPositionY) 
-                                && Game.screen[Position.X, newPositionY] != Pieces.Player
-                                && Game.screen[Position.X, newPositionY] != Pieces.Wall
-                                && Game.screen[Position.X, newPositionY] != Pieces.Window)
-                            {
-                                Position = new Point (Position.X, newPositionY);
-                                Actions--;
-                            }
-                                dir = Direction.Up;
-                                SetVision();
-                            break;
+                        Position = new Point (newPositionX, Position.Y);
+                        Actions--;
+                    }
+                        dir = Direction.Right;
+                        SetVision();
+                    break;
+                case ConsoleKey.LeftArrow:
+                    newPositionX = Position.X - 1;
+                    if (WithinBounds(newPositionX, Position.Y) 
+                        && Game.screen[newPositionX, Position.Y] != Pieces.Player 
+                        && Game.screen[newPositionX, Position.Y] != Pieces.Wall
+                        && Game.screen[newPositionX, Position.Y] != Pieces.Window)
+                    {
+                        Position = new Point (newPositionX, Position.Y);
+                        Actions--;
+                    }
+                        dir = Direction.Left;
+                        SetVision();
+                    break;
+                case ConsoleKey.DownArrow:
+                    newPositionY = Position.Y + 1;
+                    if (WithinBounds(Position.X, newPositionY) 
+                        && Game.screen[Position.X, newPositionY] != Pieces.Player 
+                        && Game.screen[Position.X, newPositionY] != Pieces.Wall
+                        && Game.screen[Position.X, newPositionY] != Pieces.Window)
+                    {
+                        Position = new Point (Position.X, newPositionY);
+                        Actions--;
+                    }
+                        dir = Direction.Down;
+                        SetVision();
+                    break;
+                case ConsoleKey.UpArrow:
+                    newPositionY = Position.Y - 1; 
+                    if (WithinBounds(Position.X, newPositionY) 
+                        && Game.screen[Position.X, newPositionY] != Pieces.Player
+                        && Game.screen[Position.X, newPositionY] != Pieces.Wall
+                        && Game.screen[Position.X, newPositionY] != Pieces.Window)
+                    {
+                        Position = new Point (Position.X, newPositionY);
+                        Actions--;
+                    }
+                        dir = Direction.Up;
+                        SetVision();
+                    break;
 
-                }
+            }
          }
     }
 }
