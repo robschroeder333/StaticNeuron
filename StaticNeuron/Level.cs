@@ -10,6 +10,7 @@ namespace StaticNeuron
     {
         public List<Point> Walls { get; set; }
         public List<Point> Windows { get; set; }
+        public List<Point> NextLevelSpots { get; set; }
 
         delegate void TilePicker(Point origin);
         enum Prefabs {FourWay, Hall_H, Hall_V, T_H_S, Loop_W_S, Loop_N_E, Test}
@@ -20,6 +21,7 @@ namespace StaticNeuron
         {
             Walls = new List<Point>();
             Windows = new List<Point>();
+            NextLevelSpots = new List<Point>();
             CreateLevel(choice);
         }
 
@@ -319,6 +321,120 @@ namespace StaticNeuron
                     {
                         if (x < 4 || x > 6)
                             Walls.Add(new Point(origin.X + y, origin.Y + x));
+                    }
+                }
+            }
+        }
+        void StartRoom(Point origin)
+        {
+            for (int y = 0; y < tileSize; y++)
+            {
+                for (int x = 0; x < tileSize; x++)
+                {
+                    if (y == 9)
+                        Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                    if (y == 0)
+                    {
+                        if (x == 2 || x == 3 || x == 6 || x == 7 || x == 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 1 || y == 8)
+                    {
+                        if (x == 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 2 || y == 7)
+                    {
+                        if (x == 0 || x == 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 3 || y == 6)
+                    {
+                        if (x == 0)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                }
+            }
+        }
+        void LevelStart(Point origin)
+        {
+            for (int y = 0; y < tileSize; y++)
+            {
+                for (int x = 0; x < tileSize; x++)
+                {
+                    if (y == 0 || y == 9)
+                    {
+                        Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 1 || y == 8)
+                    {
+                        if (x < 2 || x == 4 || x > 7)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 2 || y == 7)
+                    {
+                        if (x == 0 || x == 2 || x == 7 || x == 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                }
+            }
+        }
+        void NextLevel(Point origin)
+        {
+            for (int y = 0; y < tileSize; y++)
+            {
+                for (int x = 0; x < tileSize; x++)
+                {
+                    if (y == 0)
+                    {
+                        if (x < 3 || x > 6)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 1 || y == 2)
+                    {
+                        if (x == 0 || x > 6)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 3 || y == 6)
+                    {
+                        if (x == 6)
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x == 7)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x > 7)
+                            NextLevelSpots.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 4 || y == 5)
+                    {
+                        if (x > 7)
+                            NextLevelSpots.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 7)
+                    {
+                        if (x < 6 || x > 7)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y > 7)
+                    {
+                        if (x == 0 || x == 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                }
+            }
+        }
+        void EndRoom(Point origin)
+        {
+            for (int y = 0; y < tileSize; y++)
+            {
+                for (int x = 0; x < tileSize; x++)
+                {
+                    if (y == 0)
+                    {
+                        if (x < 3 || x > 6)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
                     }
                 }
             }
