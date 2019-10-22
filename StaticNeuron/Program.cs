@@ -12,7 +12,7 @@ namespace StaticNeuron
             //ColorTest();
             Opening();
             Game game = new Game();
-            game.Play();
+            game.Step();
         }
 
         static void Opening()
