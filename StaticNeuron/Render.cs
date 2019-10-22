@@ -25,24 +25,23 @@ namespace StaticNeuron
                     if (y > 0 && y < Program.height - 1 && x != 0 && x < Program.width - 1)
                     {
 
-                        switch (Game.screen[x, y])
+                        switch (Game.invisibleScreen[x, y])
                         {
                             case (Pieces.Empty):
                                 currentCharacter = " ";
                                 break;
                             case (Pieces.Wall):
-                                currentCharacter = "\u001b[33;1m█\u001b[0m";
+                                currentCharacter = "\u001b[38;5;245m█\u001b[0m";
                                 break;
                             case (Pieces.Window):
-                                currentCharacter = "\u001b[43;1mO\u001b[0m";
+                                currentCharacter = "\u001b[48;5;250m\u001b[38;5;245mO\u001b[0m";
                                 break;
                             case (Pieces.Player):
-                                currentCharacter = "\u001b[44m\u001b[33;1m@\u001b[0m";
+                                currentCharacter = "\u001b[48;5;250m\u001b[38;5;245mR\u001b[0m";
                                 break;
                             case (Pieces.Vision):
-                                currentCharacter = "\u001b[43m \u001b[0m";
+                                currentCharacter = "\u001b[38;5;250m█\u001b[0m";
                                 break;
-
                         }
                     }
                     screenAsString.Append(currentCharacter);
