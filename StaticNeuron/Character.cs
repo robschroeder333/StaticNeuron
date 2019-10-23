@@ -130,6 +130,8 @@ namespace StaticNeuron
                 Vision[4] = new Point(-1, -1);
                 Vision[8] = new Point(-1, -1);
                 Vision[9] = new Point(-1, -1);
+                Vision[15] = new Point (-1, -1);
+                Vision[16] = new Point (-1, -1);
             }
             if (n == 1)
             {
@@ -141,39 +143,58 @@ namespace StaticNeuron
                 Vision[11] = new Point(-1, -1);
                 Vision[12] = new Point(-1, -1);
                 Vision[13] = new Point (-1, -1);
-                }
+                Vision[16] = new Point (-1, -1);
+                Vision[17] = new Point (-1, -1);
+                Vision[18] = new Point (-1, -1);
+                Vision[19] = new Point (-1, -1);
+                Vision[20] = new Point (-1, -1);
+                Vision[21] = new Point (-1, -1);
+                Vision[22] = new Point (-1, -1);
+            }
             if (n == 2)
             {
                 Vision[6] = new Point(-1, -1);
                 Vision[7] = new Point(-1, -1);
                 Vision[13] = new Point(-1, -1);
                 Vision[14] = new Point(-1, -1);
+                Vision[22] = new Point (-1, -1);
+                Vision[23] = new Point (-1, -1);
             }
             if (n == 3)
             {
                 Vision[8] = new Point(-1, -1);
+                Vision[15] = new Point (-1, -1);
             }
             if (n == 4)
             {
                 Vision[9] = new Point(-1, -1);
                 Vision[10] = new Point(-1, -1);
+                Vision[16] = new Point (-1, -1);
+                Vision[17] = new Point (-1, -1);
+                Vision[18] = new Point (-1, -1);
             }
             if (n == 5)
             {
                 Vision[10] = new Point(-1, -1);
                 Vision[11] = new Point(-1, -1);
                 Vision[12] = new Point(-1, -1);
+                Vision[18] = new Point (-1, -1);
+                Vision[19] = new Point (-1, -1);
+                Vision[20] = new Point (-1, -1);
             }
             if (n == 6)
             {
                 Vision[12] = new Point(-1, -1);
                 Vision[13] = new Point(-1, -1);
+                Vision[21] = new Point (-1, -1);
+                Vision[22] = new Point (-1, -1);
             }
             if (n == 7)
             {
                 Vision[14] = new Point(-1, -1);
+                Vision[23] = new Point (-1, -1);
             }
-                        if (n == 8) 
+            if (n == 8) 
             {
                 Vision[15] = new Point(-1,-1);
             }
