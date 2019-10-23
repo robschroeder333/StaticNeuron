@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace StaticNeuron
 {
-    public enum Pieces { Empty, Wall, Window, Player, Vision }
+    public enum Pieces { Empty, Wall, Window, Player, Enemy, NextLevel, Vision, Fire }
 
     class Game
     {
@@ -20,7 +20,7 @@ namespace StaticNeuron
             invisibleScreen = new Pieces[Program.width, Program.height];
             player = new Character(1, 5, false);
             monster = new Character(3, 6);
-            level = new Level();
+            level = new Level(1);
 
         }
 
