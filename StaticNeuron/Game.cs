@@ -14,6 +14,7 @@ namespace StaticNeuron
         public Character player;
         public Character monster;
         public Level level;
+
         public Game()
         {
             screen = new Pieces[Program.width, Program.height];
@@ -70,14 +71,13 @@ namespace StaticNeuron
                                     break;
                                 }
                             }
-
                         }
                         
                         Render.DrawScreen();
                     }
                 }
 
-            } while (true); 
+            } while (player.LightLevel >= 0); 
 
         }
     }
