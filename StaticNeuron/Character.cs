@@ -175,6 +175,40 @@ namespace StaticNeuron
             {
                 Vision[14] = new Point(-1, -1);
             }
+                        if (n == 8) 
+            {
+                Vision[15] = new Point(-1,-1);
+            }
+            if (n == 9)
+            {
+                Vision[16] = new Point(-1,-1);
+                Vision[17] = new Point(-1,-1);
+            }
+            if (n == 10)
+            {
+                Vision[17] = new Point(-1,-1);
+                Vision[18] = new Point(-1,-1);
+            }
+            if (n == 11)
+            {
+                Vision[18] = new Point(-1,-1);
+                Vision[19] = new Point(-1,-1);
+                Vision[20] = new Point(-1,-1);
+            }
+            if (n == 12)
+            {
+                Vision[20] = new Point(-1,-1);
+                Vision[21] = new Point(-1,-1);
+            }
+            if (n == 13)
+            {
+                Vision[21] = new Point(-1,-1);
+                Vision[22] = new Point(-1,-1);
+            }
+            if (n == 14)
+            {
+                Vision[23] = new Point(-1,-1);
+            }
         }
 
         void OcclusionChecker(int x, int y, int index)
