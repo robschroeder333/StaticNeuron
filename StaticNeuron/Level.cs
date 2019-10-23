@@ -13,7 +13,12 @@ namespace StaticNeuron
         public List<Point> NextLevelSpots { get; set; }
 
         delegate void TilePicker(Point origin);
-        enum Prefabs {FourWay, Hall_H, Hall_V, T_H_S, Loop_W_S, Loop_N_E, Test}
+        enum Prefabs 
+        {
+            FourWay, Hall_H, Hall_V, T_H_S, T_H_N, 
+            Loop_W_S, Loop_N_E, StartRoom, LevelStart, 
+            NextLevel, EndRoom, Test
+        }
         
         int tileSize = 10;
 
@@ -32,7 +37,6 @@ namespace StaticNeuron
             int tilesWide = (Program.width - 2) / tileSize;
             Point origin = new Point(1, 1);
             Prefabs[] bluePrint = new Prefabs[tilesHigh * tilesWide];
-            TilePicker tilePicker;
             int index = 0;
 
             switch (levelChoice)
@@ -40,17 +44,22 @@ namespace StaticNeuron
                 case 1:
                     for (int i = 0; i < bluePrint.Length; i++)
                     {
-
-                        if (i == 1)
-                            bluePrint[i] = Prefabs.Hall_H;
-                        else if (i == 2)
-                            bluePrint[i] = Prefabs.T_H_S;
-                        else if (i == tilesWide - 1)
-                            bluePrint[i] = Prefabs.Loop_W_S;
-                        else if (i == tilesWide)
-                            bluePrint[i] = Prefabs.Hall_V;
-                        else
+                        if (i == 0)
+                            bluePrint[i] = Prefabs.StartRoom;
+                        else if (i == (bluePrint.Length - 1))
+                            bluePrint[i] = Prefabs.NextLevel;
+                        else if (i == 3 || i == 7 || i == 15 || i == 18)
                             bluePrint[i] = Prefabs.FourWay;
+                        else if (i == 8 || i == 12)
+                            bluePrint[i] = Prefabs.T_H_S;
+                        else if (i == 13)
+                            bluePrint[i] = Prefabs.T_H_N;
+                        else if (i == 6)
+                            bluePrint[i] = Prefabs.Loop_W_S;
+                        else if (i == 14)
+                            bluePrint[i] = Prefabs.Loop_N_E;
+                        else
+                            bluePrint[i] = Prefabs.Hall_H;
                     }
                     break;
                 default:
@@ -62,33 +71,22 @@ namespace StaticNeuron
             {
                 for (int x = 0; x < tilesWide; x++)
                 {
-                    switch (bluePrint[index])
+                    TilePicker tilePicker = (bluePrint[index]) switch
                     {
-                        case Prefabs.FourWay:
-                            tilePicker = FourWay;
-                            break;
-                        case Prefabs.Hall_H:
-                            tilePicker = Hall_H;
-                            break;
-                        case Prefabs.Hall_V:
-                            tilePicker = Hall_V;
-                            break;
-                        case Prefabs.T_H_S:
-                            tilePicker = T_H_S;
-                            break;
-                        case Prefabs.Loop_W_S:
-                            tilePicker = Loop_W_S;
-                            break;
-                        case Prefabs.Loop_N_E:
-                            tilePicker = Loop_N_E;
-                            break;
-                        case Prefabs.Test:
-                            tilePicker = TestRoom;
-                            break;
-                        default:
-                            tilePicker = FourWay;
-                            break;
-                    }
+                        Prefabs.FourWay => FourWay,
+                        Prefabs.Hall_H => Hall_H,
+                        Prefabs.Hall_V => Hall_V,
+                        Prefabs.T_H_S => T_H_S,
+                        Prefabs.T_H_N => T_H_N,
+                        Prefabs.Loop_W_S => Loop_W_S,
+                        Prefabs.Loop_N_E => Loop_N_E,
+                        Prefabs.Test => TestRoom,
+                        Prefabs.StartRoom => StartRoom,
+                        Prefabs.LevelStart => LevelStart,
+                        Prefabs.NextLevel => NextLevel,
+                        Prefabs.EndRoom => EndRoom,
+                        _ => FourWay,
+                    };
                     tilePicker(new Point(origin.X + (x * tileSize), origin.Y + (y * tileSize)));
                     index++;
                 }
@@ -206,6 +204,31 @@ namespace StaticNeuron
                     }
 
                     if (y > 5)
+                    {
+                        if (x < 2 || x > 6)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                }
+            }
+        }
+        void T_H_N(Point origin)
+        {
+            for (int y = 0; y < tileSize; y++)
+            {
+                for (int x = 0; x < tileSize; x++)
+                {
+                    if (y == 9 && (x == 0 || x == 9))
+                        Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                    if (y == 8)
+                    {
+                        if (x < 2 || x > 7)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                        else
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+
+                    if (y < 4)
                     {
                         if (x < 2 || x > 6)
                             Walls.Add(new Point(origin.X + x, origin.Y + y));
@@ -435,6 +458,72 @@ namespace StaticNeuron
                     {
                         if (x < 3 || x > 6)
                             Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 1)
+                    {
+                        if (x == 0)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x == 1)
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 2)
+                    {
+                        if (x == 0)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x == 2)
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 3)
+                    {
+                        if (x == 3 || x == 8)
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x == 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 4)
+                    {
+                        if (x == 4 || x == 8)
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 5)
+                    {
+                        if (x == 8)
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 6)
+                    {
+                        if (x == 9)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 7)
+                    {
+                        if (x == 0)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x == 9)
+                            NextLevelSpots.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 8)
+                    {
+                        if (x == 0)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x > 2 && x < 6)
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x > 7)
+                            NextLevelSpots.Add(new Point(origin.X + x, origin.Y + y));
+                    }
+                    if (y == 9)
+                    {
+                        if (x == 0 || x == 3 || x == 6)
+                            Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x > 6)
+                            NextLevelSpots.Add(new Point(origin.X + x, origin.Y + y));
                     }
                 }
             }
