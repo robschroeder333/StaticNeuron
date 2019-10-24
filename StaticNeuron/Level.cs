@@ -46,7 +46,7 @@ namespace StaticNeuron
                     {
                         if (i == 0)
                             bluePrint[i] = Prefabs.StartRoom;
-                        else if (i == (bluePrint.Length - 1))
+                        else if (i == 20)
                             bluePrint[i] = Prefabs.NextLevel;
                         else if (i == 3 || i == 7 || i == 15 || i == 18)
                             bluePrint[i] = Prefabs.FourWay;
@@ -60,6 +60,29 @@ namespace StaticNeuron
                             bluePrint[i] = Prefabs.Loop_N_E;
                         else
                             bluePrint[i] = Prefabs.Hall_H;
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < bluePrint.Length; i++)
+                    {
+                        if (i == 0)
+                            bluePrint[i] = Prefabs.LevelStart;
+                        else if (i == 1 || i == 3 || i == 6)
+                            bluePrint[i] = Prefabs.Loop_W_S;
+                        else if (i == 5 || i == 20)
+                            bluePrint[i] = Prefabs.Hall_H;
+                        else if (i == 8 || i == 12 || i == 19)
+                            bluePrint[i] = Prefabs.FourWay;
+                        else if (i > 8 && i < 12)
+                            bluePrint[i] = Prefabs.Hall_V;
+                        else if (i == 13)
+                            bluePrint[i] = Prefabs.NextLevel;
+                        else if (i == 14 || i == 15 || i == 17)
+                            bluePrint[i] = Prefabs.Loop_N_E;
+                        else if (i == 16 || i == 18)
+                            bluePrint[i] = Prefabs.T_H_N;
+                        else
+                            bluePrint[i] = Prefabs.T_H_S;
                     }
                     break;
                 default:
