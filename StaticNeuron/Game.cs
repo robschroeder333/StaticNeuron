@@ -11,9 +11,26 @@ namespace StaticNeuron
     {
         public static Pieces[,] screen;
         public static Pieces[,] invisibleScreen;
+        public static int currentLevel = 1;
+        public static int CurrentLevel 
+        {
+            get
+            {
+                return currentLevel;
+            }
+            set
+            {
+                currentLevel = value;
+                Console.Clear();
+                levelChanged = true;
+                screen = new Pieces[Program.width, Program.height];
+                invisibleScreen = new Pieces[Program.width, Program.height];
+                Level.CreateLevel(CurrentLevel);
+            }
+        }
         public Character player;
         public Character monster;
-        public int CurrentLevel { get; private set; } = 1;
+        static bool levelChanged = false;
 
         public Game()
         {
@@ -21,7 +38,7 @@ namespace StaticNeuron
             invisibleScreen = new Pieces[Program.width, Program.height];
             player = new Character(1, 5, false);
             monster = new Character(3, 6);
-            Level.CreateLevel(CurrentLevel);
+            CurrentLevel = 1;
         }
 
         public void Step()
@@ -77,7 +94,25 @@ namespace StaticNeuron
 
         void LevelManager()
         {
-            
+            if (levelChanged)
+            {
+                switch (CurrentLevel)
+                {
+                    case 1:
+                    case 2:
+                        player.Position = new Point(3, 5);//3,5
+                        levelChanged = false;
+                        break;
+                    case 3:
+                        player.Position = new Point(2, 25);
+                        levelChanged = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+
             foreach (Point wall in Level.Walls)
             {
                 screen[wall.X, wall.Y] = Pieces.Wall;
@@ -90,6 +125,7 @@ namespace StaticNeuron
             {
                 screen[spots.X, spots.Y] = Pieces.NextLevel;
             }
+
         }
     }
 }

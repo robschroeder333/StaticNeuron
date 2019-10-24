@@ -26,7 +26,12 @@ namespace StaticNeuron
 
         public static void CreateLevel(int levelChoice)
         {
-            Walls.Clear();
+            if (levelChoice > 1)
+            {
+                Walls.Clear();
+                Windows.Clear();
+                NextLevelSpots.Clear();
+            }
             int tilesHigh = (Program.height - 2) / tileSize;
             int tilesWide = (Program.width - 2) / tileSize;
             Point origin = new Point(1, 1);
@@ -79,15 +84,14 @@ namespace StaticNeuron
                             bluePrint[i] = Prefabs.T_H_S;
                     }
                     break;
-                case 5:
-                    //set player position to start in the bottom right tile
+                case 3://final level                    
                     for (int i = 0; i < bluePrint.Length; i++)
                     {   
                         if (i < 2 || i == 5 || i == 13)
                             bluePrint[i] = Prefabs.FourWay;
                         else if (i == 7)
                             bluePrint[i] = Prefabs.Loop_N_E;
-                        else if (i == 8 || i == 12 || i == 16 || i == 17)
+                        else if (i == 2 || i == 8 || i == 12 || i == 16)
                             bluePrint[i] = Prefabs.Hall_H;
                         else if (i == 9 || i == 18 || i == 20)
                             bluePrint[i] = Prefabs.T_H_N;

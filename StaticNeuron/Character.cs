@@ -11,9 +11,9 @@ namespace StaticNeuron
         bool isNPC;
         Direction dir;
         public int LightLevel { get; private set; } = 3;
-        public Point Position { get; private set; }
+        public Point Position { get; set; }
         public Point[] Vision { get; private set; }
-        public int Actions { get; set; } = 1000;
+        public int Actions { get; set; } = 100000;
 
         public Character(int x, int y, bool isNPC = true)
         {
@@ -327,6 +327,9 @@ namespace StaticNeuron
                         && Game.screen[newPositionX, Position.Y] != Pieces.Wall
                         && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                     {
+                        if (!isNPC && Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
+                            Game.CurrentLevel++;
+
                         Position = new Point (newPositionX, Position.Y);
                         Actions--;
                     }
@@ -340,6 +343,9 @@ namespace StaticNeuron
                         && Game.screen[newPositionX, Position.Y] != Pieces.Wall
                         && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                     {
+                        if (!isNPC && Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
+                            Game.CurrentLevel++;
+
                         Position = new Point (newPositionX, Position.Y);
                         Actions--;
                     }
@@ -353,6 +359,9 @@ namespace StaticNeuron
                         && Game.screen[Position.X, newPositionY] != Pieces.Wall
                         && Game.screen[Position.X, newPositionY] != Pieces.Window)
                     {
+                        if (!isNPC && Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
+                            Game.CurrentLevel++;
+
                         Position = new Point (Position.X, newPositionY);
                         Actions--;
                     }
@@ -366,6 +375,9 @@ namespace StaticNeuron
                         && Game.screen[Position.X, newPositionY] != Pieces.Wall
                         && Game.screen[Position.X, newPositionY] != Pieces.Window)
                     {
+                        if (!isNPC && Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
+                            Game.CurrentLevel++;
+
                         Position = new Point (Position.X, newPositionY);
                         Actions--;
                     }
