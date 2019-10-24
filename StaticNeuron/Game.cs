@@ -5,15 +5,32 @@ using System.Drawing;
 
 namespace StaticNeuron
 {
-    public enum Pieces { Empty, Wall, Window, Player, Enemy, NextLevel, Vision, Fire }
+    public enum Pieces { Empty, Wall, Window, Player, Enemy, NextLevel, Vision, Fire, Torch}
 
     class Game
     {
         public static Pieces[,] screen;
         public static Pieces[,] invisibleScreen;
+        public static int currentLevel = 1;
+        public static int CurrentLevel 
+        {
+            get
+            {
+                return currentLevel;
+            }
+            set
+            {
+                currentLevel = value;
+                Console.Clear();
+                levelChanged = true;
+                screen = new Pieces[Program.width, Program.height];
+                invisibleScreen = new Pieces[Program.width, Program.height];
+                Level.CreateLevel(CurrentLevel);
+            }
+        }
         public Character player;
         public Character monster;
-        public Level level;
+        static bool levelChanged = false;
 
         public Game()
         {
@@ -21,8 +38,7 @@ namespace StaticNeuron
             invisibleScreen = new Pieces[Program.width, Program.height];
             player = new Character(1, 5, false);
             monster = new Character(3, 6);
-            level = new Level(1);
-
+            CurrentLevel = 1;
         }
 
         public void Step()
@@ -30,14 +46,8 @@ namespace StaticNeuron
             do {
                 screen = new Pieces[Program.width, Program.height];
                 invisibleScreen = new Pieces[Program.width, Program.height];
-                foreach (Point wall in level.Walls)
-                {
-                    screen[wall.X, wall.Y] = Pieces.Wall;
-                }
-                foreach (Point window in level.Windows)
-                {
-                    screen[window.X, window.Y] = Pieces.Window;
-                }
+
+                LevelManager();
 
                 if (player.Actions > 0)
                 {
@@ -46,8 +56,9 @@ namespace StaticNeuron
                         player.Move(Console.ReadKey().Key);
                         screen[player.Position.X, player.Position.Y] = Pieces.Player;
                         monster.NPCMove();
-                        screen[monster.Position.X, monster.Position.Y] = Pieces.Player;
+                        screen[monster.Position.X, monster.Position.Y] = Pieces.Enemy;
                         invisibleScreen[player.Position.X, player.Position.Y] = Pieces.Player;
+                        
                         foreach (Point vision in player.Vision)
                         {
                             if (vision.X != -1)
@@ -72,12 +83,48 @@ namespace StaticNeuron
                                 }
                             }
                         }
-                        
+
                         Render.DrawScreen();
                     }
                 }
 
             } while (player.LightLevel >= 0); 
+
+        }
+
+        void LevelManager()
+        {
+            if (levelChanged)
+            {
+                switch (CurrentLevel)
+                {
+                    case 1:
+                    case 2:
+                        player.Position = new Point(3, 5);//3,5
+                        levelChanged = false;
+                        break;
+                    case 3:
+                        player.Position = new Point(2, 25);
+                        levelChanged = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+
+            foreach (Point wall in Level.Walls)
+            {
+                screen[wall.X, wall.Y] = Pieces.Wall;
+            }
+            foreach (Point window in Level.Windows)
+            {
+                screen[window.X, window.Y] = Pieces.Window;
+            }
+            foreach (Point spots in Level.NextLevelSpots)
+            {
+                screen[spots.X, spots.Y] = Pieces.NextLevel;
+            }
 
         }
     }

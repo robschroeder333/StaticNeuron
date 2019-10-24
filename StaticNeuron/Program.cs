@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace StaticNeuron
 {
@@ -28,6 +29,7 @@ namespace StaticNeuron
             Console.WriteLine("                       ▀                                                             ");
             Console.WriteLine("\n\n\n\n\n");
             Console.WriteLine("                             Press Any Key To Continue                               ");
+            Thread.Sleep(2000);
         }
         static void ColorTest()
         {

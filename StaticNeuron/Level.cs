@@ -8,9 +8,9 @@ namespace StaticNeuron
 {
     class Level
     {
-        public List<Point> Walls { get; set; }
-        public List<Point> Windows { get; set; }
-        public List<Point> NextLevelSpots { get; set; }
+        static public List<Point> Walls { get; set; } = new List<Point>();
+        static public List<Point> Windows { get; set; } = new List<Point>();
+        static public List<Point> NextLevelSpots { get; set; } = new List<Point>();       
 
         delegate void TilePicker(Point origin);
         enum Prefabs 
@@ -20,19 +20,18 @@ namespace StaticNeuron
             NextLevel, EndRoom, Test
         }
         
-        int tileSize = 10;
+        static int tileSize = 10;
 
-        public Level(int choice = 0)
-        {
-            Walls = new List<Point>();
-            Windows = new List<Point>();
-            NextLevelSpots = new List<Point>();
-            CreateLevel(choice);
-        }
 
-        void CreateLevel(int levelChoice)
+
+        public static void CreateLevel(int levelChoice)
         {
-            Walls.Clear();
+            if (levelChoice > 1)
+            {
+                Walls.Clear();
+                Windows.Clear();
+                NextLevelSpots.Clear();
+            }
             int tilesHigh = (Program.height - 2) / tileSize;
             int tilesWide = (Program.width - 2) / tileSize;
             Point origin = new Point(1, 1);
@@ -46,7 +45,7 @@ namespace StaticNeuron
                     {
                         if (i == 0)
                             bluePrint[i] = Prefabs.StartRoom;
-                        else if (i == (bluePrint.Length - 1))
+                        else if (i == 20)
                             bluePrint[i] = Prefabs.NextLevel;
                         else if (i == 3 || i == 7 || i == 15 || i == 18)
                             bluePrint[i] = Prefabs.FourWay;
@@ -60,6 +59,50 @@ namespace StaticNeuron
                             bluePrint[i] = Prefabs.Loop_N_E;
                         else
                             bluePrint[i] = Prefabs.Hall_H;
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < bluePrint.Length; i++)
+                    {
+                        if (i == 0)
+                            bluePrint[i] = Prefabs.LevelStart;
+                        else if (i == 1 || i == 3 || i == 6)
+                            bluePrint[i] = Prefabs.Loop_W_S;
+                        else if (i == 5 || i == 20)
+                            bluePrint[i] = Prefabs.Hall_H;
+                        else if (i == 8 || i == 12 || i == 19)
+                            bluePrint[i] = Prefabs.FourWay;
+                        else if (i > 8 && i < 12)
+                            bluePrint[i] = Prefabs.Hall_V;
+                        else if (i == 13)
+                            bluePrint[i] = Prefabs.NextLevel;
+                        else if (i == 14 || i == 15 || i == 17)
+                            bluePrint[i] = Prefabs.Loop_N_E;
+                        else if (i == 16 || i == 18)
+                            bluePrint[i] = Prefabs.T_H_N;
+                        else
+                            bluePrint[i] = Prefabs.T_H_S;
+                    }
+                    break;
+                case 3://final level                    
+                    for (int i = 0; i < bluePrint.Length; i++)
+                    {   
+                        if (i < 2 || i == 5 || i == 13)
+                            bluePrint[i] = Prefabs.FourWay;
+                        else if (i == 7)
+                            bluePrint[i] = Prefabs.Loop_N_E;
+                        else if (i == 2 || i == 8 || i == 12 || i == 16)
+                            bluePrint[i] = Prefabs.Hall_H;
+                        else if (i == 9 || i == 18 || i == 20)
+                            bluePrint[i] = Prefabs.T_H_N;
+                        else if (i == 10)
+                            bluePrint[i] = Prefabs.EndRoom;
+                        else if (i == 11)
+                            bluePrint[i] = Prefabs.Hall_V;
+                        else if (i == 14)
+                            bluePrint[i] = Prefabs.LevelStart;
+                        else
+                            bluePrint[i] = Prefabs.T_H_S;
                     }
                     break;
                 default:
@@ -93,7 +136,7 @@ namespace StaticNeuron
             }
         }
 
-        void Hall_H(Point origin)
+        static void Hall_H(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -125,7 +168,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void Hall_V(Point origin)
+        static void Hall_V(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -157,7 +200,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void FourWay(Point origin)
+        static void FourWay(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -186,7 +229,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void T_H_S(Point origin)
+        static void T_H_S(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -211,7 +254,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void T_H_N(Point origin)
+        static void T_H_N(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -236,7 +279,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void Loop_W_S(Point origin)
+        static void Loop_W_S(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -292,7 +335,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void Loop_N_E(Point origin)
+        static void Loop_N_E(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -348,7 +391,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void StartRoom(Point origin)
+        static void StartRoom(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -380,7 +423,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void LevelStart(Point origin)
+        static void LevelStart(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -403,7 +446,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void NextLevel(Point origin)
+        static void NextLevel(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -448,7 +491,7 @@ namespace StaticNeuron
                 }
             }
         }
-        void EndRoom(Point origin)
+        static void EndRoom(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
@@ -529,7 +572,7 @@ namespace StaticNeuron
             }
         }
 
-        void TestRoom(Point origin)
+        static void TestRoom(Point origin)
         {
             for (int y = 0; y < tileSize; y++)
             {
