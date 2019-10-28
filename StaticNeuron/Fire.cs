@@ -15,7 +15,7 @@ namespace StaticNeuron
         {
             Size = size;
             Position = new Point(x, y);
-            Vision = new Point[Size];
+            Vision = new Point[size*size];
             SetVision();
         }
 
@@ -34,11 +34,11 @@ namespace StaticNeuron
         {
             int offset = 0;
 
-            if (Size == 9)
+            if (Size == 3)
             {
                 offset = 1;
             }
-            if (Size == 25)
+            if (Size == 5)
             {
                 offset = 2;
             }
@@ -46,11 +46,12 @@ namespace StaticNeuron
             int max = size - 1;
             int x = 0;
             int y = 0;
-            for (int i = 0; i < Size; i++)
+            for (int i = 0; i < size * size; i++)
             {
-                if (WithinBounds(Position.X - offset, Position.Y - offset))
+                if (WithinBounds(Position.X + x - offset, Position.Y + y - offset))
                 {
-                    Vision[i] = new Point(Position.X - offset, Position.Y - offset);
+                    Vision[i] = new Point(x, y);
+                    //Console.WriteLine($"x={Vision[i].X} y={Vision[i].Y}");
                 }
                 else Vision[i] = new Point(-1, -1);
 
@@ -125,16 +126,16 @@ namespace StaticNeuron
 
         void OcclusionChecker(int x, int y, int index)
         {
-            if (WithinBounds(Position.X + x, Position.Y + y))
+            if (WithinBounds(Position.X + x - 1, Position.Y + y - 1))
             {
-                if (Game.screen[Position.X + x, Position.Y + y] == Pieces.Wall
+                if (Game.screen[Position.X + x - 1, Position.Y + y - 1] == Pieces.Wall
                     && Vision[index].X != -1)
                 {
-                    Vision[index] = new Point(Position.X + x, Position.Y + y);
+                    Vision[index] = new Point(Position.X + x - 1, Position.Y + y - 1);
                     Occlusion(index);
                 }
                 else if (Vision[index].X != -1)
-                    Vision[index] = new Point(Position.X + x, Position.Y + y);
+                    Vision[index] = new Point(Position.X + x - 1, Position.Y + y - 1);
             }
             else
                 Vision[index] = new Point(-1, -1);
