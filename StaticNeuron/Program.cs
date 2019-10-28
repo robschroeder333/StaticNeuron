@@ -29,7 +29,7 @@ namespace StaticNeuron
             Console.WriteLine("                       ▀                                                             ");
             Console.WriteLine("\n\n\n\n\n");
             Console.WriteLine("                             Press Any Key To Continue                               ");
-            Thread.Sleep(2000);
+            Console.ReadKey();
         }
         static void ColorTest()
         {
