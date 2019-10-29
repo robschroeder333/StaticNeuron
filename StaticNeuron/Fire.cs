@@ -26,6 +26,8 @@ namespace StaticNeuron
             for (int i = 0; i < Vision.Length; i++)
             {
                 OcclusionChecker(Vision[i].X, Vision[i].Y, index);
+                //Console.SetCursorPosition(0, Program.width+2);
+                //Console.Write($"X = {Vision[i].X} Y = {Vision[i].Y} Index = {index}");
                 index++;
             }
         }
@@ -34,11 +36,11 @@ namespace StaticNeuron
         {
             int offset = 0;
 
-            if (Size == 3)
+            if (size == 3)
             {
                 offset = 1;
             }
-            if (Size == 5)
+            if (size == 5)
             {
                 offset = 2;
             }
@@ -50,8 +52,8 @@ namespace StaticNeuron
             {
                 if (WithinBounds(Position.X + x - offset, Position.Y + y - offset))
                 {
-                    Vision[i] = new Point(x, y);
-                    //Console.WriteLine($"x={Vision[i].X} y={Vision[i].Y}");
+                    Vision[i] = new Point(Position.X + x - offset, Position.Y + y - offset);
+                    Console.WriteLine($"x={Vision[i].X} y={Vision[i].Y} i={i}");
                 }
                 else Vision[i] = new Point(-1, -1);
 
@@ -70,6 +72,7 @@ namespace StaticNeuron
                     x++;
                 }
             }
+            Console.ReadKey();
         }
 
         public void Occlusion(int n)
@@ -126,16 +129,16 @@ namespace StaticNeuron
 
         void OcclusionChecker(int x, int y, int index)
         {
-            if (WithinBounds(Position.X + x - 1, Position.Y + y - 1))
+            if (WithinBounds(Position.X + x - 2,Position.Y + y - 2))
             {
-                if (Game.screen[Position.X + x - 1, Position.Y + y - 1] == Pieces.Wall
+                if (Game.screen[Position.X + x - 2, Position.Y + y - 2] == Pieces.Wall
                     && Vision[index].X != -1)
                 {
-                    Vision[index] = new Point(Position.X + x - 1, Position.Y + y - 1);
+                    Vision[index] = new Point(Position.X + x - 2, Position.Y + y - 2);
                     Occlusion(index);
                 }
                 else if (Vision[index].X != -1)
-                    Vision[index] = new Point(Position.X + x - 1, Position.Y + y - 1);
+                    Vision[index] = new Point(Position.X + x - 2, Position.Y + y - 2);
             }
             else
                 Vision[index] = new Point(-1, -1);

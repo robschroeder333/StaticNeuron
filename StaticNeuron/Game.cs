@@ -39,7 +39,7 @@ namespace StaticNeuron
             invisibleScreen = new Pieces[Program.width, Program.height];
             player = new Character(1, 5, false);
             monster = new Character(1, 4);
-            fire = new Fire(1, 5, 3);
+            fire = new Fire(3, 5, 5);
             CurrentLevel = 1;
         }
 
