@@ -59,6 +59,8 @@ namespace StaticNeuron
                         monster.NPCMove();
                         screen[monster.Position.X, monster.Position.Y] = Pieces.Enemy;
                         invisibleScreen[player.Position.X, player.Position.Y] = Pieces.Player;
+                        invisibleScreen[fire.Position.X, fire.Position.Y] = Pieces.Torch;
+                        
 
                         foreach (Point vision in fire.Vision)
                         {
