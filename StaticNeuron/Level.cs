@@ -65,6 +65,9 @@ namespace StaticNeuron
                         else
                             bluePrint[i] = Prefabs.Hall_H;
                     }
+                    Torches.Add(new Point(tileSize * 6 + 7, tileSize));
+                    Torches.Add(new Point(2, tileSize * 1 + 6));
+                    Torches.Add(new Point(tileSize * 4 + 1, tileSize * 2 + 7));
                     break;
                 case 2:
                     for (int i = 0; i < bluePrint.Length; i++)
@@ -88,6 +91,10 @@ namespace StaticNeuron
                         else
                             bluePrint[i] = Prefabs.T_H_S;
                     }
+                    Torches.Add(new Point(3, tileSize * 2 + 7));
+                    Torches.Add(new Point(tileSize * 2 + 2, tileSize * 1 + 6));
+                    Torches.Add(new Point(tileSize * 4 + 2, tileSize * 2 + 7));
+                    Torches.Add(new Point(tileSize * 5 + 2, 6));
                     break;
                 case 3://final level                    
                     for (int i = 0; i < bluePrint.Length; i++)
@@ -109,6 +116,11 @@ namespace StaticNeuron
                         else
                             bluePrint[i] = Prefabs.T_H_S;
                     }
+                    Torches.Add(new Point(5, 4));
+                    Torches.Add(new Point(tileSize * 6 + 2, 6));
+                    Torches.Add(new Point(tileSize * 6 + 6, 5));
+                    Torches.Add(new Point(tileSize * 6 + 3, tileSize * 2 + 7));
+                    Torches.Add(new Point(tileSize * 6 + 8, tileSize * 2 + 6));
                     break;
                 default:
                     bluePrint[0] = Prefabs.Test;

@@ -31,8 +31,7 @@ namespace StaticNeuron
         public Character player;
         public Character monster;
         List<Fire> Lights;
-        static bool levelChanged = false;
-        Fire test;
+        static bool levelChanged = false;       
 
         public Game()
         {
@@ -41,7 +40,6 @@ namespace StaticNeuron
             player = new Character(1, 5, false);
             monster = new Character(1, 4);
             Lights = new List<Fire>();
-            test = new Fire(30, 2, 3);
             CurrentLevel = 1;
         }
 
@@ -61,7 +59,6 @@ namespace StaticNeuron
                         monster.NPCMove();
                         screen[monster.Position.X, monster.Position.Y] = Pieces.Enemy;
                         invisibleScreen[player.Position.X, player.Position.Y] = Pieces.Player;
-                        invisibleScreen[test.Position.X, test.Position.Y] = Pieces.Torch;
                         foreach (Fire light in Lights)
                         {
                             foreach (Point vision in light.Vision)
@@ -85,7 +82,7 @@ namespace StaticNeuron
                             }
                         }
 
-                        foreach (Point vision in test.Vision)
+                        foreach (Point vision in player.Vision)
                         {
                             if (vision.X != -1)
                             {
@@ -147,33 +144,33 @@ namespace StaticNeuron
                 screen[spot.X, spot.Y] = Pieces.NextLevel;
             }
 
-            //if (Lights.Capacity == 0 || Lights.Count == 0)
-            //{
-            //    foreach (Point fire in Level.Fire)
-            //    {
-            //        Lights.Add(new Fire(fire.X, fire.Y, 5));
-            //        screen[fire.X, fire.Y] = Pieces.Fire;
-            //    }
+            if (Lights.Capacity == 0 || Lights.Count == 0)
+            {
+                foreach (Point fire in Level.Fire)
+                {
+                    Lights.Add(new Fire(fire.X, fire.Y, 5));
+                    screen[fire.X, fire.Y] = Pieces.Fire;
+                }
 
-            //    foreach (Point torch in Level.Torches)
-            //    {                    
-            //        Lights.Add(new Fire(torch.X, torch.Y, 3));
-            //        screen[torch.X, torch.Y] = Pieces.Torch;
-            //    }
-            //}
-            //else
-            //{
-            //    foreach (Point fire in Level.Fire)
-            //    {                                                       
-            //        screen[fire.X, fire.Y] = Pieces.Fire;
-            //    }
+                foreach (Point torch in Level.Torches)
+                {
+                    Lights.Add(new Fire(torch.X, torch.Y, 3));
+                    screen[torch.X, torch.Y] = Pieces.Torch;
+                }
+            }
+            else
+            {
+                foreach (Point fire in Level.Fire)
+                {
+                    screen[fire.X, fire.Y] = Pieces.Fire;
+                }
 
-            //    foreach (Point torch in Level.Torches)
-            //    {
-            //        screen[torch.X, torch.Y] = Pieces.Torch;
-            //    }
+                foreach (Point torch in Level.Torches)
+                {
+                    screen[torch.X, torch.Y] = Pieces.Torch;
+                }
 
-            //}
+            }
 
 
 
