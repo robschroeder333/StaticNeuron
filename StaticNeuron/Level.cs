@@ -10,7 +10,10 @@ namespace StaticNeuron
     {
         static public List<Point> Walls { get; set; } = new List<Point>();
         static public List<Point> Windows { get; set; } = new List<Point>();
-        static public List<Point> NextLevelSpots { get; set; } = new List<Point>();       
+        static public List<Point> NextLevelSpots { get; set; } = new List<Point>();   
+        static public List<Point> Torches { get; set; } = new List<Point>();   
+        static public List<Point> Fire { get; set; } = new List<Point>();   
+        
 
         delegate void TilePicker(Point origin);
         enum Prefabs 
@@ -31,6 +34,8 @@ namespace StaticNeuron
                 Walls.Clear();
                 Windows.Clear();
                 NextLevelSpots.Clear();
+                Torches.Clear();
+                Fire.Clear();
             }
             int tilesHigh = (Program.height - 2) / tileSize;
             int tilesWide = (Program.width - 2) / tileSize;
@@ -60,6 +65,9 @@ namespace StaticNeuron
                         else
                             bluePrint[i] = Prefabs.Hall_H;
                     }
+                    Torches.Add(new Point(tileSize * 6 + 7, tileSize));
+                    Torches.Add(new Point(2, tileSize * 1 + 6));
+                    Torches.Add(new Point(tileSize * 4 + 1, tileSize * 2 + 7));
                     break;
                 case 2:
                     for (int i = 0; i < bluePrint.Length; i++)
@@ -83,6 +91,10 @@ namespace StaticNeuron
                         else
                             bluePrint[i] = Prefabs.T_H_S;
                     }
+                    Torches.Add(new Point(3, tileSize * 2 + 7));
+                    Torches.Add(new Point(tileSize * 2 + 2, tileSize * 1 + 6));
+                    Torches.Add(new Point(tileSize * 4 + 2, tileSize * 2 + 7));
+                    Torches.Add(new Point(tileSize * 5 + 2, 6));
                     break;
                 case 3://final level                    
                     for (int i = 0; i < bluePrint.Length; i++)
@@ -104,6 +116,11 @@ namespace StaticNeuron
                         else
                             bluePrint[i] = Prefabs.T_H_S;
                     }
+                    Torches.Add(new Point(5, 4));
+                    Torches.Add(new Point(tileSize * 6 + 2, 6));
+                    Torches.Add(new Point(tileSize * 6 + 6, 5));
+                    Torches.Add(new Point(tileSize * 6 + 3, tileSize * 2 + 7));
+                    Torches.Add(new Point(tileSize * 6 + 8, tileSize * 2 + 6));
                     break;
                 default:
                     bluePrint[0] = Prefabs.Test;
@@ -420,6 +437,8 @@ namespace StaticNeuron
                         if (x == 0)
                             Walls.Add(new Point(origin.X + x, origin.Y + y));
                     }
+                    if (y == 4 && x == 4)
+                        Fire.Add(new Point(origin.X + x, origin.Y + y));                        
                 }
             }
         }
@@ -443,6 +462,8 @@ namespace StaticNeuron
                         if (x == 0 || x == 2 || x == 7 || x == 9)
                             Walls.Add(new Point(origin.X + x, origin.Y + y));
                     }
+                    if (y == 4 && x == 3)
+                        Fire.Add(new Point(origin.X + x, origin.Y + y));
                 }
             }
         }
@@ -452,6 +473,9 @@ namespace StaticNeuron
             {
                 for (int x = 0; x < tileSize; x++)
                 {
+                    if ((y == 2 && x == 6) || (y == 6 && x == 5))
+                        Torches.Add(new Point(origin.X + x, origin.Y + y));
+
                     if (y == 0)
                     {
                         if (x < 3 || x > 6)
@@ -509,14 +533,20 @@ namespace StaticNeuron
 
                         if (x == 1)
                             Windows.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x == 2)
+                            Torches.Add(new Point(origin.X + x, origin.Y + y));
                     }
                     if (y == 2)
                     {
                         if (x == 0)
                             Walls.Add(new Point(origin.X + x, origin.Y + y));
 
+                        if (x == 1 || x == 9)
+                            Torches.Add(new Point(origin.X + x, origin.Y + y));
+
                         if (x == 2)
-                            Windows.Add(new Point(origin.X + x, origin.Y + y));
+                            Windows.Add(new Point(origin.X + x, origin.Y + y));                        
                     }
                     if (y == 3)
                     {
@@ -564,6 +594,9 @@ namespace StaticNeuron
                     {
                         if (x == 0 || x == 3 || x == 6)
                             Walls.Add(new Point(origin.X + x, origin.Y + y));
+
+                        if (x == 2)
+                            Torches.Add(new Point(origin.X + x, origin.Y + y));
 
                         if (x > 6)
                             NextLevelSpots.Add(new Point(origin.X + x, origin.Y + y));
