@@ -30,8 +30,9 @@ namespace StaticNeuron
         }
         public Character player;
         public Character monster;
-        public Fire fire;
+        List<Fire> Lights;
         static bool levelChanged = false;
+        Fire test;
 
         public Game()
         {
@@ -39,7 +40,8 @@ namespace StaticNeuron
             invisibleScreen = new Pieces[Program.width, Program.height];
             player = new Character(1, 5, false);
             monster = new Character(1, 4);
-            fire = new Fire(3, 5, 5);
+            Lights = new List<Fire>();
+            test = new Fire(30, 2, 3);
             CurrentLevel = 1;
         }
 
@@ -59,54 +61,47 @@ namespace StaticNeuron
                         monster.NPCMove();
                         screen[monster.Position.X, monster.Position.Y] = Pieces.Enemy;
                         invisibleScreen[player.Position.X, player.Position.Y] = Pieces.Player;
-
-                        foreach (Point vision in fire.Vision)
+                        invisibleScreen[test.Position.X, test.Position.Y] = Pieces.Torch;
+                        foreach (Fire light in Lights)
                         {
-                            if (vision.X != -1)
+                            foreach (Point vision in light.Vision)
                             {
-                                switch (screen[vision.X, vision.Y])
+                                if (vision.X != -1)
                                 {
-                                    case Pieces.Empty:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Vision;
-                                        break;
-                                    case Pieces.Wall:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Wall;
-                                        break;
-                                    case Pieces.Player:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Player;
-                                        break;
-                                    case Pieces.Window:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Window;
-                                        break;
-                                    default:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Vision;
-                                        break;
+                                    invisibleScreen[vision.X, vision.Y] = (screen[vision.X, vision.Y]) switch
+                                    {
+                                        Pieces.Empty => Pieces.Vision,
+                                        Pieces.Wall => Pieces.Wall,
+                                        Pieces.Player => Pieces.Player,
+                                        Pieces.Window => Pieces.Window,
+                                        Pieces.Enemy => Pieces.Enemy,
+                                        Pieces.NextLevel => Pieces.NextLevel,
+                                        Pieces.Vision => Pieces.Vision,
+                                        Pieces.Fire => Pieces.Fire,
+                                        Pieces.Torch => Pieces.Torch,
+                                        _ => Pieces.Vision,
+                                    };
                                 }
                             }
                         }
 
-                        foreach (Point vision in player.Vision)
+                        foreach (Point vision in test.Vision)
                         {
                             if (vision.X != -1)
                             {
-                                switch (screen[vision.X, vision.Y])
+                                invisibleScreen[vision.X, vision.Y] = (screen[vision.X, vision.Y]) switch
                                 {
-                                    case Pieces.Empty:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Vision;
-                                    break;
-                                    case Pieces.Wall:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Wall;
-                                    break;
-                                    case Pieces.Player:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Player;
-                                    break;
-                                    case Pieces.Window:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Window;
-                                    break;
-                                    default:
-                                        invisibleScreen[vision.X, vision.Y] = Pieces.Vision;
-                                    break;
-                                }
+                                    Pieces.Empty => Pieces.Vision,
+                                    Pieces.Wall => Pieces.Wall,
+                                    Pieces.Player => Pieces.Player,
+                                    Pieces.Window => Pieces.Window,
+                                    Pieces.Enemy => Pieces.Enemy,
+                                    Pieces.NextLevel => Pieces.NextLevel,
+                                    Pieces.Vision => Pieces.Vision,
+                                    Pieces.Fire => Pieces.Fire,
+                                    Pieces.Torch => Pieces.Torch,
+                                    _ => Pieces.Vision,
+                                };
                             }
                         }
 
@@ -114,7 +109,7 @@ namespace StaticNeuron
                     }
                 }
 
-            } while (player.LightLevel >= 0); 
+            } while (player.LightLevel >= 0);
 
         }
 
@@ -147,10 +142,40 @@ namespace StaticNeuron
             {
                 screen[window.X, window.Y] = Pieces.Window;
             }
-            foreach (Point spots in Level.NextLevelSpots)
+            foreach (Point spot in Level.NextLevelSpots)
             {
-                screen[spots.X, spots.Y] = Pieces.NextLevel;
+                screen[spot.X, spot.Y] = Pieces.NextLevel;
             }
+
+            //if (Lights.Capacity == 0 || Lights.Count == 0)
+            //{
+            //    foreach (Point fire in Level.Fire)
+            //    {
+            //        Lights.Add(new Fire(fire.X, fire.Y, 5));
+            //        screen[fire.X, fire.Y] = Pieces.Fire;
+            //    }
+
+            //    foreach (Point torch in Level.Torches)
+            //    {                    
+            //        Lights.Add(new Fire(torch.X, torch.Y, 3));
+            //        screen[torch.X, torch.Y] = Pieces.Torch;
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (Point fire in Level.Fire)
+            //    {                                                       
+            //        screen[fire.X, fire.Y] = Pieces.Fire;
+            //    }
+
+            //    foreach (Point torch in Level.Torches)
+            //    {
+            //        screen[torch.X, torch.Y] = Pieces.Torch;
+            //    }
+
+            //}
+
+
 
         }
     }

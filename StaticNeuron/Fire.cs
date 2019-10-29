@@ -26,8 +26,6 @@ namespace StaticNeuron
             for (int i = 0; i < Vision.Length; i++)
             {
                 OcclusionChecker(Vision[i].X, Vision[i].Y, index);
-                //Console.SetCursorPosition(0, Program.width+2);
-                //Console.Write($"X = {Vision[i].X} Y = {Vision[i].Y} Index = {index}");
                 index++;
             }
         }
@@ -53,7 +51,7 @@ namespace StaticNeuron
                 if (WithinBounds(Position.X + x - offset, Position.Y + y - offset))
                 {
                     Vision[i] = new Point(Position.X + x - offset, Position.Y + y - offset);
-                    Console.WriteLine($"x={Vision[i].X} y={Vision[i].Y} i={i}");
+                    //Console.WriteLine($"x:{Vision[i].X}, y:{Vision[i].Y}");
                 }
                 else Vision[i] = new Point(-1, -1);
 
@@ -72,7 +70,7 @@ namespace StaticNeuron
                     x++;
                 }
             }
-            Console.ReadKey();
+            //Console.ReadKey();
         }
 
         public void Occlusion(int n)
