@@ -127,16 +127,16 @@ namespace StaticNeuron
 
         void OcclusionChecker(int x, int y, int index)
         {
-            if (WithinBounds(Position.X + x - 2,Position.Y + y - 2))
+            if (WithinBounds(x,y))
             {
-                if (Game.screen[Position.X + x - 2, Position.Y + y - 2] == Pieces.Wall
+                if (Game.screen[x,y] == Pieces.Wall
                     && Vision[index].X != -1)
                 {
-                    Vision[index] = new Point(Position.X + x - 2, Position.Y + y - 2);
+                    Vision[index] = new Point(x,y);
                     Occlusion(index);
                 }
                 else if (Vision[index].X != -1)
-                    Vision[index] = new Point(Position.X + x - 2, Position.Y + y - 2);
+                    Vision[index] = new Point(x,y);
             }
             else
                 Vision[index] = new Point(-1, -1);
