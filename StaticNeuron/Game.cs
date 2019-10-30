@@ -27,10 +27,10 @@ namespace StaticNeuron
                 invisibleScreen = new Pieces[Program.width, Program.height];
                 Lights.Clear();
                 Level.CreateLevel(CurrentLevel);
+
             }
         }
         public Character player;
-        public Character monster;
         static List<Fire> Lights;
         static bool levelChanged = false;       
 
@@ -39,7 +39,6 @@ namespace StaticNeuron
             screen = new Pieces[Program.width, Program.height];
             invisibleScreen = new Pieces[Program.width, Program.height];
             player = new Character(1, 5, false);
-            monster = new Character(1, 4);
             Lights = new List<Fire>();
             CurrentLevel = 1;
         }
@@ -57,9 +56,15 @@ namespace StaticNeuron
                     {
                         player.Move(Console.ReadKey().Key);
                         screen[player.Position.X, player.Position.Y] = Pieces.Player;
-                        monster.NPCMove();
-                        screen[monster.Position.X, monster.Position.Y] = Pieces.Enemy;
                         invisibleScreen[player.Position.X, player.Position.Y] = Pieces.Player;
+                        if (Level.Enemies.Capacity > 0 && Level.Enemies.Count > 0)
+                        {
+                            foreach (Enemy enemy in Level.Enemies)
+                            {
+                                enemy.Move();
+                                screen[enemy.Position.X, enemy.Position.Y] = Pieces.Enemy;
+                            }
+                        }
                         foreach (Fire light in Lights)
                         {
                             foreach (Point vision in light.Vision)
@@ -172,9 +177,6 @@ namespace StaticNeuron
                 }
 
             }
-
-
-
         }
     }
 }

@@ -13,6 +13,7 @@ namespace StaticNeuron
         static public List<Point> NextLevelSpots { get; set; } = new List<Point>();   
         static public List<Point> Torches { get; set; } = new List<Point>();   
         static public List<Point> Fire { get; set; } = new List<Point>();   
+        static public List<Enemy> Enemies { get; set; } = new List<Enemy>();   
         
 
         delegate void TilePicker(Point origin);
@@ -36,6 +37,7 @@ namespace StaticNeuron
                 NextLevelSpots.Clear();
                 Torches.Clear();
                 Fire.Clear();
+                Enemies.Clear();
             }
             int tilesHigh = (Program.height - 2) / tileSize;
             int tilesWide = (Program.width - 2) / tileSize;
@@ -68,6 +70,11 @@ namespace StaticNeuron
                     Torches.Add(new Point(tileSize * 6 + 7, tileSize));
                     Torches.Add(new Point(2, tileSize * 1 + 6));
                     Torches.Add(new Point(tileSize * 4 + 1, tileSize * 2 + 7));
+
+                    Enemies.Add(new Enemy(tileSize * 5 + 3, 5, false, 1, false));
+                    Enemies.Add(new Enemy(tileSize * 5 + 3, tileSize * 1 + 5, true, 2, false));
+                    Enemies.Add(new Enemy(tileSize * 1 + 3, tileSize * 2 + 5, true, 1));
+                    Enemies.Add(new Enemy(tileSize * 4 + 3, tileSize * 2 + 3, true, 1, false));
                     break;
                 case 2:
                     for (int i = 0; i < bluePrint.Length; i++)
@@ -95,6 +102,14 @@ namespace StaticNeuron
                     Torches.Add(new Point(tileSize * 2 + 2, tileSize * 1 + 6));
                     Torches.Add(new Point(tileSize * 4 + 2, tileSize * 2 + 7));
                     Torches.Add(new Point(tileSize * 5 + 2, 6));
+
+                    Enemies.Add(new Enemy(tileSize * 1 + 2, 4, true, 2));
+                    Enemies.Add(new Enemy(7, tileSize * 1 + 5, true, 1));
+                    Enemies.Add(new Enemy(tileSize * 2 + 3, tileSize * 1 + 5, false, 1));
+                    Enemies.Add(new Enemy(tileSize * 3 + 5, tileSize * 1 + 5, true, 0));
+                    Enemies.Add(new Enemy(tileSize * 4 + 5, tileSize * 1 + 5, false, 1, false));
+                    Enemies.Add(new Enemy(tileSize * 5 + 5, 5, false, 0, false));
+                    Enemies.Add(new Enemy(tileSize * 5 + 3, tileSize * 2 + 5, true, 1));
                     break;
                 case 3://final level                    
                     for (int i = 0; i < bluePrint.Length; i++)
