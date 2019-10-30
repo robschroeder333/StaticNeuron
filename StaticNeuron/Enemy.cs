@@ -35,10 +35,10 @@ namespace StaticNeuron
                 else
                 {
                     if (Position.Y - 1 > 1
-                        && (Game.screen[Position.X, Position.Y + 1] != Pieces.Wall
-                            || Game.screen[Position.X, Position.Y + 1] != Pieces.Window))
+                        && (Game.screen[Position.X, Position.Y - 1] != Pieces.Wall
+                            || Game.screen[Position.X, Position.Y - 1] != Pieces.Window))
                     {
-                        Position = new Point(Position.X, Position.Y + 1);
+                        Position = new Point(Position.X, Position.Y - 1);
                     }
                     else
                         isForward = !isForward;
@@ -46,7 +46,30 @@ namespace StaticNeuron
             }
             else
             {
+                if (isForward)
+                {
+                    if (Position.X + 1 < Program.height - 1
+                        && (Game.screen[Position.X + 1, Position.Y] != Pieces.Wall
+                            || Game.screen[Position.X + 1, Position.Y] != Pieces.Window))
+                    {
+                        Position = new Point(Position.X + 1, Position.Y);
+                    }
+                    else
+                        isForward = !isForward;
 
+                }
+                else
+                {
+                    if (Position.X - 1 > 1
+                        && (Game.screen[Position.X - 1, Position.Y] != Pieces.Wall
+                            || Game.screen[Position.X - 1, Position.Y] != Pieces.Window))
+                    {
+                        Position = new Point(Position.X - 1, Position.Y);
+                    }
+                    else
+                        isForward = !isForward;
+
+                }
             }
         }
     }
