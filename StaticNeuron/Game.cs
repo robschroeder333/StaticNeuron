@@ -25,12 +25,13 @@ namespace StaticNeuron
                 levelChanged = true;
                 screen = new Pieces[Program.width, Program.height];
                 invisibleScreen = new Pieces[Program.width, Program.height];
+                Lights.Clear();
                 Level.CreateLevel(CurrentLevel);
             }
         }
         public Character player;
         public Character monster;
-        List<Fire> Lights;
+        static List<Fire> Lights;
         static bool levelChanged = false;       
 
         public Game()
