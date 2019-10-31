@@ -10,7 +10,7 @@ namespace StaticNeuron
         public int Size { get; set; }
         public Point Position { get; set; }
         public Point[] Vision { get; private set; }
-
+        public static bool CanRefresh { get; set; }
         public Fire (int x, int y, int size)
         {
             Size = size;
