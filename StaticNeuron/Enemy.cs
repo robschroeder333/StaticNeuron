@@ -8,17 +8,24 @@ namespace StaticNeuron
     class Enemy
     {
         public Point Position { get; private set; }
+        public Point PreviousPosition { get; private set;}
         int counter;
         int stepDelay;
         bool isVert;
         bool isForward;
         public Enemy(int x, int y, bool vert, int delay = 0, bool forward = true)
         {
+            PreviousPosition = new Point(x, y);
             Position = new Point(x, y);
             isVert = vert;
             isForward = forward;
             stepDelay = delay;
             counter = delay;
+        }
+        ~Enemy()
+        {
+            Game.screen[Position.X, Position.Y] = Pieces.Empty;
+            Game.invisibleScreen[Position.X, Position.Y] = Pieces.Empty;
         }
         public void Move()
         {
@@ -34,6 +41,7 @@ namespace StaticNeuron
                             && (Game.screen[Position.X, Position.Y + 1] != Pieces.Wall
                                 && Game.screen[Position.X, Position.Y + 1] != Pieces.Window))
                         {
+                            PreviousPosition = Position;
                             Position = new Point(Position.X, Position.Y + 1);
                         }
                         else
@@ -46,6 +54,7 @@ namespace StaticNeuron
                             && (Game.screen[Position.X, Position.Y - 1] != Pieces.Wall
                                 && Game.screen[Position.X, Position.Y - 1] != Pieces.Window))
                         {
+                            PreviousPosition = Position;
                             Position = new Point(Position.X, Position.Y - 1);
                         }
                         else
@@ -60,6 +69,7 @@ namespace StaticNeuron
                             && (Game.screen[Position.X + 1, Position.Y] != Pieces.Wall
                                 && Game.screen[Position.X + 1, Position.Y] != Pieces.Window))
                         {
+                            PreviousPosition = Position;
                             Position = new Point(Position.X + 1, Position.Y);
                         }
                         else
@@ -72,6 +82,7 @@ namespace StaticNeuron
                             && (Game.screen[Position.X - 1, Position.Y] != Pieces.Wall
                                 && Game.screen[Position.X - 1, Position.Y] != Pieces.Window))
                         {
+                            PreviousPosition = Position;
                             Position = new Point(Position.X - 1, Position.Y);
                         }
                         else

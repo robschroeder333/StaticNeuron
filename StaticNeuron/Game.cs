@@ -49,9 +49,6 @@ namespace StaticNeuron
                 screen = new Pieces[Program.width, Program.height];
                 invisibleScreen = new Pieces[Program.width, Program.height];
                 LevelManager();
-
-                if (player.Actions > 0)
-                {
                     if (Console.KeyAvailable != true)
                     {
                         player.Move(Console.ReadKey().Key);
@@ -59,11 +56,28 @@ namespace StaticNeuron
                         invisibleScreen[player.Position.X, player.Position.Y] = Pieces.Player;
                         if (Level.Enemies.Capacity > 0 && Level.Enemies.Count > 0)
                         {
+                            int index = 0;
+                            int indexToBeRemoved = -1;
                             foreach (Enemy enemy in Level.Enemies)
                             {
                                 enemy.Move();
-                                screen[enemy.Position.X, enemy.Position.Y] = Pieces.Enemy;
+                                if ((player.Position == enemy.Position || player.Position == enemy.PreviousPosition))
+                                {
+                                    player.LightLevel--;
+                                    indexToBeRemoved = index;
+                                    if (player.LightLevel > 0)
+                                        player.SetVision();
+                                    continue;
+                                }
+                                else 
+                                {
+                                    index ++;
+                                    screen[enemy.Position.X, enemy.Position.Y] = Pieces.Enemy;
+                                }
                             }
+                                if (indexToBeRemoved > -1)
+                                Level.Enemies.RemoveAt(indexToBeRemoved);
+                                screen[player.Position.X, player.Position.Y] = Pieces.Empty;
                         }
                         foreach (Fire light in Lights)
                         {
@@ -110,9 +124,9 @@ namespace StaticNeuron
 
                         Render.DrawScreen();
                     }
-                }
+                
 
-            } while (player.LightLevel >= 0);
+            } while (player.LightLevel != -1);
 
         }
 
