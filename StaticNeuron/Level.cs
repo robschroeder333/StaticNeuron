@@ -136,6 +136,17 @@ namespace StaticNeuron
                     Torches.Add(new Point(tileSize * 6 + 6, 5));
                     Torches.Add(new Point(tileSize * 6 + 3, tileSize * 2 + 7));
                     Torches.Add(new Point(tileSize * 6 + 8, tileSize * 2 + 6));
+
+                    Enemies.Add(new Enemy(tileSize * 1 + 3, tileSize * 2 + 5, true, 0));
+                    Enemies.Add(new Enemy(tileSize * 2 + 5, 6, false, 0, false));
+                    Enemies.Add(new Enemy(tileSize * 2 + 5, 5, false, 0));
+                    Enemies.Add(new Enemy(tileSize * 2 + 5, tileSize * 1 + 5, true, 1));
+                    Enemies.Add(new Enemy(tileSize * 2 + 10, tileSize * 2 + 5, true, 1));
+                    Enemies.Add(new Enemy(tileSize * 3 + 1, tileSize * 1 + 5, true, 0));
+                    Enemies.Add(new Enemy(tileSize * 3 + 5, tileSize * 1 + 1, false, 0));
+                    Enemies.Add(new Enemy(tileSize * 3 + 5, tileSize * 2 + 3, true, 0));
+                    Enemies.Add(new Enemy(tileSize * 4 + 5, tileSize * 1 + 5, true, 0));
+                    Enemies.Add(new Enemy(tileSize * 6 + 5, tileSize * 1 + 5, true, 0, false));
                     break;
                 default:
                     bluePrint[0] = Prefabs.Test;

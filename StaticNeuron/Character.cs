@@ -8,17 +8,15 @@ namespace StaticNeuron
 {
     public enum Direction { Up, Down, Left, Right }
     class Character
-    {
-        bool isNPC;
+    {        
         Direction dir;
         public int LightLevel { get; set; } = 0;
         public Point Position { get; set; }
         public Point[] Vision { get; private set; }
         public int Actions { get; set; } = 100000;
 
-        public Character(int x, int y, bool isNPC = true)
+        public Character(int x, int y)
         {
-            this.isNPC = isNPC;
             Position = new Point(x, y);
             dir = Direction.Right;
             Vision = new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1];
@@ -306,32 +304,6 @@ namespace StaticNeuron
             }
             return false;
         }
-
-        public void NPCMove()
-        {
-            ConsoleKey key;
-            Random rnd = new Random();
-
-            switch (rnd.Next(4))
-            {
-                case 0:
-                    key = ConsoleKey.RightArrow;
-                    break;
-                case 1:
-                    key = ConsoleKey.LeftArrow;
-                    break;
-                case 2:
-                    key = ConsoleKey.UpArrow;
-                    break;
-                case 3:
-                    key = ConsoleKey.DownArrow;
-                    break;
-                default:
-                    key = ConsoleKey.DownArrow;
-                    break;
-            }
-            Move(key);
-        }
          
          public void Move(ConsoleKey key)
          {
@@ -343,11 +315,11 @@ namespace StaticNeuron
                 case ConsoleKey.RightArrow:
                     newPositionX = Position.X + 1;
                     if (WithinBounds(newPositionX, Position.Y) 
-                        && Game.screen[newPositionX, Position.Y] != Pieces.Player 
+                        && Game.screen[newPositionX, Position.Y] != Pieces.Fire
                         && Game.screen[newPositionX, Position.Y] != Pieces.Wall
                         && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                     {
-                        if (!isNPC && Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
+                        if (Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
                         Position = new Point (newPositionX, Position.Y);
@@ -360,11 +332,11 @@ namespace StaticNeuron
                 case ConsoleKey.LeftArrow:
                     newPositionX = Position.X - 1;
                     if (WithinBounds(newPositionX, Position.Y) 
-                        && Game.screen[newPositionX, Position.Y] != Pieces.Player 
+                        && Game.screen[newPositionX, Position.Y] != Pieces.Fire
                         && Game.screen[newPositionX, Position.Y] != Pieces.Wall
                         && Game.screen[newPositionX, Position.Y] != Pieces.Window)
                     {
-                        if (!isNPC && Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
+                        if (Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
                         Position = new Point (newPositionX, Position.Y);
@@ -377,11 +349,11 @@ namespace StaticNeuron
                 case ConsoleKey.DownArrow:
                     newPositionY = Position.Y + 1;
                     if (WithinBounds(Position.X, newPositionY) 
-                        && Game.screen[Position.X, newPositionY] != Pieces.Player 
+                        && Game.screen[Position.X, newPositionY] != Pieces.Fire 
                         && Game.screen[Position.X, newPositionY] != Pieces.Wall
                         && Game.screen[Position.X, newPositionY] != Pieces.Window)
                     {
-                        if (!isNPC && Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
+                        if (Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
                         Position = new Point (Position.X, newPositionY);
@@ -394,11 +366,11 @@ namespace StaticNeuron
                 case ConsoleKey.UpArrow:
                     newPositionY = Position.Y - 1; 
                     if (WithinBounds(Position.X, newPositionY) 
-                        && Game.screen[Position.X, newPositionY] != Pieces.Player
+                        && Game.screen[Position.X, newPositionY] != Pieces.Fire
                         && Game.screen[Position.X, newPositionY] != Pieces.Wall
                         && Game.screen[Position.X, newPositionY] != Pieces.Window)
                     {
-                        if (!isNPC && Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
+                        if (Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
                         Position = new Point (Position.X, newPositionY);
