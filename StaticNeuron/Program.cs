@@ -8,12 +8,13 @@ namespace StaticNeuron
         //offset by 2 to track border easily
         public static int height = 32;
         public static int width = 72;
+        public static int[] colors = { 52,88,124,160,1,196};
         static void Main()
         {
             //ColorTest();
             Opening();
             Game game = new Game();
-            game.Step();
+            // game.Step();
             Death();
         }
 
@@ -35,20 +36,23 @@ namespace StaticNeuron
 
         static void Death()
         {
-            Console.SetCursorPosition(0,0);
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\n\n\n\n\n");
-            Console.WriteLine("     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
-            Console.WriteLine("    █     ▀▄ ▀▀▀ █    █ █ ▀▀▀ █    ██ █▀ ▀▄      █  █▀   ▀     █  █  ▄▀ █   █     █  ");
-            Console.WriteLine("  ▄  ▀▀▀▀▄       █    █▄▄█    █    ██ █   ▀  ██   █ ██▄▄    █   █ █▀▀▌  █   █ ██   █ ");
-            Console.WriteLine("   ▀▄▄▄▄▀       █     █  █   █     ▐█ █▄  ▄▀ █ █  █ █▄   ▄▀ █   █ █  █  ▀████ █ █  █ ");
-            Console.WriteLine("               ▀         █  ▀       ▐ ▀███▀  █  █ █ ▀███▀   █▄ ▄█   █         █  █ █ ");
-            Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
-            Console.WriteLine("                       ▀                                                             ");
-            Console.WriteLine("\n\n\n\n\n");
-            Console.WriteLine("                         You Have Died. Git Gud? .....                               ");
-
+            for (int i = 0; i < 6; i++)
+            {
+                int color = colors[i];
+                Console.SetCursorPosition(0, i + 5);
+                Console.WriteLine($"\u001b[38:5:{color}m     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
+                Console.WriteLine("    █     ▀▄ ▀▀▀ █    █ █ ▀▀▀ █    ██ █▀ ▀▄      █  █▀   ▀     █  █  ▄▀ █   █     █  ");
+                Console.WriteLine("  ▄  ▀▀▀▀▄       █    █▄▄█    █    ██ █   ▀  ██   █ ██▄▄    █   █ █▀▀▌  █   █ ██   █ ");
+                Console.WriteLine("   ▀▄▄▄▄▀       █     █  █   █     ▐█ █▄  ▄▀ █ █  █ █▄   ▄▀ █   █ █  █  ▀████ █ █  █ ");
+                Console.WriteLine("               ▀         █  ▀       ▐ ▀███▀  █  █ █ ▀███▀   █▄ ▄█   █         █  █ █ ");
+                Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
+                Console.WriteLine("                       ▀                                                             ");
+                Console.WriteLine("\n\n\n\n\n");
+                Thread.Sleep(200 + (i * 80 - (i * 15)));
+            }
+                Console.WriteLine("                         You Have Died. Git Gud? .....                               ");
         }
         static void ColorTest()
         {
