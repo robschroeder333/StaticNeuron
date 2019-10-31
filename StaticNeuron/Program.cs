@@ -14,6 +14,7 @@ namespace StaticNeuron
             Opening();
             Game game = new Game();
             game.Step();
+            Death();
         }
 
         static void Opening()
@@ -30,6 +31,24 @@ namespace StaticNeuron
             Console.WriteLine("\n\n\n\n\n");
             Console.WriteLine("                             Press Any Key To Continue                               ");
             Console.ReadKey();
+        }
+
+        static void Death()
+        {
+            Console.SetCursorPosition(0,0);
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n\n\n\n\n");
+            Console.WriteLine("     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
+            Console.WriteLine("    █     ▀▄ ▀▀▀ █    █ █ ▀▀▀ █    ██ █▀ ▀▄      █  █▀   ▀     █  █  ▄▀ █   █     █  ");
+            Console.WriteLine("  ▄  ▀▀▀▀▄       █    █▄▄█    █    ██ █   ▀  ██   █ ██▄▄    █   █ █▀▀▌  █   █ ██   █ ");
+            Console.WriteLine("   ▀▄▄▄▄▀       █     █  █   █     ▐█ █▄  ▄▀ █ █  █ █▄   ▄▀ █   █ █  █  ▀████ █ █  █ ");
+            Console.WriteLine("               ▀         █  ▀       ▐ ▀███▀  █  █ █ ▀███▀   █▄ ▄█   █         █  █ █ ");
+            Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
+            Console.WriteLine("                       ▀                                                             ");
+            Console.WriteLine("\n\n\n\n\n");
+            Console.WriteLine("                         You Have Died. Git Gud? .....                               ");
+
         }
         static void ColorTest()
         {

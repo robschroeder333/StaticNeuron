@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Security;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -10,7 +11,7 @@ namespace StaticNeuron
     {
         bool isNPC;
         Direction dir;
-        public int LightLevel { get; private set; } = 3;
+        public int LightLevel { get; set; } = 0;
         public Point Position { get; set; }
         public Point[] Vision { get; private set; }
         public int Actions { get; set; } = 100000;
@@ -27,7 +28,7 @@ namespace StaticNeuron
         public void SetVision()
         {
             int index = 0;
-            Vision = new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1];
+            Vision = LightLevel != 0 ? new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1] : new Point[0];
             switch (dir)
             {
                 case Direction.Up:
@@ -126,8 +127,11 @@ namespace StaticNeuron
             {
                 Vision[3] = new Point(-1, -1);
                 Vision[4] = new Point(-1, -1);
-                Vision[8] = new Point(-1, -1);
-                Vision[9] = new Point(-1, -1);
+                if (LightLevel > 2)
+                {
+                    Vision[8] = new Point(-1, -1);
+                    Vision[9] = new Point(-1, -1);
+                }
                 
                 if (LightLevel > 3)
                 {
@@ -140,12 +144,14 @@ namespace StaticNeuron
                 Vision[4] = new Point (-1, -1);
                 Vision[5] = new Point(-1, -1);
                 Vision[6] = new Point (-1, -1);
-                Vision[9] = new Point (-1, -1);
-                Vision[10] = new Point(-1, -1);
-                Vision[11] = new Point(-1, -1);
-                Vision[12] = new Point(-1, -1);
-                Vision[13] = new Point (-1, -1);
-                
+                if (LightLevel > 2)
+                {
+                    Vision[9] = new Point (-1, -1);
+                    Vision[10] = new Point(-1, -1);
+                    Vision[11] = new Point(-1, -1);
+                    Vision[12] = new Point(-1, -1);
+                    Vision[13] = new Point (-1, -1);
+                }
                 if (LightLevel > 3)
                 {
                     Vision[16] = new Point(-1, -1);
@@ -161,64 +167,72 @@ namespace StaticNeuron
             {
                 Vision[6] = new Point(-1, -1);
                 Vision[7] = new Point(-1, -1);
-                Vision[13] = new Point(-1, -1);
-                Vision[14] = new Point(-1, -1);
-
-                if (LightLevel > 3)
-                {
-                    Vision[22] = new Point (-1, -1);
-                    Vision[23] = new Point (-1, -1);
-                }
-            }
-            if (n == 3)
-            {
-                Vision[8] = new Point(-1, -1);
-
-                if (LightLevel > 3)
-                    Vision[15] = new Point (-1, -1);
-            }
-            if (n == 4)
-            {
-                Vision[9] = new Point(-1, -1);
-                Vision[10] = new Point(-1, -1);
-
-                if (LightLevel > 3)
-                {
-                    Vision[16] = new Point (-1, -1);
-                    Vision[17] = new Point (-1, -1);
-                    Vision[18] = new Point (-1, -1);
-                }
-            }
-            if (n == 5)
-            {
-                Vision[10] = new Point(-1, -1);
-                Vision[11] = new Point(-1, -1);
-                Vision[12] = new Point(-1, -1);
-
-                if (LightLevel > 3)
-                {
-                    Vision[18] = new Point (-1, -1);
-                    Vision[19] = new Point (-1, -1);
-                    Vision[20] = new Point (-1, -1);
-                }
-            }
-            if (n == 6)
-            {
-                Vision[12] = new Point(-1, -1);
-                Vision[13] = new Point(-1, -1);
-
-                if (LightLevel > 3)
-                {
-                    Vision[21] = new Point (-1, -1);
-                    Vision[22] = new Point (-1, -1);
-                }
-            }
-            if (n == 7)
-            {
-                Vision[14] = new Point(-1, -1);
                 
+                if (LightLevel > 2)
+                {
+                    Vision[13] = new Point(-1, -1);
+                    Vision[14] = new Point(-1, -1);
+                }
+
                 if (LightLevel > 3)
+                {
+                    Vision[22] = new Point (-1, -1);
                     Vision[23] = new Point (-1, -1);
+                }
+            }
+            
+            if (LightLevel > 2)
+            {
+                if (n == 3)
+                {
+                    Vision[8] = new Point(-1, -1);
+
+                    if (LightLevel > 3)
+                        Vision[15] = new Point (-1, -1);
+                }
+                if (n == 4)
+                {
+                    Vision[9] = new Point(-1, -1);
+                    Vision[10] = new Point(-1, -1);
+
+                    if (LightLevel > 3)
+                    {
+                        Vision[16] = new Point (-1, -1);
+                        Vision[17] = new Point (-1, -1);
+                        Vision[18] = new Point (-1, -1);
+                    }
+                }
+                if (n == 5)
+                {
+                    Vision[10] = new Point(-1, -1);
+                    Vision[11] = new Point(-1, -1);
+                    Vision[12] = new Point(-1, -1);
+
+                    if (LightLevel > 3)
+                    {
+                        Vision[18] = new Point (-1, -1);
+                        Vision[19] = new Point (-1, -1);
+                        Vision[20] = new Point (-1, -1);
+                    }
+                }
+                if (n == 6)
+                {
+                    Vision[12] = new Point(-1, -1);
+                    Vision[13] = new Point(-1, -1);
+
+                    if (LightLevel > 3)
+                    {
+                        Vision[21] = new Point (-1, -1);
+                        Vision[22] = new Point (-1, -1);
+                    }
+                }
+                if (n == 7)
+                {
+                    Vision[14] = new Point(-1, -1);
+                    
+                    if (LightLevel > 3)
+                        Vision[23] = new Point (-1, -1);
+                }
             }
 
             if (LightLevel > 3)
@@ -263,20 +277,26 @@ namespace StaticNeuron
 
         void OcclusionChecker(int x, int y, int index)
         {
-            if (WithinBounds(Position.X + x, Position.Y + y))
-            {
-                if (Game.screen[Position.X + x, Position.Y + y] == Pieces.Wall
-                    && Vision[index].X != -1)
+                if (WithinBounds(Position.X + x, Position.Y + y))
                 {
-                    Vision[index] = new Point(Position.X + x, Position.Y + y);
-                    Occlusion(index);
+                    if (Game.screen[Position.X + x, Position.Y + y] == Pieces.Wall
+                        && Vision[index].X != -1)
+                    {
+                        Vision[index] = new Point(Position.X + x, Position.Y + y);
+                        if (LightLevel > 1)
+                        {
+                            Occlusion(index);
+                        }
+                    }
+                    else if (Vision[index].X != -1)
+                        Vision[index] = new Point(Position.X + x, Position.Y + y);
                 }
-                else if (Vision[index].X != -1)
-                    Vision[index] = new Point(Position.X + x, Position.Y + y);
-            }
-            else
-                Vision[index] = new Point(-1, -1);
+                else
+                    Vision[index] = new Point(-1, -1);
         }
+
+            
+            
 
         bool WithinBounds(int x, int y)
         {
@@ -334,7 +354,8 @@ namespace StaticNeuron
                         Actions--;
                     }
                         dir = Direction.Right;
-                        SetVision();
+                        if (LightLevel > 0)
+                            SetVision();
                     break;
                 case ConsoleKey.LeftArrow:
                     newPositionX = Position.X - 1;
@@ -350,7 +371,8 @@ namespace StaticNeuron
                         Actions--;
                     }
                         dir = Direction.Left;
-                        SetVision();
+                         if (LightLevel > 0)
+                            SetVision();
                     break;
                 case ConsoleKey.DownArrow:
                     newPositionY = Position.Y + 1;
@@ -366,7 +388,8 @@ namespace StaticNeuron
                         Actions--;
                     }
                         dir = Direction.Down;
-                        SetVision();
+                        if (LightLevel > 0)
+                            SetVision();
                     break;
                 case ConsoleKey.UpArrow:
                     newPositionY = Position.Y - 1; 
@@ -382,7 +405,8 @@ namespace StaticNeuron
                         Actions--;
                     }
                         dir = Direction.Up;
-                        SetVision();
+                        if (LightLevel > 0)
+                            SetVision();
                     break;
 
             }
