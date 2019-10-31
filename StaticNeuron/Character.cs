@@ -13,7 +13,6 @@ namespace StaticNeuron
         public int LightLevel { get; set; } = 0;
         public Point Position { get; set; }
         public Point[] Vision { get; private set; }
-        public int Actions { get; set; } = 100000;
 
         public Character(int x, int y)
         {
@@ -323,7 +322,6 @@ namespace StaticNeuron
                             Game.CurrentLevel++;
 
                         Position = new Point (newPositionX, Position.Y);
-                        Actions--;
                     }
                         dir = Direction.Right;
                         if (LightLevel > 0)
@@ -340,7 +338,6 @@ namespace StaticNeuron
                             Game.CurrentLevel++;
 
                         Position = new Point (newPositionX, Position.Y);
-                        Actions--;
                     }
                         dir = Direction.Left;
                          if (LightLevel > 0)
@@ -357,7 +354,6 @@ namespace StaticNeuron
                             Game.CurrentLevel++;
 
                         Position = new Point (Position.X, newPositionY);
-                        Actions--;
                     }
                         dir = Direction.Down;
                         if (LightLevel > 0)
@@ -374,7 +370,6 @@ namespace StaticNeuron
                             Game.CurrentLevel++;
 
                         Position = new Point (Position.X, newPositionY);
-                        Actions--;
                     }
                         dir = Direction.Up;
                         if (LightLevel > 0)

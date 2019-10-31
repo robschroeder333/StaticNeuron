@@ -49,9 +49,6 @@ namespace StaticNeuron
                 screen = new Pieces[Program.width, Program.height];
                 invisibleScreen = new Pieces[Program.width, Program.height];
                 LevelManager();
-
-                if (player.Actions > 0)
-                {
                     if (Console.KeyAvailable != true)
                     {
                         player.Move(Console.ReadKey().Key);
@@ -127,7 +124,7 @@ namespace StaticNeuron
 
                         Render.DrawScreen();
                     }
-                }
+                
 
             } while (player.LightLevel != -1);
 
