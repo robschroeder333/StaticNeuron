@@ -22,11 +22,6 @@ namespace StaticNeuron
             stepDelay = delay;
             counter = delay;
         }
-        ~Enemy()
-        {
-            Game.screen[Position.X, Position.Y] = Pieces.Empty;
-            Game.invisibleScreen[Position.X, Position.Y] = Pieces.Empty;
-        }
         public void Move()
         {
             if (counter == 0)

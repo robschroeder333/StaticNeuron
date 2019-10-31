@@ -10,7 +10,18 @@ namespace StaticNeuron
     class Character
     {        
         Direction dir;
-        public int LightLevel { get; set; } = 0;
+        int lightLevel;
+        public int LightLevel 
+        { 
+            get
+            {
+                return lightLevel;
+            }
+            set
+            {
+                lightLevel = Math.Clamp(value, -1, 4);
+            }
+        }
         public Point Position { get; set; }
         public Point[] Vision { get; private set; }
 
@@ -18,6 +29,7 @@ namespace StaticNeuron
         {
             Position = new Point(x, y);
             dir = Direction.Right;
+            LightLevel = 3;
             Vision = new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1];
             SetVision();
         }
@@ -291,10 +303,7 @@ namespace StaticNeuron
                 else
                     Vision[index] = new Point(-1, -1);
         }
-
-            
-            
-
+      
         bool WithinBounds(int x, int y)
         {
             if (x <= (Program.width - 2) && x > 0 && y <= (Program.height - 2) && y > 0)
@@ -313,7 +322,8 @@ namespace StaticNeuron
             {
                 case ConsoleKey.RightArrow:
                     newPositionX = Position.X + 1;
-                    if (WithinBounds(newPositionX, Position.Y) 
+
+                    if (WithinBounds(newPositionX, Position.Y)
                         && Game.screen[newPositionX, Position.Y] != Pieces.Fire
                         && Game.screen[newPositionX, Position.Y] != Pieces.Wall
                         && Game.screen[newPositionX, Position.Y] != Pieces.Window)
@@ -321,14 +331,24 @@ namespace StaticNeuron
                         if (Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
-                        Position = new Point (newPositionX, Position.Y);
+                        Position = new Point(newPositionX, Position.Y);
                     }
-                        dir = Direction.Right;
-                        if (LightLevel > 0)
-                            SetVision();
+                    else if (Game.screen[newPositionX, Position.Y] == Pieces.Fire 
+                                && LightLevel < 4
+                                && Fire.CanRefresh)
+                    {
+                        LightLevel += 2;
+                        Fire.CanRefresh = false;
+                    }
+                    dir = Direction.Right;
+
+                    if (LightLevel > 0)
+                        SetVision();
+
                     break;
                 case ConsoleKey.LeftArrow:
                     newPositionX = Position.X - 1;
+                    
                     if (WithinBounds(newPositionX, Position.Y) 
                         && Game.screen[newPositionX, Position.Y] != Pieces.Fire
                         && Game.screen[newPositionX, Position.Y] != Pieces.Wall
@@ -339,28 +359,22 @@ namespace StaticNeuron
 
                         Position = new Point (newPositionX, Position.Y);
                     }
-                        dir = Direction.Left;
-                         if (LightLevel > 0)
-                            SetVision();
+                    else if (Game.screen[newPositionX, Position.Y] == Pieces.Fire 
+                                && LightLevel < 4 
+                                && Fire.CanRefresh)
+                    {
+                        LightLevel += 2;
+                        Fire.CanRefresh = false;
+                    }
+                    dir = Direction.Left;
+
+                    if (LightLevel > 0)
+                        SetVision();
+                    
                     break;
                 case ConsoleKey.DownArrow:
                     newPositionY = Position.Y + 1;
-                    if (WithinBounds(Position.X, newPositionY) 
-                        && Game.screen[Position.X, newPositionY] != Pieces.Fire 
-                        && Game.screen[Position.X, newPositionY] != Pieces.Wall
-                        && Game.screen[Position.X, newPositionY] != Pieces.Window)
-                    {
-                        if (Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
-                            Game.CurrentLevel++;
-
-                        Position = new Point (Position.X, newPositionY);
-                    }
-                        dir = Direction.Down;
-                        if (LightLevel > 0)
-                            SetVision();
-                    break;
-                case ConsoleKey.UpArrow:
-                    newPositionY = Position.Y - 1; 
+                    
                     if (WithinBounds(Position.X, newPositionY) 
                         && Game.screen[Position.X, newPositionY] != Pieces.Fire
                         && Game.screen[Position.X, newPositionY] != Pieces.Wall
@@ -371,11 +385,44 @@ namespace StaticNeuron
 
                         Position = new Point (Position.X, newPositionY);
                     }
-                        dir = Direction.Up;
-                        if (LightLevel > 0)
-                            SetVision();
-                    break;
+                    else if (Game.screen[Position.X, newPositionY] == Pieces.Fire 
+                                && LightLevel < 4 
+                                && Fire.CanRefresh)
+                    {
+                        LightLevel += 2;
+                        Fire.CanRefresh = false;
+                    }
+                    dir = Direction.Down;
 
+                    if (LightLevel > 0)
+                        SetVision();
+                    
+                    break;
+                case ConsoleKey.UpArrow:
+                    newPositionY = Position.Y - 1; 
+                    
+                    if (WithinBounds(Position.X, newPositionY) 
+                        && Game.screen[Position.X, newPositionY] != Pieces.Fire
+                        && Game.screen[Position.X, newPositionY] != Pieces.Wall
+                        && Game.screen[Position.X, newPositionY] != Pieces.Window)
+                    {
+                        if (Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
+                            Game.CurrentLevel++;
+
+                        Position = new Point (Position.X, newPositionY);
+                    }
+                    else if (Game.screen[Position.X, newPositionY] == Pieces.Fire 
+                                && LightLevel < 4 
+                                && Fire.CanRefresh)
+                    {
+                        LightLevel += 2;
+                        Fire.CanRefresh = false;
+                    }
+                    dir = Direction.Up;
+                    if (LightLevel > 0)
+                        SetVision();
+                    
+                    break;
             }
          }
     }

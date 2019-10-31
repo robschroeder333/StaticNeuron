@@ -30,6 +30,7 @@ namespace StaticNeuron
 
         public static void CreateLevel(int levelChoice)
         {
+            StaticNeuron.Fire.CanRefresh = true;
             if (levelChoice > 1)
             {
                 Walls.Clear();
