@@ -38,9 +38,9 @@ namespace StaticNeuron
         {
             screen = new Pieces[Program.width, Program.height];
             invisibleScreen = new Pieces[Program.width, Program.height];
-            player = new Character(1, 5, false);
+            player = new Character(1, 5);
             Lights = new List<Fire>();
-            CurrentLevel = 1;
+            CurrentLevel = 3;
         }
 
         public void Step()
