@@ -28,6 +28,7 @@ namespace StaticNeuron
                 invisibleScreen = new Pieces[Program.width, Program.height];
                 Lights.Clear();
                 Level.CreateLevel(CurrentLevel);
+                Render.DrawScreen();
 
             }
         }
@@ -62,12 +63,11 @@ namespace StaticNeuron
                         foreach (Enemy enemy in Level.Enemies)
                         {
                             enemy.Move();
-                            if ((player.Position == enemy.Position || player.Position == enemy.PreviousPosition))
+                            if (player.Position == enemy.Position)
                             {
                                 player.LightLevel--;
                                 indexToBeRemoved = index;
-                                if (player.LightLevel > 0)
-                                    player.SetVision();
+                                player.SetVision();
                                 continue;
                             }
                             else 
