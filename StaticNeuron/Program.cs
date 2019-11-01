@@ -19,7 +19,7 @@ namespace StaticNeuron
         }
 
         static void Opening()
-        {
+        {            
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n");
             Console.WriteLine("     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
