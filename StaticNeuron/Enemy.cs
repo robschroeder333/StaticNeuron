@@ -34,6 +34,7 @@ namespace StaticNeuron
                     {
                         if (Position.Y + 1 < Program.height - 1
                             && (Game.screen[Position.X, Position.Y + 1] != Pieces.Wall
+                                && Game.screen[Position.X, Position.Y + 1] != Pieces.Fire
                                 && Game.screen[Position.X, Position.Y + 1] != Pieces.Window))
                         {
                             PreviousPosition = Position;
@@ -47,6 +48,7 @@ namespace StaticNeuron
                     {
                         if (Position.Y - 1 > 1
                             && (Game.screen[Position.X, Position.Y - 1] != Pieces.Wall
+                                && Game.screen[Position.X, Position.Y - 1] != Pieces.Fire
                                 && Game.screen[Position.X, Position.Y - 1] != Pieces.Window))
                         {
                             PreviousPosition = Position;
@@ -62,6 +64,7 @@ namespace StaticNeuron
                     {
                         if (Position.X + 1 < Program.width - 1
                             && (Game.screen[Position.X + 1, Position.Y] != Pieces.Wall
+                                && Game.screen[Position.X + 1, Position.Y] != Pieces.Fire
                                 && Game.screen[Position.X + 1, Position.Y] != Pieces.Window))
                         {
                             PreviousPosition = Position;
@@ -75,6 +78,7 @@ namespace StaticNeuron
                     {
                         if (Position.X - 1 > 1
                             && (Game.screen[Position.X - 1, Position.Y] != Pieces.Wall
+                                && Game.screen[Position.X - 1, Position.Y] != Pieces.Fire
                                 && Game.screen[Position.X - 1, Position.Y] != Pieces.Window))
                         {
                             PreviousPosition = Position;

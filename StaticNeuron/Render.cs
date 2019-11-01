@@ -7,6 +7,7 @@ namespace StaticNeuron
     {
         public static void DrawScreen()
         {
+            Console.CursorVisible = false;
             StringBuilder screenAsString = new StringBuilder("", Program.width * Program.height);
             string currentCharacter = "";
             for (int y = 0; y < Program.height; y++)
