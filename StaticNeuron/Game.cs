@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Threading;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -75,9 +76,25 @@ namespace StaticNeuron
                             }
                         }
                         if (indexToBeRemoved > -1)
-                        Level.Enemies.RemoveAt(indexToBeRemoved);
-
-                        screen[player.Position.X, player.Position.Y] = Pieces.Empty;
+                        {
+                            Level.Enemies.RemoveAt(indexToBeRemoved);
+                            screen[player.Position.X, player.Position.Y] = Pieces.Empty;
+                            Console.Beep();
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    if (i % 2 == 0)
+                                    {   Console.SetCursorPosition(player.Position.X,player.Position.Y);
+                                        Console.Write(" ");
+                                    }
+                                    else 
+                                    {
+                                        Console.SetCursorPosition(player.Position.X,player.Position.Y);
+                                        Console.Write("P");
+                                    }
+                                    
+                                    Thread.Sleep(100);
+                                }
+                        }
                     }
 
                     if (Lights.Capacity > 0 && Lights.Count > 0)
