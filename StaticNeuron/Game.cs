@@ -62,7 +62,6 @@ namespace StaticNeuron
                         int indexToBeRemoved = -1;
                         foreach (Enemy enemy in Level.Enemies)
                         {
-                            enemy.Move();
                             if (player.Position == enemy.Position)
                             {
                                 player.LightLevel--;
@@ -72,6 +71,7 @@ namespace StaticNeuron
                             }
                             else 
                             {
+                                enemy.Move();
                                 index ++;
                                 screen[enemy.Position.X, enemy.Position.Y] = Pieces.Enemy;
                             }
