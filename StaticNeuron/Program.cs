@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Xml;
+using System;
 using System.Threading;
 
 namespace StaticNeuron
@@ -9,11 +10,17 @@ namespace StaticNeuron
         public static int height = 32;
         public static int width = 72;
         public static int[] colors = { 52,88,124,160,1,196};
+        
+        public static string[] quotes = {"Overconfidence is a slow and insidious killer", 
+        "Do you think God stays in heaven because he too lives in fear of what he's created?",
+        "We make our own monsters, then fear them for what they show us about ourselves",
+        "It’s a funny thing, ambition. It can take one to sublime heights or harrowing depths. And sometimes they are one and the same.",
+        "Don't wish it were easier, wish you were better."};
+        public static Random rnd = new Random();
         static void Main()
         {
             //ColorTest();
             Opening();
-            Game.DisplaySequence(0);
             Game game = new Game();
             game.Step();
             Death();
@@ -53,7 +60,7 @@ namespace StaticNeuron
                 Console.WriteLine("\n\n\n\n\n");
                 Thread.Sleep(200 + (i * 80 - (i * 15)));
             }
-                Console.WriteLine("                         You Have Died. Git Gud? .....                               ");
+                Console.WriteLine($"{quotes[rnd.Next(0,quotes.Length - 1)]}");
         }
         static void ColorTest()
         {
