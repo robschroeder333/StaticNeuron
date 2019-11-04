@@ -36,7 +36,7 @@ namespace StaticNeuron
         public void SetVision()
         {
             int index = 0;
-            Vision = LightLevel != 0 ? new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1] : new Point[0];
+            Vision = LightLevel > 0 ? new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1] : new Point[0];
             switch (dir)
             {
                 case Direction.Up:
