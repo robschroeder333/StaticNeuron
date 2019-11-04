@@ -13,6 +13,7 @@ namespace StaticNeuron
         {
             //ColorTest();
             Opening();
+            Game.DisplaySequence(0);
             Game game = new Game();
             game.Step();
             Death();
