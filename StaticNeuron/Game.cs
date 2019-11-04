@@ -1,8 +1,9 @@
 ﻿using System.Threading;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
+using Melanchall.DryWetMidi.Devices;
+using Melanchall.DryWetMidi.Smf;
 
 namespace StaticNeuron
 {
@@ -13,6 +14,9 @@ namespace StaticNeuron
         public static Pieces[,] screen;
         public static Pieces[,] invisibleScreen;
         public static int currentLevel;
+        static Thread t;
+        static bool stopPlayback = false;
+        static object syncObject = new object();
         public static int CurrentLevel 
         {
             get
@@ -21,6 +25,12 @@ namespace StaticNeuron
             }
             set
             {
+                if (t != null)
+                {
+                    stopPlayback = true;
+                    t.Join();
+                }
+
                 currentLevel = value;
                 Console.Clear();
                 levelChanged = true;
@@ -28,6 +38,8 @@ namespace StaticNeuron
                 invisibleScreen = new Pieces[Program.width, Program.height];
                 Lights.Clear();
                 Level.CreateLevel(CurrentLevel);
+                t = new Thread(Music);
+                t.Start();
                 Render.DrawScreen();
 
             }
@@ -237,6 +249,25 @@ namespace StaticNeuron
                     screen[fire.X, fire.Y] = Pieces.Fire;
                 }
             }
+        }
+
+        public static void Music()
+        {
+            Playback playback;
+            void HandleFinish(object sender, EventArgs e)
+            {
+                playback.Stop();
+            }
+            var midiFile = MidiFile.Read($"funeralmarch.mid");
+            using (var outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth"))
+            using (playback = midiFile.GetPlayback(outputDevice))
+            {
+                playback.Speed = 2.0;
+                playback.Play();
+                playback.Finished += HandleFinish;
+            }
+            
+            
         }
     }
 }
