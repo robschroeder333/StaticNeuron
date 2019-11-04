@@ -73,53 +73,53 @@ namespace StaticNeuron
 
         public void Occlusion(int n)
         {
+            if (n == 16)
+            {
+                Vision[15] = new Point(-1, -1);
+                Vision[0] = new Point(-1, -1);
+                Vision[1] = new Point(-1, -1);
+            }
             if (n == 17)
             {
                 Vision[1] = new Point(-1, -1);
                 Vision[2] = new Point(-1, -1);
-                Vision[16] = new Point(-1, -1);
+                Vision[3] = new Point(-1, -1);
             }
             if (n == 18)
             {
-                Vision[2] = new Point(-1, -1);
                 Vision[3] = new Point(-1, -1);
                 Vision[4] = new Point(-1, -1);
+                Vision[5] = new Point(-1, -1);
             }
             if (n == 19)
             {
-                Vision[4] = new Point(-1, -1);
                 Vision[5] = new Point(-1, -1);
                 Vision[6] = new Point(-1, -1);
+                Vision[7] = new Point(-1, -1);
             }
             if (n == 20)
             {
-                Vision[6] = new Point(-1, -1);
                 Vision[7] = new Point(-1, -1);
                 Vision[8] = new Point(-1, -1);
+                Vision[9] = new Point(-1, -1);
             }
             if (n == 21)
             {
-                Vision[8] = new Point(-1, -1);
                 Vision[9] = new Point(-1, -1);
                 Vision[10] = new Point(-1, -1);
+                Vision[11] = new Point(-1, -1);
             }
             if (n == 22)
             {
-                Vision[10] = new Point(-1, -1);
                 Vision[11] = new Point(-1, -1);
                 Vision[12] = new Point(-1, -1);
+                Vision[13] = new Point(-1, -1);
             }
             if (n == 23)
             {
-                Vision[12] = new Point(-1, -1);
                 Vision[13] = new Point(-1, -1);
                 Vision[14] = new Point(-1, -1);
-            }
-            if (n == 24)
-            {
-                Vision[14] = new Point(-1, -1);
                 Vision[15] = new Point(-1, -1);
-                Vision[16] = new Point(-1, -1);
             }
         }
 
@@ -127,7 +127,9 @@ namespace StaticNeuron
         {
             if (WithinBounds(x, y))
             {
-                if (Game.screen[x, y] == Pieces.Wall
+                if ((Game.screen[x, y] == Pieces.Wall
+                    || Game.screen[x, y] == Pieces.Player
+                    || Game.screen[x, y] == Pieces.Enemy)
                     && Vision[index].X != -1)
                 {
                     Vision[index] = new Point(x, y);

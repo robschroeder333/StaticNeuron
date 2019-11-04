@@ -31,7 +31,6 @@ namespace StaticNeuron
             dir = Direction.Right;
             LightLevel = 3;
             Vision = new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1];
-            SetVision();
         }
 
         public void SetVision()
@@ -288,7 +287,8 @@ namespace StaticNeuron
         {
                 if (WithinBounds(Position.X + x, Position.Y + y))
                 {
-                    if (Game.screen[Position.X + x, Position.Y + y] == Pieces.Wall
+                    if ((Game.screen[Position.X + x, Position.Y + y] == Pieces.Wall
+                        || Game.screen[Position.X + x, Position.Y + y] == Pieces.Enemy)
                         && Vision[index].X != -1)
                     {
                         Vision[index] = new Point(Position.X + x, Position.Y + y);
