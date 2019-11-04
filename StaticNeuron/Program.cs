@@ -20,9 +20,9 @@ namespace StaticNeuron
         static void Main()
         {
             //ColorTest();
-            // Opening();
-            // Game game = new Game();
-            // game.Step();
+            Opening();
+            Game game = new Game();
+            game.Step();
             Death();
         }
 
