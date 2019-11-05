@@ -20,6 +20,8 @@ namespace StaticNeuron
         static void Main()
         {
             //ColorTest();
+            Game.DisplaySequence(5);
+            Console.ReadKey();
             Opening();
             Game game = new Game();
             game.Step();
