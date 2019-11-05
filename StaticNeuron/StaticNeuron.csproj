@@ -13,6 +13,9 @@
     <None Update="funeralmarch.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="thenightmare.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

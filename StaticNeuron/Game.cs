@@ -254,6 +254,7 @@ namespace StaticNeuron
                 case 1:
                     Console.Clear();
                     Console.CursorVisible = false;
+                    Thread.Sleep(2500);
                     Text("I no longer remember the sun");
                     Text("The fire,");
                     Text("is all that I have");                                       
@@ -270,7 +271,16 @@ namespace StaticNeuron
                     Text("I'm not sure how much longer I can take", 1000, false);
                     Text("I have to escape", 500, false, 40, 8);//other voice                    
                     Text("You must!", 500, false, 10, 10);//other voice                    
-                    Text("Go!", 1500, false, 60, 20);//other voice                    
+                    Text("Go!", 1500, true, 60, 20);//other voice   
+                    
+                    Text("I'm not sure how much longer I can take", 0, false);                   
+                    Text("You must!", 0, false, 10, 10);//other voice                    
+                    Text("Go!", 1000, true, 60, 20);//other voice   
+
+                    Text("I'm not sure how much longer I can take", 0, false);                   
+                    Text("Go!", 1000, true, 60, 20);//other voice  
+
+                    Text("I'm not sure how much longer I can take", 1000, true);                   
                     break;
                 case 2:
                     Console.Clear();
@@ -299,7 +309,7 @@ namespace StaticNeuron
 
             string[] songs = CurrentLevel switch
             {
-                1 => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
+                1 => new string[2] { "thenightmare.mid", "funeralmarch.mid" },
                 _ => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
             };
             if (currentLevel > 1)
@@ -311,7 +321,7 @@ namespace StaticNeuron
             Lights.Clear();
             Level.CreateLevel(CurrentLevel);
             NewPlayback(songs[0]);
-            playback.Start();
+            playback.Start();            
             DisplaySequence(currentLevel);
             playback.Stop();
             NewPlayback(songs[1]);
