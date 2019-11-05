@@ -25,36 +25,23 @@ namespace StaticNeuron
             }
             set
             {
-                if (t != null)
-                {
-                    stopPlayback = true;
-                    t.Join();
-                }
-
                 currentLevel = value;
-                DisplaySequence(currentLevel);
-                levelChanged = true;
-                screen = new Pieces[Program.width, Program.height];
-                invisibleScreen = new Pieces[Program.width, Program.height];
-                Lights.Clear();
-                Level.CreateLevel(CurrentLevel);
-                t = new Thread(Music);
-                t.Start();
-                Render.DrawScreen();
-
+                Transition();
             }
         }
         public Character player;
         static List<Fire> Lights;
-        static bool levelChanged = false;       
-
+        static bool levelChanged = false;
+        static Playback playback;
+        static OutputDevice outputDevice;
         public Game()
         {
             screen = new Pieces[Program.width, Program.height];
             invisibleScreen = new Pieces[Program.width, Program.height];
             player = new Character(1, 5);
-            Lights = new List<Fire>();            
-            CurrentLevel = 1;
+            Lights = new List<Fire>();
+            outputDevice = OutputDevice.GetById(0);
+            CurrentLevel = 1;            
         }
 
         public void Step()
@@ -252,23 +239,6 @@ namespace StaticNeuron
             }
         }
 
-        public static void Music()
-        {
-            Playback playback;
-            void HandleFinish(object sender, EventArgs e)
-            {
-                playback.Stop();
-            }
-            var midiFile = MidiFile.Read($"funeralmarch.mid");
-            using (var outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth"))
-            using (playback = midiFile.GetPlayback(outputDevice))
-            {
-                playback.Speed = 2.0;
-                playback.Play();
-                playback.Finished += HandleFinish;
-            }
-
-        }    
         public static void DisplaySequence(int choice)
         {
             void Text(string input, int pause = 2500, bool clear = true, int x = 30, int y = 13)
@@ -315,6 +285,39 @@ namespace StaticNeuron
                 default:
                     break;
             }
+        }
+
+        static void NewPlayback(string file)
+        {            
+            playback = MidiFile.Read(file).GetPlayback(outputDevice);
+            playback.InterruptNotesOnStop = true;
+            playback.Loop = true;
+        }
+
+        static void Transition()
+        {
+
+            string[] songs = CurrentLevel switch
+            {
+                1 => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
+                _ => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
+            };
+            if (currentLevel > 1)
+                playback.Stop();
+
+            levelChanged = true;
+            screen = new Pieces[Program.width, Program.height];
+            invisibleScreen = new Pieces[Program.width, Program.height];
+            Lights.Clear();
+            Level.CreateLevel(CurrentLevel);
+            NewPlayback(songs[0]);
+            playback.Start();
+            DisplaySequence(currentLevel);
+            playback.Stop();
+            NewPlayback(songs[1]);
+            playback.Start();
+            Render.DrawScreen();
+
         }
     }
 }
