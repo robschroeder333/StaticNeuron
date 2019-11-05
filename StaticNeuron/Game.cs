@@ -284,6 +284,7 @@ namespace StaticNeuron
                     break;
                 case 2:
                     Console.Clear();
+                    Thread.Sleep(15000);
                     //Animation of monsters and a door closing
                     break;
                 case 3:
@@ -309,7 +310,9 @@ namespace StaticNeuron
 
             string[] songs = CurrentLevel switch
             {
-                1 => new string[2] { "thenightmare.mid", "funeralmarch.mid" },
+                1 => new string[2] { @"songs\creepy3.mid", @"songs\darkplaces.mid" },
+                2 => new string[2] { @"songs\thenightmare.mid", @"songs\darkplaces.mid" },
+                3 => new string[2] { @"songs\thenightmare.mid", @"songs\creepy3.mid" },
                 _ => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
             };
             if (currentLevel > 1)
