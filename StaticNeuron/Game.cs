@@ -14,9 +14,6 @@ namespace StaticNeuron
         public static Pieces[,] screen;
         public static Pieces[,] invisibleScreen;
         public static int currentLevel;
-        static Thread t;
-        static bool stopPlayback = false;
-        static object syncObject = new object();
         public static int CurrentLevel 
         {
             get
@@ -40,7 +37,9 @@ namespace StaticNeuron
             invisibleScreen = new Pieces[Program.width, Program.height];
             player = new Character(1, 5);
             Lights = new List<Fire>();
-            outputDevice = OutputDevice.GetById(0);
+            if (Program.isWindows)
+                outputDevice = OutputDevice.GetById(0);
+            
             CurrentLevel = 1;            
         }
 
@@ -316,7 +315,7 @@ namespace StaticNeuron
                 4 => new string[2] { @"songs\thenightmare.mid", @"songs\creepy3.mid" },//change both
                 _ => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
             };
-            if (currentLevel > 1)
+            if (currentLevel > 1 && Program.isWindows)
                 playback.Stop();
 
             levelChanged = true;
@@ -324,12 +323,19 @@ namespace StaticNeuron
             invisibleScreen = new Pieces[Program.width, Program.height];
             Lights.Clear();
             Level.CreateLevel(CurrentLevel);
-            NewPlayback(songs[0]);
-            playback.Start();            
+            if (Program.isWindows)
+            {
+                NewPlayback(songs[0]);
+                playback.Start();            
+            }
             DisplaySequence(currentLevel);
-            playback.Stop();
-            NewPlayback(songs[1]);
-            playback.Start();
+            if (Program.isWindows)
+            {
+                playback.Stop();
+                NewPlayback(songs[1]);
+                playback.Start();
+
+            }
             Render.DrawScreen();
 
         }
