@@ -28,9 +28,77 @@ namespace StaticNeuron
         }
         public Character player;
         static List<Fire> Lights;
-        static bool levelChanged = false;
+        static bool levelChanged = false;    
+
+         public static string[] humanTorch = {
+             @"     
+                    '    _____
+                   '    |     |
+                    )'  |     :
+               O   (*.  |-    |
+             / | \ /    |     :
+              / \    ___|_____|___",
+           @"        
+                   '     _____
+                    ;'  |     |
+                   '    |     :
+               O   '+'  |-    |
+             / | \ /    |     :
+              / \    ___|_____|___", 
+                   
+           @"         
+                    '    _____
+                    : ' |     |
+                   ;  , |     :
+               O    +,  |-    |
+             / | \ /    |     :
+              / \    ___|_____|___",
+           @"     
+                    ;    _____
+                   '    |     |
+                   ' '  |     :
+               O   .*)  |-    |
+             / | \ /    |     :
+              / \    ___|_____|___",
+           @"     
+                    '    _____
+                   ' .  |     |
+                    .   |     :
+               O   '+;  |-    |
+             / | \ /    |     :
+              / \    ___|_____|___",
+              @"
+                         _____
+                        |     |\
+                        |  o  | \
+                        | <|\_|  |
+                        |  |\ |  |
+                     ___|_/_|_| o|_
+                               \ |
+                                \|",
+                    @"  
+                         _____
+                        | LVL |
+                        |  2  :
+                        |-    |
+                        |     :
+                     ___|_____|___",
+                     @" 
+                         _____
+                        | LVL |
+                        |  3  :
+                        |-    |
+                        |     :
+                     ___|_____|___"
+
+         };
+
+        
+
+
         static Playback playback;
         static OutputDevice outputDevice;
+
         public Game()
         {
             screen = new Pieces[Program.width, Program.height];
@@ -291,6 +359,20 @@ namespace StaticNeuron
                     break;
                 case 4:
                     //animation of diving toward light
+                    break;
+                case 5:
+                    Console.Clear();
+                    Console.CursorVisible = false;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Text(humanTorch[0],120,true);
+                        Text(humanTorch[1],120,true);
+                        Text(humanTorch[2],120,true);
+                        Text(humanTorch[3],120,true);
+                        Text(humanTorch[4],120,true);
+                    }
+                        Text(humanTorch[5],1000,true);
+                        Text(humanTorch[6],1500,true);
                     break;
                 default:
                     break;
