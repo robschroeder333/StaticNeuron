@@ -32,7 +32,7 @@ namespace StaticNeuron
                 }
 
                 currentLevel = value;
-                Console.Clear();
+                DisplaySequence(currentLevel);
                 levelChanged = true;
                 screen = new Pieces[Program.width, Program.height];
                 invisibleScreen = new Pieces[Program.width, Program.height];
@@ -185,10 +185,7 @@ namespace StaticNeuron
 
                     Render.DrawScreen();
                 }
-                
-
             } while (player.LightLevel != -1);
-
         }
 
         void LevelManager()
@@ -270,8 +267,54 @@ namespace StaticNeuron
                 playback.Play();
                 playback.Finished += HandleFinish;
             }
-            
-            
+
+        }    
+        public static void DisplaySequence(int choice)
+        {
+            void Text(string input, int pause = 2500, bool clear = true, int x = 30, int y = 13)
+            {
+                Console.SetCursorPosition(x, y);
+                Console.Write(input);
+                Thread.Sleep(pause);
+                if (clear)
+                    Console.Clear();
+            }
+            switch (choice)
+            {
+                case 1:
+                    Console.Clear();
+                    Console.CursorVisible = false;
+                    Text("I no longer remember the sun");
+                    Text("The fire,");
+                    Text("is all that I have");                                       
+                    Text("It keeps me safe");                                       
+                    Text("keeps them at bay");                                       
+                    Text("Darkness is everywhere");                    
+                    Text("but glimmers of light exist");                    
+                    Text("Out there");                    
+                    Text("With them..");                    
+                    Text("Maybe...", 500, false);                    
+                    Text("A way out?", 500, false, 5, 5);//other voice                    
+                    Text("You have to get out!", 1000, true, 20, 25);//other voice                    
+                    Text("This place feels endless...");
+                    Text("I'm not sure how much longer I can take", 1000, false);
+                    Text("I have to escape", 500, false, 40, 8);//other voice                    
+                    Text("You must!", 500, false, 10, 10);//other voice                    
+                    Text("Go!", 1500, false, 60, 20);//other voice                    
+                    break;
+                case 2:
+                    Console.Clear();
+                    //Animation of monsters and a door closing
+                    break;
+                case 3:
+                    //animation of starting up a bonfire
+                    break;
+                case 4:
+                    //animation of diving toward light
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
