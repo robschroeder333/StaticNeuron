@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 using System;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace StaticNeuron
 {
@@ -17,8 +18,10 @@ namespace StaticNeuron
         "It’s a funny thing, ambition. It can take one to sublime heights or harrowing depths. And sometimes they are one and the same.",
         "Don't wish it were easier, wish you were better."};
         public static Random rnd = new Random();
+        public static bool isWindows;
         static void Main()
         {
+            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             //ColorTest();
             Game.DisplaySequence(5);
             Console.ReadKey();
