@@ -19,6 +19,9 @@
     <None Update="songs\darkplaces.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="songs\DisneyHauntHouseTheme.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="songs\funeralmarch.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

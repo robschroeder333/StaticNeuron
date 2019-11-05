@@ -349,31 +349,25 @@ namespace StaticNeuron
 
                     Text("I'm not sure how much longer I can take", 1000, true);                   
                     break;
-                case 2:
-                    Console.Clear();
-                    Thread.Sleep(15000);
-                    //Animation of monsters and a door closing
-                    break;
+                case 2:                    
                 case 3:
-                    //animation of starting up a bonfire
-                    break;
-                case 4:
-                    //animation of diving toward light
-                    break;
-                case 5:
                     Console.Clear();
+                    Thread.Sleep(2000);
                     Console.CursorVisible = false;
                     for (int i = 0; i < 10; i++)
                     {
-                        Text(humanTorch[0],120,true);
-                        Text(humanTorch[1],120,true);
-                        Text(humanTorch[2],120,true);
-                        Text(humanTorch[3],120,true);
-                        Text(humanTorch[4],120,true);
+                        Text(humanTorch[0], 120, false);
+                        Text(humanTorch[1], 120, false);
+                        Text(humanTorch[2], 120, false);
+                        Text(humanTorch[3], 120, false);
+                        Text(humanTorch[4], 120, false);
                     }
-                        Text(humanTorch[5],1000,true);
-                        Text(humanTorch[6],1500,true);
+                    Text(humanTorch[5], 1000, true);
+                    Text(humanTorch[choice == 2 ? 6 : 7], 1500, true);
                     break;
+                case 4:
+                    //animation of diving toward light
+                    break;               
                 default:
                     break;
             }
@@ -392,7 +386,7 @@ namespace StaticNeuron
             string[] songs = CurrentLevel switch
             {
                 1 => new string[2] { @"songs\thenightmare.mid", @"songs\darkplaces.mid" },
-                2 => new string[2] { @"songs\thenightmare.mid", @"songs\darkplaces.mid" },//change second
+                2 => new string[2] { @"songs\thenightmare.mid", @"songs\DisneyHauntHouseTheme.mid" },
                 3 => new string[2] { @"songs\thenightmare.mid", @"songs\creepy3.mid" },
                 4 => new string[2] { @"songs\thenightmare.mid", @"songs\creepy3.mid" },//change both
                 _ => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
