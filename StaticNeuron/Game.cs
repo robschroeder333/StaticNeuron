@@ -310,9 +310,10 @@ namespace StaticNeuron
 
             string[] songs = CurrentLevel switch
             {
-                1 => new string[2] { @"songs\creepy3.mid", @"songs\darkplaces.mid" },
-                2 => new string[2] { @"songs\thenightmare.mid", @"songs\darkplaces.mid" },
+                1 => new string[2] { @"songs\thenightmare.mid", @"songs\darkplaces.mid" },
+                2 => new string[2] { @"songs\thenightmare.mid", @"songs\darkplaces.mid" },//change second
                 3 => new string[2] { @"songs\thenightmare.mid", @"songs\creepy3.mid" },
+                4 => new string[2] { @"songs\thenightmare.mid", @"songs\creepy3.mid" },//change both
                 _ => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
             };
             if (currentLevel > 1)
