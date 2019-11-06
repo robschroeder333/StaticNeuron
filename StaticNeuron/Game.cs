@@ -105,7 +105,7 @@ namespace StaticNeuron
             if (Program.isWindows)
                 outputDevice = OutputDevice.GetById(0);
             
-            CurrentLevel = 3;            
+            CurrentLevel = 2;            
         }
 
         public void Step()
