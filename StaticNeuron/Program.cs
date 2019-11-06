@@ -9,27 +9,21 @@ namespace StaticNeuron
     {
         //offset by 2 to track border easily
         public static int height = 32;
-        public static int width = 72;
-        public static int[] colors = { 52,88,124,160,1,196};
-        
-        public static string[] quotes = {"Overconfidence is a slow and insidious killer", 
-        "Do you think God stays in heaven because he too lives in fear of what he's created?",
-        "We make our own monsters, then fear them for what they show us about ourselves",
-        "It’s a funny thing, ambition. It can take one to sublime heights or harrowing depths. And sometimes they are one and the same.",
-        "Don't wish it were easier, wish you were better."};
-        public static Random rnd = new Random();
+        public static int width = 72;       
         public static bool isWindows;
         static void Main()
         {
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+<<<<<<< HEAD
             //ColorTest();
             Game.WeebAnimation();
             // Game.DisplaySequence(4);
             Console.ReadKey();
+=======
+>>>>>>> master
             Opening();
             Game game = new Game();
             game.Step();
-            Death();
         }
 
         static void Opening()
@@ -48,26 +42,6 @@ namespace StaticNeuron
             Console.ReadKey();
         }
 
-        static void Death()
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            for (int i = 0; i < 6; i++)
-            {
-                int color = colors[i];
-                Console.SetCursorPosition(0, i + 5);
-                Console.WriteLine($"\u001b[38:5:{color}m     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
-                Console.WriteLine("    █     ▀▄ ▀▀▀ █    █ █ ▀▀▀ █    ██ █▀ ▀▄      █  █▀   ▀     █  █  ▄▀ █   █     █  ");
-                Console.WriteLine("  ▄  ▀▀▀▀▄       █    █▄▄█    █    ██ █   ▀  ██   █ ██▄▄    █   █ █▀▀▌  █   █ ██   █ ");
-                Console.WriteLine("   ▀▄▄▄▄▀       █     █  █   █     ▐█ █▄  ▄▀ █ █  █ █▄   ▄▀ █   █ █  █  ▀████ █ █  █ ");
-                Console.WriteLine("               ▀         █  ▀       ▐ ▀███▀  █  █ █ ▀███▀   █▄ ▄█   █         █  █ █ ");
-                Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
-                Console.WriteLine("                       ▀                                                             ");
-                Console.WriteLine("\n\n\n\n\n");
-                Thread.Sleep(200 + (i * 80 - (i * 15)));
-            }
-                Console.WriteLine($"{quotes[rnd.Next(0,quotes.Length - 1)]}");
-        }
         static void ColorTest()
         {
             Console.BackgroundColor = ConsoleColor.White;
