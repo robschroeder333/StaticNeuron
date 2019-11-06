@@ -23,7 +23,8 @@ namespace StaticNeuron
         {
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             //ColorTest();
-            Game.DisplaySequence(5);
+            Game.WeebAnimation();
+            // Game.DisplaySequence(4);
             Console.ReadKey();
             Opening();
             Game game = new Game();
