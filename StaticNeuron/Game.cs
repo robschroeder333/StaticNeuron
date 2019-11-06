@@ -14,6 +14,7 @@ namespace StaticNeuron
         public static Pieces[,] screen;
         public static Pieces[,] invisibleScreen;
         public static int currentLevel;
+        public static Random rnd = new Random();
         public static int CurrentLevel 
         {
             get
@@ -29,13 +30,9 @@ namespace StaticNeuron
         }
         public Character player;
         static List<Fire> Lights;
-<<<<<<< HEAD
-        static bool levelChanged = false; 
-=======
         static bool levelChanged = false;    
         static Playback playback;
         static OutputDevice outputDevice;
->>>>>>> master
 
         public static string[] humanTorch = {
              @"     
@@ -100,33 +97,89 @@ namespace StaticNeuron
 
          };
 
-<<<<<<< HEAD
-        
-
-
-        static Playback playback;
-        static OutputDevice outputDevice;
-
-        public static void Weeb(int n) 
+        public static void LightBeam(int x, int y, int z)
         {
-            if (n == 1)
-            {
-                Console.WriteLine("..__O");
-                Console.WriteLine("~  /");
-                Console.WriteLine("  / >");
-            }
-            if (n == 2)
-            {
-                Console.WriteLine("  __O");
-                Console.WriteLine(" ~ /");
-                Console.WriteLine("  > \\");
-            }
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine("  *          ");
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine("          .  ");
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine("     '       ");
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine(",            ");
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine("    *        ");
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine("          +  ");
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine("    .        ");
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine("         '   ");
+            Console.SetCursorPosition(x,rnd.Next(0,y));
+            Console.WriteLine("             ");
         }
+        public static void SpookyGhost(int x, int y)
+        {
+          Console.SetCursorPosition(x,y);
+          Console.WriteLine("              .--.     ");            
+          Console.SetCursorPosition(x,y + 1);
+          Console.WriteLine("             /  ..\\    ");            
+          Console.SetCursorPosition(x,y + 2);
+          Console.WriteLine("        ____.'  _o/"    );            
+          Console.SetCursorPosition(x,y + 3);
+          Console.WriteLine("       '--.     |.__   ");            
+          Console.SetCursorPosition(x,y + 4);
+          Console.WriteLine("       _.-'     /--'   ");            
+          Console.SetCursorPosition(x,y + 5);
+          Console.WriteLine("  _.--'        /       "); 
+          Console.SetCursorPosition(x,y + 6);
+          Console.WriteLine("  ~'--....___.-'       ");           
+         
+        }
+         public static void Eraser(int x, int y)
+         {
+            Console.SetCursorPosition(x,y);
+            Console.WriteLine("          ");
+            Console.SetCursorPosition(x,y + 1);
+            Console.WriteLine("          ");
+            Console.SetCursorPosition(x,y + 2);
+            Console.WriteLine("          ");
+            Console.SetCursorPosition(x,y + 3);
+            Console.WriteLine("          ");
+            Console.SetCursorPosition(x,y + 4);
+            Console.WriteLine("          ");
+            Console.SetCursorPosition(x,y + 5);
+            Console.WriteLine("          ");
+            Console.SetCursorPosition(x,y + 6);
+            Console.WriteLine("          ");
+            
+         }
         public static void WeebAnimation()
         {
+            Console.Clear();
             for (int i = 0; i < 100; i++)
             {
-                Console.Clear();
+                if (i < 20)
+                {   if (i > 0)
+                    {
+                    Eraser(i, 5);   
+                    }
+                    SpookyGhost(i, 5);
+                }
+                if (i > 20 && i <= 40)
+                {
+                    Eraser(i, 5);
+                }
+                if (i > 40 && i < 60)
+                {
+                    Eraser(i , 1);
+                    SpookyGhost(5 + i, 1);
+                }
+                if (i >= 60 && i < 129)
+                {
+                    Eraser(5 + i, 1);
+                }
+                Eraser(20+i, 13);
                 if (i % 2 == 0)
                 {   
                     Console.SetCursorPosition(30 + i, 13);
@@ -138,6 +191,7 @@ namespace StaticNeuron
                 }
                 if (i % 3 == 0)
                 {
+                    LightBeam(140,15,i);
                     Console.SetCursorPosition(30 + i, 13);
                     Console.WriteLine("..__O");
                     Console.SetCursorPosition(30 + i, 13 + 1);
@@ -157,6 +211,8 @@ namespace StaticNeuron
                 Thread.Sleep(50);
             }       
                     Console.Clear();
+                    SpookyGhost(100,10);
+                    LightBeam(140,15,13);
                     Console.SetCursorPosition(133, 10);
                     Console.WriteLine("o//");
                     Console.SetCursorPosition(133, 11);
@@ -167,6 +223,12 @@ namespace StaticNeuron
                     Console.WriteLine("~ ~ ");
                     Thread.Sleep(1000);
                     Console.Clear();
+                    SpookyGhost(105,10);
+                    LightBeam(140,15,13);
+                    Console.SetCursorPosition(133,13);
+                    Console.WriteLine("     ");
+                    Console.SetCursorPosition(133,12);
+                    Console.WriteLine("     ");
                     Console.SetCursorPosition(135, 8);
                     Console.WriteLine("   o//");
                     Console.SetCursorPosition(135, 9);
@@ -177,17 +239,41 @@ namespace StaticNeuron
                     Console.WriteLine("~ ~ ");
                     Thread.Sleep(1000);
                     Console.Clear();
+                    SpookyGhost(107,10);
+                    LightBeam(140,15,13);
+                    Console.SetCursorPosition(135,11);
+                    Console.WriteLine("     ");
                     Console.SetCursorPosition(135, 8);
                     Console.WriteLine("      o//");
                     Console.SetCursorPosition(135, 9);
                     Console.WriteLine("    7  ");
                     Console.SetCursorPosition(135, 10);
                     Console.WriteLine(" // ");
+                    Console.WriteLine("    ");
+                    Console.WriteLine("    ");
+                    Console.WriteLine("    ");
                     Thread.Sleep(1000);
+                    for (int i = 0; i < 140; i++)
+                    {   if (i < 30)
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        if (i >= 30 && i < 60)
+                        {
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
+                        }
+                        if (i >= 60 && i < 110)
+                        Console.BackgroundColor = ConsoleColor.Gray;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        if (i >= 110)
+                        Console.BackgroundColor = ConsoleColor.White;
+                        if (140 - i >= 0)
+                        {
+                        LightBeam(140 - i,15,i);
+                        LightBeam(140 - i,20,i);
+                        Thread.Sleep(50);
+                        }
+                    }
                     
         }
-=======
->>>>>>> master
         public Game()
         {
             screen = new Pieces[Program.width, Program.height];
@@ -460,7 +546,6 @@ namespace StaticNeuron
                     Text(humanTorch[choice == 2 ? 6 : 7], 1500, true);
                     break;
                 case 4:
-<<<<<<< HEAD
                     //animation of diving toward light
                     Console.Clear();
                     Console.CursorVisible = false;
@@ -470,13 +555,6 @@ namespace StaticNeuron
                         Text(humanTorch[9],120,true);
                         Text(humanTorch[10],120,true);
                     }
-=======
-                    Console.Clear();
-                    Thread.Sleep(2000);
-                    Console.CursorVisible = false;
-                    Text("animation of diving toward light");//end on white screen
-
->>>>>>> master
                     break;
                 case 5:
                     Console.Clear();
