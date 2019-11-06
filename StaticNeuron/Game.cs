@@ -23,14 +23,17 @@ namespace StaticNeuron
             set
             {
                 currentLevel = value;
-                Transition();
+                if (currentLevel < 4)
+                    Transition(currentLevel);
             }
         }
         public Character player;
         static List<Fire> Lights;
         static bool levelChanged = false;    
+        static Playback playback;
+        static OutputDevice outputDevice;
 
-         public static string[] humanTorch = {
+        public static string[] humanTorch = {
              @"     
                     '    _____
                    '    |     |
@@ -93,12 +96,6 @@ namespace StaticNeuron
 
          };
 
-        
-
-
-        static Playback playback;
-        static OutputDevice outputDevice;
-
         public Game()
         {
             screen = new Pieces[Program.width, Program.height];
@@ -108,7 +105,7 @@ namespace StaticNeuron
             if (Program.isWindows)
                 outputDevice = OutputDevice.GetById(0);
             
-            CurrentLevel = 1;            
+            CurrentLevel = 3;            
         }
 
         public void Step()
@@ -239,7 +236,11 @@ namespace StaticNeuron
 
                     Render.DrawScreen();
                 }
-            } while (player.LightLevel != -1);
+            } while (player.LightLevel != -1 && CurrentLevel < 4);
+            if (player.LightLevel == -1)
+                Transition(-1);
+            else
+                Transition(4);
         }
 
         void LevelManager()
@@ -306,16 +307,17 @@ namespace StaticNeuron
             }
         }
 
+        static void Text(string input, int pause = 2500, bool clear = true, int x = 30, int y = 13)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(input);
+            Thread.Sleep(pause);
+            if (clear)
+                Console.Clear();
+        }
+
         public static void DisplaySequence(int choice)
         {
-            void Text(string input, int pause = 2500, bool clear = true, int x = 30, int y = 13)
-            {
-                Console.SetCursorPosition(x, y);
-                Console.Write(input);
-                Thread.Sleep(pause);
-                if (clear)
-                    Console.Clear();
-            }
             switch (choice)
             {
                 case 1:
@@ -323,7 +325,7 @@ namespace StaticNeuron
                     Console.CursorVisible = false;
                     Thread.Sleep(2500);
                     Text("I no longer remember the sun");
-                    Text("The fire,");
+                    Text("The fire..");
                     Text("is all that I have");                                       
                     Text("It keeps me safe");                                       
                     Text("keeps them at bay");                                       
@@ -349,33 +351,59 @@ namespace StaticNeuron
 
                     Text("I'm not sure how much longer I can take", 1000, true);                   
                     break;
-                case 2:
-                    Console.Clear();
-                    Thread.Sleep(15000);
-                    //Animation of monsters and a door closing
-                    break;
+                case 2:                    
                 case 3:
-                    //animation of starting up a bonfire
-                    break;
-                case 4:
-                    //animation of diving toward light
-                    break;
-                case 5:
                     Console.Clear();
+                    Thread.Sleep(2000);
                     Console.CursorVisible = false;
                     for (int i = 0; i < 10; i++)
                     {
-                        Text(humanTorch[0],120,true);
-                        Text(humanTorch[1],120,true);
-                        Text(humanTorch[2],120,true);
-                        Text(humanTorch[3],120,true);
-                        Text(humanTorch[4],120,true);
+                        Text(humanTorch[0], 120, false);
+                        Text(humanTorch[1], 120, false);
+                        Text(humanTorch[2], 120, false);
+                        Text(humanTorch[3], 120, false);
+                        Text(humanTorch[4], 120, false);
                     }
-                        Text(humanTorch[5],1000,true);
-                        Text(humanTorch[6],1500,true);
+                    Text(humanTorch[5], 1000, true);
+                    Text(humanTorch[choice == 2 ? 6 : 7], 1500, true);
                     break;
-                default:
+                case 4:
+                    Console.Clear();
+                    Thread.Sleep(2000);
+                    Console.CursorVisible = false;
+                    Text("animation of diving toward light");//end on white screen
+
                     break;
+                case 5:
+                    Console.Clear();
+                    Thread.Sleep(2000);
+                    Console.CursorVisible = false;
+                    Text("I cant see");
+                    Text("The light is blinding");
+                    Text("The ground feels strange");
+                    Text("Where am I?", 500, false);
+                    Text("Be careful", 500, false, 45, 8);
+                    Text("Not safe", 500, false, 5, 5);
+                    Text("Hide", 500, true, 50, 20);
+                    //have light dim
+                    Text("NO");
+                    Text("I'm..");
+                    Text("Home...");
+                    Text("    ...");
+                    Thread.Sleep(3000);
+                    break;
+                case -1:
+                    Console.Clear();
+                    Thread.Sleep(2000);
+                    Console.CursorVisible = false;
+                    Text("death animation");
+                    break;
+                case -2:
+                    Console.Clear();
+                    Thread.Sleep(2000);
+                    Console.CursorVisible = false;
+                    Death();
+                    break;               
             }
         }
 
@@ -386,40 +414,92 @@ namespace StaticNeuron
             playback.Loop = true;
         }
 
-        static void Transition()
+        static void Transition(int choice)
         {
 
-            string[] songs = CurrentLevel switch
+            string[] songs = choice switch
             {
                 1 => new string[2] { @"songs\thenightmare.mid", @"songs\darkplaces.mid" },
-                2 => new string[2] { @"songs\thenightmare.mid", @"songs\darkplaces.mid" },//change second
+                2 => new string[2] { @"songs\thenightmare.mid", @"songs\DisneyHauntHouseTheme.mid" },
                 3 => new string[2] { @"songs\thenightmare.mid", @"songs\creepy3.mid" },
-                4 => new string[2] { @"songs\thenightmare.mid", @"songs\creepy3.mid" },//change both
-                _ => new string[2] { "funeralmarch.mid", "funeralmarch.mid" },
+                4 => new string[2] { @"songs\naruto7.mid", @"songs\avatarslove.mid" },//Victory
+                _ => new string[2] { @"songs\TheLordofCinder.mid", @"songs\haunting.mid" },//Death
             };
-            if (currentLevel > 1 && Program.isWindows)
+
+            if (playback != null && playback.IsRunning && Program.isWindows)
                 playback.Stop();
 
-            levelChanged = true;
-            screen = new Pieces[Program.width, Program.height];
-            invisibleScreen = new Pieces[Program.width, Program.height];
-            Lights.Clear();
-            Level.CreateLevel(CurrentLevel);
-            if (Program.isWindows)
+            if (choice == 4 || choice == -1)
             {
-                NewPlayback(songs[0]);
-                playback.Start();            
+                if (Program.isWindows)
+                {
+                    NewPlayback(songs[0]);
+                    playback.Start();
+                }
+                DisplaySequence(choice);
+                if (Program.isWindows)
+                {
+                    playback.Stop();
+                    NewPlayback(songs[1]);
+                    playback.Start();
+                }
+                DisplaySequence(choice == 4 ? 5 : -2);
             }
-            DisplaySequence(currentLevel);
-            if (Program.isWindows)
+            else
+            {              
+                levelChanged = true;
+                screen = new Pieces[Program.width, Program.height];
+                invisibleScreen = new Pieces[Program.width, Program.height];
+                Lights.Clear();
+                Level.CreateLevel(CurrentLevel);
+                if (Program.isWindows)
+                {
+                    NewPlayback(songs[0]);
+                    playback.Start();            
+                }
+                DisplaySequence(currentLevel);
+                if (Program.isWindows)
+                {
+                    playback.Stop();
+                    NewPlayback(songs[1]);
+                    playback.Start();
+
+                }
+                Render.DrawScreen();
+            }
+
+        }
+
+        static void Death()
+        {
+            string[] quotes = 
             {
-                playback.Stop();
-                NewPlayback(songs[1]);
-                playback.Start();
+                "Overconfidence is a slow and insidious killer",
+                "Do you think God stays in heaven because he too lives in fear of what he's created?",
+                "We make our own monsters, then fear them for what they show us about ourselves",
+                "It’s a funny thing, ambition. It can take one to sublime heights or harrowing depths.\n  And sometimes they are one and the same.",
+                "Don't wish it were easier, wish you were better."
+            };
+            Random rnd = new Random();
+            int[] colors = { 52, 88, 124, 160, 1, 196 };
 
+            Console.ForegroundColor = ConsoleColor.Red;
+            for (int i = 0; i < 6; i++)
+            {
+                int color = colors[i];
+                Console.SetCursorPosition(0, i + 5);                
+                Console.WriteLine($"\u001b[38;5;{color}m     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
+                Console.WriteLine("    █     ▀▄ ▀▀▀ █    █ █ ▀▀▀ █    ██ █▀ ▀▄      █  █▀   ▀     █  █  ▄▀ █   █     █  ");
+                Console.WriteLine("  ▄  ▀▀▀▀▄       █    █▄▄█    █    ██ █   ▀  ██   █ ██▄▄    █   █ █▀▀▌  █   █ ██   █ ");
+                Console.WriteLine("   ▀▄▄▄▄▀       █     █  █   █     ▐█ █▄  ▄▀ █ █  █ █▄   ▄▀ █   █ █  █  ▀████ █ █  █ ");
+                Console.WriteLine("               ▀         █  ▀       ▐ ▀███▀  █  █ █ ▀███▀   █▄ ▄█   █         █  █ █ ");
+                Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
+                Console.WriteLine("                       ▀                                                             ");
+                Console.WriteLine("\n\n\n\n\n");
+                Thread.Sleep(200 + (i * 80 - (i * 15)));
             }
-            Render.DrawScreen();
-
+            string quote = quotes[rnd.Next(0, quotes.Length - 1)];
+            Text(quote, 15000, true, Math.Clamp((30 - quote.Length / 2), 2, 70), 20);
         }
     }
 }
