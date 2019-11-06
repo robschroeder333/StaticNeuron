@@ -29,9 +29,13 @@ namespace StaticNeuron
         }
         public Character player;
         static List<Fire> Lights;
+<<<<<<< HEAD
+        static bool levelChanged = false; 
+=======
         static bool levelChanged = false;    
         static Playback playback;
         static OutputDevice outputDevice;
+>>>>>>> master
 
         public static string[] humanTorch = {
              @"     
@@ -96,6 +100,94 @@ namespace StaticNeuron
 
          };
 
+<<<<<<< HEAD
+        
+
+
+        static Playback playback;
+        static OutputDevice outputDevice;
+
+        public static void Weeb(int n) 
+        {
+            if (n == 1)
+            {
+                Console.WriteLine("..__O");
+                Console.WriteLine("~  /");
+                Console.WriteLine("  / >");
+            }
+            if (n == 2)
+            {
+                Console.WriteLine("  __O");
+                Console.WriteLine(" ~ /");
+                Console.WriteLine("  > \\");
+            }
+        }
+        public static void WeebAnimation()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                Console.Clear();
+                if (i % 2 == 0)
+                {   
+                    Console.SetCursorPosition(30 + i, 13);
+                    Console.WriteLine("  __O");
+                    Console.SetCursorPosition(30 + i, 13 + 1);
+                    Console.WriteLine(" ~ / ");
+                    Console.SetCursorPosition(30 + i, 13 + 2);
+                    Console.WriteLine("/  \\");
+                }
+                if (i % 3 == 0)
+                {
+                    Console.SetCursorPosition(30 + i, 13);
+                    Console.WriteLine("..__O");
+                    Console.SetCursorPosition(30 + i, 13 + 1);
+                    Console.WriteLine("~  /");
+                    Console.SetCursorPosition(30 + i, 13 + 2);
+                    Console.WriteLine(" /  >");
+                }
+                else 
+                {
+                    Console.SetCursorPosition(30 + i, 13);
+                    Console.WriteLine("..__O");
+                    Console.SetCursorPosition(30 + i, 13 + 1);
+                    Console.WriteLine("~  / ");
+                    Console.SetCursorPosition(30 + i, 13 + 2);
+                    Console.WriteLine("   |");
+                }
+                Thread.Sleep(50);
+            }       
+                    Console.Clear();
+                    Console.SetCursorPosition(133, 10);
+                    Console.WriteLine("o//");
+                    Console.SetCursorPosition(133, 11);
+                    Console.WriteLine("8  ");
+                    Console.SetCursorPosition(133, 12);
+                    Console.WriteLine("/ > ");
+                    Console.SetCursorPosition(133, 13);
+                    Console.WriteLine("~ ~ ");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    Console.SetCursorPosition(135, 8);
+                    Console.WriteLine("   o//");
+                    Console.SetCursorPosition(135, 9);
+                    Console.WriteLine("  8  ");
+                    Console.SetCursorPosition(135, 10);
+                    Console.WriteLine("/ / ");
+                    Console.SetCursorPosition(135, 11);
+                    Console.WriteLine("~ ~ ");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    Console.SetCursorPosition(135, 8);
+                    Console.WriteLine("      o//");
+                    Console.SetCursorPosition(135, 9);
+                    Console.WriteLine("    7  ");
+                    Console.SetCursorPosition(135, 10);
+                    Console.WriteLine(" // ");
+                    Thread.Sleep(1000);
+                    
+        }
+=======
+>>>>>>> master
         public Game()
         {
             screen = new Pieces[Program.width, Program.height];
@@ -368,11 +460,23 @@ namespace StaticNeuron
                     Text(humanTorch[choice == 2 ? 6 : 7], 1500, true);
                     break;
                 case 4:
+<<<<<<< HEAD
+                    //animation of diving toward light
+                    Console.Clear();
+                    Console.CursorVisible = false;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Text(humanTorch[8],120,true);
+                        Text(humanTorch[9],120,true);
+                        Text(humanTorch[10],120,true);
+                    }
+=======
                     Console.Clear();
                     Thread.Sleep(2000);
                     Console.CursorVisible = false;
                     Text("animation of diving toward light");//end on white screen
 
+>>>>>>> master
                     break;
                 case 5:
                     Console.Clear();
