@@ -29,7 +29,7 @@ namespace StaticNeuron
         {
             Position = new Point(x, y);
             dir = Direction.Right;
-            LightLevel = 3;
+            LightLevel = 0;
             Vision = new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1];
         }
 

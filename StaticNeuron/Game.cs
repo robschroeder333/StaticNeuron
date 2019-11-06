@@ -105,7 +105,7 @@ namespace StaticNeuron
             if (Program.isWindows)
                 outputDevice = OutputDevice.GetById(0);
             
-            CurrentLevel = 2;            
+            CurrentLevel = 3;            
         }
 
         public void Step()
@@ -318,6 +318,31 @@ namespace StaticNeuron
 
         public static void DisplaySequence(int choice)
         {
+            string diablo = @"
+
+---+...++//   `   `-:+++//                  ``````....`````  `oo:.....
+++++...++-  ```.-:++/:..`                         ```......  `oo:.....
+++++.-/+:.  `-//+/:.`                                ``....  `/+/-----
+.....:++`  `.-:-.`  `....````````````.-//////-......    ``..`  /++++++
+.....://`  .``  `-+/++++/:::::.......:/+++++++//----///  `..`  .:+++++
+....://    ```` -+o`   `.-/++ooooo+++o++++//.-.`    /+/  `..`   `-++++
+...:/-`    ...` `-o`   -// `.:+++++++++/:.`  ://    /+/  `..`     ++++
+..:++.     ..`  ./o`          ````:++++:            /+/:``..`     ++++
+.:+++.     ..`  -+o-..........---/+oo++++`   ......./+++.`..``    /+++
+.:+++.     ..`  -++o++++++++++o++++oo++oo+++++++++++++++.  `.`     :++
+.:+++.     .`   -+++ooooooooooo++++oo++ooooooooooooo++//`  ```     :++
+-/+++.   `..`   .:++++++++++++++++-..:/ooo++++++++++++/     ```    :++
+++++`    `.`      `-----:++++++++`    .:++++++/-```--.`     `..``  ://
+--.     ...             `-/++++o+ .-/-``+++/`               `..       
+        ...            `` .:+++++++++++++++++.               `. ``    
+       ..`             ``  -+++++++++++++++/.          ```     ``     
+       .`                  `.::/++++++++::-`         `.....    `.`    
+     `.`         ``````        -ooooooo+.    ``   ```` ``..`    ``    
+     `.       `...`````      `//++++++++/-` ```   `       ````````    
+      `.```..``              `----/+++:-``  `                ```      
+       ````                    `../+++:...`                           
+                              :+oooooooooo:                           
+                              /ooooooooooo:                    ";
             switch (choice)
             {
                 case 1:
@@ -372,7 +397,8 @@ namespace StaticNeuron
                     Thread.Sleep(2000);
                     Console.CursorVisible = false;
                     Text("animation of diving toward light");//end on white screen
-
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Thread.Sleep(3000);
                     break;
                 case 5:
                     Console.Clear();
@@ -386,17 +412,48 @@ namespace StaticNeuron
                     Text("Not safe", 500, false, 5, 5);
                     Text("Hide", 500, true, 50, 20);
                     //have light dim
-                    Text("NO");
-                    Text("I'm..");
-                    Text("Home...");
-                    Text("    ...");
-                    Thread.Sleep(3000);
+                    Text("NO!");
+                    Text("It can't be", 3000);
+                    Text("I'm", 1000, false);
+                    Text("I'm.", 1000, false);
+                    Text("I'm..", 1000);
+                    Text("Home", 500, false);
+                    Text("Home.", 500, false);
+                    Text("Home..", 500, false);
+                    Text("Home...", 500);
+                    Text("    ...", 500);
+                    Text("     ..", 500);
+                    Text("      .", 500);                    
+                    Thread.Sleep(4000);
                     break;
                 case -1:
                     Console.Clear();
                     Thread.Sleep(2000);
                     Console.CursorVisible = false;
-                    Text("death animation");
+                    string[] deathText = new string[] 
+                    {
+                        "They're near",
+                        "They're near.",
+                        "They're near..",
+                        "I can hear them",
+                        "I can hear them.",
+                        "I can hear them..",
+                        "I",
+                        "I guess",
+                        "This is it",
+                        "Its so cold",
+                        "Its so cold..",
+                        "Its so cold..",
+                        "Its so cold..",
+                        "           ..",
+                        "            ."
+
+                    };
+                    for (int i = 0; i < 15; i++)
+                    {
+                        Text(deathText[i], 0, false, 30, 2);
+                        Text($"\u001b[38;5;{247 - i}m" + diablo, 2000, true, 2, 2 + i);
+                    }
                     break;
                 case -2:
                     Console.Clear();
@@ -499,7 +556,7 @@ namespace StaticNeuron
                 Thread.Sleep(200 + (i * 80 - (i * 15)));
             }
             string quote = quotes[rnd.Next(0, quotes.Length - 1)];
-            Text(quote, 15000, true, Math.Clamp((30 - quote.Length / 2), 2, 70), 20);
+            Text(quote, 20000, true, Math.Clamp((30 - quote.Length / 2), 2, 70), 20);
         }
     }
 }
