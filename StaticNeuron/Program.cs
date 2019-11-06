@@ -31,7 +31,7 @@ namespace StaticNeuron
             Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
             Console.WriteLine("                       ▀                                                             ");
             Console.WriteLine("\n\n\n\n\n");
-            Console.WriteLine("                             Press Any Key To Continue                               ");
+            Console.WriteLine("                  Press Any Key To Continue (press F11 for fullscreen)                               ");
             Console.ReadKey();
         }
 
