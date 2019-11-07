@@ -283,7 +283,7 @@ namespace StaticNeuron
             if (Program.isWindows)
                 outputDevice = OutputDevice.GetById(0);
             
-            CurrentLevel = 1;            
+            CurrentLevel = 3;            
         }
 
         public void Step()
@@ -618,6 +618,7 @@ namespace StaticNeuron
                     Console.WriteLine("                       ▀                                                             ");
                     Console.WriteLine("\n\n\n\n\n");
                     Console.WriteLine("                           A game by Robert Shroeder and Chris Masters");
+                    Console.ReadKey();
                     break;
                 case -1:
                     Console.Clear();
@@ -653,6 +654,7 @@ namespace StaticNeuron
                     Thread.Sleep(2000);
                     Console.CursorVisible = false;
                     Death();
+                    Console.ReadKey();
                     break;               
             }
         }
