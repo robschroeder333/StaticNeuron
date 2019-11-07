@@ -136,7 +136,7 @@ namespace StaticNeuron
           Console.WriteLine("  ~'--....___.-'       ");           
          
         }
-         public static void Eraser(int x, int y)
+        public static void Eraser(int x, int y)
          {
             Console.SetCursorPosition(x,y);
             Console.WriteLine("          ");
@@ -210,68 +210,76 @@ namespace StaticNeuron
                 }
                 Thread.Sleep(50);
             }       
-                    Console.Clear();
-                    SpookyGhost(100,10);
-                    LightBeam(140,15,13);
-                    Console.SetCursorPosition(133, 10);
-                    Console.WriteLine("o//");
-                    Console.SetCursorPosition(133, 11);
-                    Console.WriteLine("8  ");
-                    Console.SetCursorPosition(133, 12);
-                    Console.WriteLine("/ > ");
-                    Console.SetCursorPosition(133, 13);
-                    Console.WriteLine("~ ~ ");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                    SpookyGhost(105,10);
-                    LightBeam(140,15,13);
-                    Console.SetCursorPosition(133,13);
-                    Console.WriteLine("     ");
-                    Console.SetCursorPosition(133,12);
-                    Console.WriteLine("     ");
-                    Console.SetCursorPosition(135, 8);
-                    Console.WriteLine("   o//");
-                    Console.SetCursorPosition(135, 9);
-                    Console.WriteLine("  8  ");
-                    Console.SetCursorPosition(135, 10);
-                    Console.WriteLine("/ / ");
-                    Console.SetCursorPosition(135, 11);
-                    Console.WriteLine("~ ~ ");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                    SpookyGhost(107,10);
-                    LightBeam(140,15,13);
-                    Console.SetCursorPosition(135,11);
-                    Console.WriteLine("     ");
-                    Console.SetCursorPosition(135, 8);
-                    Console.WriteLine("      o//");
-                    Console.SetCursorPosition(135, 9);
-                    Console.WriteLine("    7  ");
-                    Console.SetCursorPosition(135, 10);
-                    Console.WriteLine(" // ");
-                    Console.WriteLine("    ");
-                    Console.WriteLine("    ");
-                    Console.WriteLine("    ");
-                    Thread.Sleep(1000);
-                    for (int i = 0; i < 140; i++)
-                    {   if (i < 30)
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        if (i >= 30 && i < 60)
-                        {
-                        Console.BackgroundColor = ConsoleColor.DarkGray;
-                        }
-                        if (i >= 60 && i < 110)
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        if (i >= 110)
-                        Console.BackgroundColor = ConsoleColor.White;
-                        if (140 - i >= 0)
-                        {
-                        LightBeam(140 - i,15,i);
-                        LightBeam(140 - i,20,i);
-                        Thread.Sleep(50);
-                        }
-                    }
+            Console.Clear();
+            SpookyGhost(100,10);
+            LightBeam(140,15,13);
+            Console.SetCursorPosition(133, 10);
+            Console.WriteLine("o//");
+            Console.SetCursorPosition(133, 11);
+            Console.WriteLine("8  ");
+            Console.SetCursorPosition(133, 12);
+            Console.WriteLine("/ > ");
+            Console.SetCursorPosition(133, 13);
+            Console.WriteLine("~ ~ ");
+            Thread.Sleep(1000);
+            Console.Clear();
+            SpookyGhost(105,10);
+            LightBeam(140,15,13);
+            Console.SetCursorPosition(133,13);
+            Console.WriteLine("     ");
+            Console.SetCursorPosition(133,12);
+            Console.WriteLine("     ");
+            Console.SetCursorPosition(135, 8);
+            Console.WriteLine("   o//");
+            Console.SetCursorPosition(135, 9);
+            Console.WriteLine("  8  ");
+            Console.SetCursorPosition(135, 10);
+            Console.WriteLine("/ / ");
+            Console.SetCursorPosition(135, 11);
+            Console.WriteLine("~ ~ ");
+            Thread.Sleep(1000);
+            Console.Clear();
+            SpookyGhost(107,10);
+            LightBeam(140,15,13);
+            Console.SetCursorPosition(135,11);
+            Console.WriteLine("     ");
+            Console.SetCursorPosition(135, 8);
+            Console.WriteLine("      o//");
+            Console.SetCursorPosition(135, 9);
+            Console.WriteLine("    7  ");
+            Console.SetCursorPosition(135, 10);
+            Console.WriteLine(" // ");
+            Console.WriteLine("    ");
+            Console.WriteLine("    ");
+            Console.WriteLine("    ");
+            Thread.Sleep(1000);
+
+            for (int i = 0; i < 140; i++)
+            {   if (i < 30)
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                if (i >= 30 && i < 60)
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                }
+                if (i >= 60 && i < 110)
+                {
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                if (i >= 110)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                }
+                if (140 - i >= 0)
+                {
+                    LightBeam(140 - i,15,i);
+                    LightBeam(140 - i,20,i);
+                    Thread.Sleep(50);
+                }
+            }
                     
         }
         public Game()
@@ -496,6 +504,31 @@ namespace StaticNeuron
 
         public static void DisplaySequence(int choice)
         {
+            string diablo = @"
+
+---+...++//   `   `-:+++//                  ``````....`````  `oo:.....
+++++...++-  ```.-:++/:..`                         ```......  `oo:.....
+++++.-/+:.  `-//+/:.`                                ``....  `/+/-----
+.....:++`  `.-:-.`  `....````````````.-//////-......    ``..`  /++++++
+.....://`  .``  `-+/++++/:::::.......:/+++++++//----///  `..`  .:+++++
+....://    ```` -+o`   `.-/++ooooo+++o++++//.-.`    /+/  `..`   `-++++
+...:/-`    ...` `-o`   -// `.:+++++++++/:.`  ://    /+/  `..`     ++++
+..:++.     ..`  ./o`          ````:++++:            /+/:``..`     ++++
+.:+++.     ..`  -+o-..........---/+oo++++`   ......./+++.`..``    /+++
+.:+++.     ..`  -++o++++++++++o++++oo++oo+++++++++++++++.  `.`     :++
+.:+++.     .`   -+++ooooooooooo++++oo++ooooooooooooo++//`  ```     :++
+-/+++.   `..`   .:++++++++++++++++-..:/ooo++++++++++++/     ```    :++
+++++`    `.`      `-----:++++++++`    .:++++++/-```--.`     `..``  ://
+--.     ...             `-/++++o+ .-/-``+++/`               `..       
+        ...            `` .:+++++++++++++++++.               `. ``    
+       ..`             ``  -+++++++++++++++/.          ```     ``     
+       .`                  `.::/++++++++::-`         `.....    `.`    
+     `.`         ``````        -ooooooo+.    ``   ```` ``..`    ``    
+     `.       `...`````      `//++++++++/-` ```   `       ````````    
+      `.```..``              `----/+++:-``  `                ```      
+       ````                    `../+++:...`                           
+                              :+oooooooooo:                           
+                              /ooooooooooo:                    ";
             switch (choice)
             {
                 case 1:
@@ -546,39 +579,83 @@ namespace StaticNeuron
                     Text(humanTorch[choice == 2 ? 6 : 7], 1500, true);
                     break;
                 case 4:
-                    //animation of diving toward light
                     Console.Clear();
                     Console.CursorVisible = false;
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Text(humanTorch[8],120,true);
-                        Text(humanTorch[9],120,true);
-                        Text(humanTorch[10],120,true);
-                    }
+                    Thread.Sleep(4000);
+                    WeebAnimation();
+                    Thread.Sleep(4000);
                     break;
                 case 5:
                     Console.Clear();
-                    Thread.Sleep(2000);
+                    Thread.Sleep(4000);
                     Console.CursorVisible = false;
                     Text("I cant see");
                     Text("The light is blinding");
                     Text("The ground feels strange");
                     Text("Where am I?", 500, false);
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.ForegroundColor = ConsoleColor.White;
                     Text("Be careful", 500, false, 45, 8);
                     Text("Not safe", 500, false, 5, 5);
                     Text("Hide", 500, true, 50, 20);
-                    //have light dim
-                    Text("NO");
-                    Text("I'm..");
-                    Text("Home...");
-                    Text("    ...");
-                    Thread.Sleep(3000);
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Text("NO!");
+                    Text("It can't be", 3000);
+                    Text("I'm", 1000, false);
+                    Text("I'm.", 1000, false);
+                    Text("I'm..", 1000);
+                    Text("Home", 500, false);
+                    Text("Home.", 500, false);
+                    Text("Home..", 500, false);
+                    Text("Home...", 500);
+                    Text("    ...", 500);
+                    Text("     ..", 500);
+                    Text("      .", 500);                    
+                    Thread.Sleep(8000);
+                    Text("Congratulations");
+                    Text("You won");
+                    Text("Thanks for playing!");
+                    Console.Clear();
+                    Console.WriteLine("\n\n\n\n\n");
+                    Console.WriteLine("     ▄▄▄▄▄      ▄▄▄▄▀ ██     ▄▄▄▄▀ ▄█ ▄█▄       ▄   ▄███▄     ▄   █▄▄▄▄ ████▄    ▄   ");
+                    Console.WriteLine("    █     ▀▄ ▀▀▀ █    █ █ ▀▀▀ █    ██ █▀ ▀▄      █  █▀   ▀     █  █  ▄▀ █   █     █  ");
+                    Console.WriteLine("  ▄  ▀▀▀▀▄       █    █▄▄█    █    ██ █   ▀  ██   █ ██▄▄    █   █ █▀▀▌  █   █ ██   █ ");
+                    Console.WriteLine("   ▀▄▄▄▄▀       █     █  █   █     ▐█ █▄  ▄▀ █ █  █ █▄   ▄▀ █   █ █  █  ▀████ █ █  █ ");
+                    Console.WriteLine("               ▀         █  ▀       ▐ ▀███▀  █  █ █ ▀███▀   █▄ ▄█   █         █  █ █ ");
+                    Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
+                    Console.WriteLine("                       ▀                                                             ");
+                    Console.WriteLine("\n\n\n\n\n");
+                    Console.WriteLine("                           A game by Robert Shroeder and Chris Masters");
+                    Console.ReadKey();
                     break;
                 case -1:
                     Console.Clear();
                     Thread.Sleep(2000);
                     Console.CursorVisible = false;
-                    Text("death animation");
+                    string[] deathText = new string[] 
+                    {
+                        "They're near",
+                        "They're near.",
+                        "They're near..",
+                        "I can hear them",
+                        "I can hear them.",
+                        "I can hear them..",
+                        "What's happening to me?",
+                        "I guess this is it",
+                        "My body feels so cold",
+                        "Its so cold",
+                        "Its so cold.",
+                        "Its so cold..",
+                        "           ..",
+                        "            .",
+                        "             "
+
+                    };
+                    for (int i = 0; i < 15; i++)
+                    {
+                        Text(deathText[i], 0, false, 30, 2);
+                        Text($"\u001b[38;5;{247 - i}m" + diablo, 2000, true, 2, 3);
+                    }
                     break;
                 case -2:
                     Console.Clear();
@@ -681,7 +758,8 @@ namespace StaticNeuron
                 Thread.Sleep(200 + (i * 80 - (i * 15)));
             }
             string quote = quotes[rnd.Next(0, quotes.Length - 1)];
-            Text(quote, 15000, true, Math.Clamp((30 - quote.Length / 2), 2, 70), 20);
+            Text(quote, 2000, false, Math.Clamp((30 - quote.Length / 2), 2, 70), 20);
+            Console.ReadKey();
         }
     }
 }

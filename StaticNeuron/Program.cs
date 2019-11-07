@@ -13,7 +13,7 @@ namespace StaticNeuron
         public static bool isWindows;
         static void Main()
         {
-            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);;
+            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             Opening();
             Game game = new Game();
             game.Step();
@@ -31,7 +31,7 @@ namespace StaticNeuron
             Console.WriteLine("                        █                    █   ██          ▀▀▀   ▀          █   ██ ");
             Console.WriteLine("                       ▀                                                             ");
             Console.WriteLine("\n\n\n\n\n");
-            Console.WriteLine("                             Press Any Key To Continue                               ");
+            Console.WriteLine("                  Press Any Key To Continue (press F11 for fullscreen)                               ");
             Console.ReadKey();
         }
 
