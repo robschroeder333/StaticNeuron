@@ -23,11 +23,13 @@ namespace StaticNeuron
             }
         }
         public Point Position { get; set; }
+        public Point PreviousPosition { get; set; }
         public Point[] Vision { get; private set; }
 
         public Character(int x, int y)
         {
             Position = new Point(x, y);
+            PreviousPosition = new Point (x, y);
             dir = Direction.Right;
             LightLevel = 3;
             Vision = new Point[(int)(Math.Pow(LightLevel + 1, 2)) - 1];
@@ -331,6 +333,7 @@ namespace StaticNeuron
                         if (Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
+                        PreviousPosition = new Point(Position.X, Position.Y);
                         Position = new Point(newPositionX, Position.Y);
                     }
                     else if (Game.screen[newPositionX, Position.Y] == Pieces.Fire 
@@ -357,6 +360,7 @@ namespace StaticNeuron
                         if (Game.screen[newPositionX, Position.Y] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
+                        PreviousPosition = new Point(Position.X, Position.Y);
                         Position = new Point (newPositionX, Position.Y);
                     }
                     else if (Game.screen[newPositionX, Position.Y] == Pieces.Fire 
@@ -383,6 +387,7 @@ namespace StaticNeuron
                         if (Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
+                        PreviousPosition = new Point(Position.X, Position.Y);
                         Position = new Point (Position.X, newPositionY);
                     }
                     else if (Game.screen[Position.X, newPositionY] == Pieces.Fire 
@@ -409,6 +414,7 @@ namespace StaticNeuron
                         if (Game.screen[Position.X, newPositionY] == Pieces.NextLevel)
                             Game.CurrentLevel++;
 
+                        PreviousPosition = new Point(Position.X, Position.Y);
                         Position = new Point (Position.X, newPositionY);
                     }
                     else if (Game.screen[Position.X, newPositionY] == Pieces.Fire 

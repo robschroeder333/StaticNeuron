@@ -8,6 +8,7 @@ namespace StaticNeuron
     class Enemy
     {
         public Point Position { get; private set; }
+        public Point PreviousPosition { get; private set;}
         int counter;
         int stepDelay;
         bool isVert;
@@ -35,6 +36,7 @@ namespace StaticNeuron
                                 && Game.screen[Position.X, Position.Y + 1] != Pieces.Fire
                                 && Game.screen[Position.X, Position.Y + 1] != Pieces.Window))
                         {
+                            PreviousPosition = new Point(Position.X, Position.Y);
                             Position = new Point(Position.X, Position.Y + 1);
                         }
                         else
@@ -48,6 +50,7 @@ namespace StaticNeuron
                                 && Game.screen[Position.X, Position.Y - 1] != Pieces.Fire
                                 && Game.screen[Position.X, Position.Y - 1] != Pieces.Window))
                         {
+                            PreviousPosition = new Point(Position.X, Position.Y);
                             Position = new Point(Position.X, Position.Y - 1);
                         }
                         else
@@ -63,6 +66,7 @@ namespace StaticNeuron
                                 && Game.screen[Position.X + 1, Position.Y] != Pieces.Fire
                                 && Game.screen[Position.X + 1, Position.Y] != Pieces.Window))
                         {
+                            PreviousPosition = new Point(Position.X, Position.Y);
                             Position = new Point(Position.X + 1, Position.Y);
                         }
                         else
@@ -76,6 +80,7 @@ namespace StaticNeuron
                                 && Game.screen[Position.X - 1, Position.Y] != Pieces.Fire
                                 && Game.screen[Position.X - 1, Position.Y] != Pieces.Window))
                         {
+                            PreviousPosition = new Point(Position.X, Position.Y);
                             Position = new Point(Position.X - 1, Position.Y);
                         }
                         else
