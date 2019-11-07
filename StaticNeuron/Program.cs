@@ -13,11 +13,7 @@ namespace StaticNeuron
         public static bool isWindows;
         static void Main()
         {
-            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-            //ColorTest();
-            Game.WeebAnimation();
-            // Game.DisplaySequence(4);
-            Console.ReadKey();
+            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);;
             Opening();
             Game game = new Game();
             game.Step();

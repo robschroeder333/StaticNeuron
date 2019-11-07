@@ -283,7 +283,7 @@ namespace StaticNeuron
             if (Program.isWindows)
                 outputDevice = OutputDevice.GetById(0);
             
-            CurrentLevel = 2;            
+            CurrentLevel = 1;            
         }
 
         public void Step()
@@ -303,7 +303,7 @@ namespace StaticNeuron
                         int indexToBeRemoved = -1;
                         foreach (Enemy enemy in Level.Enemies)
                         {
-                            if (player.Position == enemy.Position)
+                            if ((player.Position == enemy.Position) || player.PreviousPosition == enemy.PreviousPosition)
                             {
                                 player.LightLevel--;
                                 indexToBeRemoved = index;
